@@ -1187,6 +1187,124 @@ export const GLOSSARY: GlossaryTerm[] = [
       },
     ],
   },
+  {
+    slug: "disco-de-acrecao",
+    term: { pt: "Disco de acreção", en: "Accretion disk" },
+    short: {
+      pt: "Anel de matéria em espiral que aquece a milhões de graus antes de cair num objeto compacto.",
+    },
+    long: {
+      pt: "Matéria capturada por um buraco negro não mergulha direto: como carrega momento angular, entra em órbita e forma um disco. O atrito entre camadas que giram a velocidades diferentes aquece o gás a temperaturas absurdas, e é essa luz — não o buraco negro, que não emite nada — que torna esses objetos detectáveis. Quasares, os núcleos galácticos mais brilhantes do universo, são discos de acreção em torno de buracos negros supermassivos.",
+    },
+    related: ["buraco-negro", "horizonte-de-eventos", "espectro-eletromagnetico"],
+    modules: ["singularity"],
+    sources: [
+      {
+        label: "NASA Science — Anatomy of a Black Hole",
+        url: "https://science.nasa.gov/universe/black-holes/anatomy/",
+      },
+    ],
+  },
+  {
+    slug: "lente-gravitacional",
+    term: { pt: "Lente gravitacional", en: "Gravitational lensing" },
+    short: {
+      pt: "Desvio da luz ao passar perto de uma grande massa, que distorce a imagem do que está atrás.",
+    },
+    long: {
+      pt: "A relatividade geral prevê que massa curva o espaço-tempo, e a luz segue essa curvatura. O efeito foi confirmado em 1919, num eclipse observado em Sobral, no Ceará, e hoje é ferramenta de trabalho: aglomerados de galáxias funcionam como telescópios naturais, ampliando objetos distantes demais para serem vistos de outra forma. É também uma das principais evidências da matéria escura, já que a distorção observada exige mais massa do que a matéria visível explica.",
+    },
+    related: ["buraco-negro", "galaxia", "horizonte-de-eventos"],
+    modules: ["singularity"],
+    sources: [
+      {
+        label: "NASA Science — Gravitational Lensing",
+        url: "https://science.nasa.gov/universe/gravitational-lensing/",
+      },
+    ],
+  },
+
+  /* ─── Vida e engenharia no espaço ───────────────────────────────── */
+  {
+    slug: "microgravidade",
+    term: { pt: "Microgravidade", en: "Microgravity" },
+    short: {
+      pt: "Condição de queda livre contínua em órbita, popularmente chamada de ausência de gravidade.",
+    },
+    long: {
+      pt: "O nome popular engana: a gravidade na altitude da Estação Espacial ainda é cerca de 90% da que sentimos no solo. O que flutua não é livre da gravidade — está caindo, junto com a estação, e errando a Terra o tempo todo. Em queda livre nada pressiona nada, e é essa ausência de peso aparente que reorganiza a biologia: ossos perdem densidade, fluidos sobem para a cabeça, e células se comportam de formas que não se reproduzem em laboratório no chão.",
+    },
+    aliases: ["ausência de gravidade", "gravidade zero"],
+    related: ["orbita-baixa", "radiacao-cosmica"],
+    modules: ["osdr"],
+    bodies: ["terra"],
+    sources: [
+      {
+        label: "NASA — What Is Microgravity?",
+        url: "https://www.nasa.gov/reference/what-is-microgravity/",
+      },
+    ],
+  },
+  {
+    slug: "radiacao-cosmica",
+    term: { pt: "Radiação cósmica", en: "Cosmic radiation" },
+    short: {
+      pt: "Partículas de altíssima energia vindas do Sol e de fora do sistema solar.",
+    },
+    long: {
+      pt: "No solo estamos protegidos por duas barreiras: o campo magnético da Terra e a espessura da atmosfera. Em órbita sobra só a primeira, e numa viagem a Marte, nenhuma. É o obstáculo menos glamouroso e mais sério do voo tripulado de longa duração — a radiação danifica DNA, e blindagem eficaz é pesada, o que conflita diretamente com o custo de lançamento. Experimentos biológicos em órbita servem em boa parte para medir esse dano.",
+    },
+    aliases: ["raios cósmicos"],
+    related: ["microgravidade", "vento-solar", "cme"],
+    modules: ["osdr"],
+    bodies: ["terra", "marte"],
+    sources: [
+      {
+        label: "NASA — Space Radiation",
+        url: "https://www.nasa.gov/hrp/elements/radiation/",
+      },
+    ],
+  },
+  {
+    slug: "trl",
+    term: {
+      pt: "TRL (Nível de Maturidade Tecnológica)",
+      en: "Technology Readiness Level",
+    },
+    short: {
+      pt: "Escala de 1 a 9 que mede o quanto uma tecnologia saiu do papel rumo ao uso real.",
+    },
+    long: {
+      pt: "Criada pela NASA nos anos 1970 e hoje adotada por agências e indústrias no mundo todo, a escala vai do TRL 1 — princípio físico apenas observado — ao TRL 9, sistema comprovado em operação real. O meio da escala é o lugar mais perigoso: entre o TRL 4 e o 6 fica o chamado vale da morte, onde muita tecnologia promissora morre por falta de financiamento para sair do laboratório e virar protótipo de campo.",
+    },
+    aliases: ["nível de maturidade tecnológica"],
+    related: ["spinoff"],
+    modules: ["techport"],
+    sources: [
+      {
+        label: "NASA — Technology Readiness Levels",
+        url: "https://www.nasa.gov/directorates/somd/space-communications-navigation-program/technology-readiness-levels/",
+      },
+    ],
+  },
+  {
+    slug: "spinoff",
+    term: { pt: "Spinoff", en: "Spinoff" },
+    short: {
+      pt: "Tecnologia desenvolvida para o espaço que encontrou aplicação na vida cotidiana.",
+    },
+    long: {
+      pt: "A NASA publica um catálogo anual desses casos desde 1976. Exemplos reais incluem memória viscoelástica, criada para amortecer assentos de aeronave, lentes resistentes a risco e câmeras CMOS — sim, o sensor do seu celular descende de trabalho feito para reduzir o tamanho de câmeras de sonda. Convém desconfiar da lista folclórica: Velcro, Teflon e forno de micro-ondas são anteriores ao programa espacial e não são spinoffs.",
+    },
+    related: ["trl"],
+    modules: ["techtransfer"],
+    sources: [
+      {
+        label: "NASA Spinoff",
+        url: "https://spinoff.nasa.gov/",
+      },
+    ],
+  },
 ];
 
 /** Índice por slug, montado uma vez no carregamento do módulo. */

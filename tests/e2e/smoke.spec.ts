@@ -123,6 +123,12 @@ const MODULOS_CONVERTIDOS = [
   "donki",
   "exoplanets",
   "ssc",
+  "techport",
+  "techtransfer",
+  "osdr",
+  "gibs",
+  "singularity",
+  "solar-system",
 ];
 
 test.describe("módulos convertidos servem conteúdo didático", () => {
