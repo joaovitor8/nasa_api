@@ -179,6 +179,7 @@ test.describe("trilhas de aprendizado", () => {
     const xml = await (await request.get("/sitemap.xml")).text();
     expect(xml).toContain("/aprender/o-que-e-uma-orbita");
     expect(xml).toContain("/aprender/as-escalas-do-universo");
+    expect(xml).toContain("/aprender/buracos-negros");
   });
 });
 

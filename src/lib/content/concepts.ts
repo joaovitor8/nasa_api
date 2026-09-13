@@ -106,6 +106,160 @@ export const CONCEPTS: ConceptMeta[] = [
     ],
     updatedAt: "2026-09-13",
   },
+  {
+    slug: "como-se-descobre-um-exoplaneta",
+    title: { pt: "Como se descobre um exoplaneta" },
+    summary: {
+      pt: "Quase nenhum foi fotografado — todos vieram de efeitos indiretos. Entender quais explica por que o catálogo é enviesado para gigantes quentes.",
+    },
+    level: "intermediario",
+    readingMinutes: 8,
+    prerequisites: ["as-escalas-do-universo"],
+    terms: [
+      "exoplaneta",
+      "transito",
+      "velocidade-radial",
+      "zona-habitavel",
+      "desvio-para-o-vermelho",
+    ],
+    modules: ["exoplanets"],
+    sources: [
+      {
+        label: "NASA — 5 Ways to Find a Planet",
+        url: "https://science.nasa.gov/exoplanets/ways-to-find-a-planet/",
+      },
+      {
+        label: "NASA Exoplanet Archive",
+        url: "https://exoplanetarchive.ipac.caltech.edu/",
+      },
+    ],
+    updatedAt: "2026-09-13",
+  },
+  {
+    slug: "clima-espacial",
+    title: { pt: "Clima espacial e o evento de Carrington" },
+    summary: {
+      pt: "Erupção solar é luz e chega em oito minutos; ejeção de massa coronal é matéria e leva dias. Essa diferença é o que separa prejuízo de catástrofe.",
+    },
+    level: "intermediario",
+    readingMinutes: 8,
+    terms: [
+      "vento-solar",
+      "flare-solar",
+      "cme",
+      "mancha-solar",
+      "aurora",
+      "ponto-de-lagrange",
+    ],
+    modules: ["donki"],
+    bodies: ["sol", "terra"],
+    sources: [
+      {
+        label: "NOAA SWPC — Space Weather Phenomena",
+        url: "https://www.swpc.noaa.gov/phenomena",
+      },
+      {
+        label: "NASA Science — Solar Storms and Flares",
+        url: "https://science.nasa.gov/sun/solar-storms-and-flares/",
+      },
+    ],
+    updatedAt: "2026-09-13",
+  },
+  {
+    slug: "defesa-planetaria",
+    title: { pt: "Defesa planetária: o que realmente sabemos" },
+    summary: {
+      pt: "Por que quase toda manchete de asteroide é menos assustadora do que parece, o que a missão DART provou e qual é o gargalo de verdade.",
+    },
+    level: "intermediario",
+    readingMinutes: 9,
+    terms: [
+      "neo",
+      "pha",
+      "escala-de-torino",
+      "escala-de-palermo",
+      "distancia-lunar",
+      "asteroide",
+      "cometa",
+      "albedo",
+      "magnitude-absoluta",
+      "unidade-astronomica",
+    ],
+    modules: ["asteroids", "cneos", "news"],
+    sources: [
+      {
+        label: "NASA CNEOS — NEO Basics",
+        url: "https://cneos.jpl.nasa.gov/about/neo_groups.html",
+      },
+      {
+        label: "NASA — DART Mission Results",
+        url: "https://science.nasa.gov/mission/dart/",
+      },
+    ],
+    updatedAt: "2026-09-13",
+  },
+  {
+    slug: "a-escada-de-distancias",
+    title: { pt: "A escada de distâncias cósmicas" },
+    summary: {
+      pt: "Como se mede algo a milhões de anos-luz sem nunca ir lá — e por que o degrau mais alto dessa escada está rachando há uma década.",
+    },
+    level: "avancado",
+    readingMinutes: 9,
+    prerequisites: ["as-escalas-do-universo"],
+    terms: [
+      "paralaxe",
+      "parsec",
+      "vela-padrao",
+      "desvio-para-o-vermelho",
+      "magnitude-absoluta",
+      "galaxia",
+      "unidade-astronomica",
+    ],
+    modules: ["exoplanets", "apod"],
+    sources: [
+      {
+        label: "ESA — Gaia mission",
+        url: "https://www.esa.int/Science_Exploration/Space_Science/Gaia",
+      },
+      {
+        label: "NASA Science — The Universe",
+        url: "https://science.nasa.gov/universe/",
+      },
+    ],
+    updatedAt: "2026-09-13",
+  },
+  {
+    slug: "buracos-negros",
+    title: { pt: "Buracos negros: o que aquela imagem mostra" },
+    summary: {
+      pt: "A foto do Event Horizon Telescope não mostra um buraco negro — mostra tudo em volta dele. E a distorção do anel não é licença artística.",
+    },
+    level: "avancado",
+    readingMinutes: 10,
+    prerequisites: ["o-que-e-uma-orbita"],
+    terms: [
+      "buraco-negro",
+      "horizonte-de-eventos",
+      "disco-de-acrecao",
+      "lente-gravitacional",
+      "velocidade-de-escape",
+      "galaxia",
+      "espectro-eletromagnetico",
+    ],
+    modules: ["singularity"],
+    sources: [
+      {
+        label: "NASA Science — Black Holes",
+        url: "https://science.nasa.gov/universe/black-holes/",
+      },
+      {
+        label: "NASA Science — Anatomy of a Black Hole",
+        url: "https://science.nasa.gov/universe/black-holes/anatomy/",
+      },
+    ],
+    updatedAt: "2026-09-13",
+  },
 ];
 
 /** Carregadores de artigo, um por conceito. Validado por teste. */
@@ -118,6 +272,13 @@ export const ARTICLE_LOADERS: Record<
     import("@/src/content/aprender/as-escalas-do-universo.mdx"),
   "por-que-existem-as-estacoes": () =>
     import("@/src/content/aprender/por-que-existem-as-estacoes.mdx"),
+  "como-se-descobre-um-exoplaneta": () =>
+    import("@/src/content/aprender/como-se-descobre-um-exoplaneta.mdx"),
+  "clima-espacial": () => import("@/src/content/aprender/clima-espacial.mdx"),
+  "defesa-planetaria": () => import("@/src/content/aprender/defesa-planetaria.mdx"),
+  "a-escada-de-distancias": () =>
+    import("@/src/content/aprender/a-escada-de-distancias.mdx"),
+  "buracos-negros": () => import("@/src/content/aprender/buracos-negros.mdx"),
 };
 
 const BY_SLUG = new Map(CONCEPTS.map((c) => [c.slug, c]));

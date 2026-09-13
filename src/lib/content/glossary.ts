@@ -1305,6 +1305,49 @@ export const GLOSSARY: GlossaryTerm[] = [
       },
     ],
   },
+  {
+    slug: "vela-padrao",
+    term: { pt: "Vela padrão", en: "Standard candle" },
+    short: {
+      pt: "Objeto de brilho intrínseco conhecido, usado para medir distâncias grandes demais para paralaxe.",
+    },
+    long: {
+      pt: "Se você sabe o quanto uma lâmpada emite e mede o quanto dela chega até você, a distância cai por conta. A astronomia achou objetos que funcionam assim: as estrelas variáveis cefeidas pulsam num ritmo diretamente ligado à sua luminosidade real, e as supernovas do tipo Ia explodem sempre com aproximadamente a mesma energia. Foi com cefeidas que Hubble mostrou, nos anos 1920, que a Andrômeda ficava fora da Via Láctea — e que o universo era muito maior do que se supunha.",
+    },
+    aliases: ["cefeida", "supernova tipo Ia"],
+    related: ["paralaxe", "magnitude-absoluta", "desvio-para-o-vermelho", "galaxia"],
+    modules: ["exoplanets", "apod"],
+    sources: [
+      {
+        label: "NASA Science — The Cosmic Distance Ladder",
+        url: "https://science.nasa.gov/universe/",
+      },
+    ],
+  },
+  {
+    slug: "desvio-para-o-vermelho",
+    term: { pt: "Desvio para o vermelho", en: "Redshift" },
+    short: {
+      pt: "Alongamento do comprimento de onda da luz de objetos que se afastam de nós.",
+    },
+    long: {
+      pt: "É o análogo luminoso do efeito Doppler que muda o som de uma ambulância ao passar. Para galáxias distantes, porém, a causa é outra e mais profunda: não é que elas viajem pelo espaço para longe de nós, é que o próprio espaço entre nós e elas se expande, esticando a onda no caminho. Hubble percebeu que quanto mais distante a galáxia, maior o desvio — a observação que fundou a cosmologia moderna. O mesmo efeito, em escala minúscula, é o que a velocidade radial mede para detectar exoplanetas.",
+    },
+    aliases: ["redshift", "efeito doppler"],
+    related: [
+      "velocidade-radial",
+      "vela-padrao",
+      "galaxia",
+      "espectro-eletromagnetico",
+    ],
+    modules: ["exoplanets"],
+    sources: [
+      {
+        label: "NASA Science — Hubble and the Expanding Universe",
+        url: "https://science.nasa.gov/universe/",
+      },
+    ],
+  },
 ];
 
 /** Índice por slug, montado uma vez no carregamento do módulo. */
