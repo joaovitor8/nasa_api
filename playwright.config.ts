@@ -54,7 +54,9 @@ export default defineConfig({
     : {
         command: "npm run build && npm run start",
         url: BASE_URL,
-        reuseExistingServer: !process.env.CI,
+        // Sempre build novo: reaproveitar um servidor já de pé faz a suíte
+        // testar código antigo em silêncio — falha pior que falha barulhenta.
+        reuseExistingServer: false,
         timeout: 180_000,
       },
 });

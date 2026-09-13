@@ -103,6 +103,41 @@ test.describe("glossário", () => {
   });
 });
 
+test.describe("módulo TLE — piloto do padrão casca server + ilha client", () => {
+  test("a prosa didática vem no HTML servido, sem depender de JS", async ({
+    request,
+  }) => {
+    const html = await (await request.get("/tle")).text();
+
+    // Antes da refatoração a página era inteiramente "use client" e o HTML
+    // servido não continha nenhum destes textos.
+    expect(html).toContain("anomalia média");
+    expect(html).toContain("duas linhas de 69 caracteres");
+    expect(html).toContain('"@type":"LearningResource"');
+  });
+
+  test("a definição do <Termo> está no HTML, não é injetada depois", async ({
+    request,
+  }) => {
+    const html = await (await request.get("/tle")).text();
+
+    // `short` do verbete "raan" — tem que estar servido junto da página.
+    expect(html).toContain("em que direção do céu a órbita cruza");
+    expect(html).toContain('aria-describedby="termo-raan"');
+  });
+
+  test("o console interativo continua funcionando", async ({ page }) => {
+    await page.goto("/tle");
+    // O campo de busca é a ilha client; deve estar presente e utilizável.
+    await expect(page.getByLabel(/insira o norad id/i)).toBeVisible();
+  });
+
+  test("cada número decodificado leva ao verbete correspondente", async ({ page }) => {
+    await page.goto("/tle");
+    await expect(page.locator('a[href="/glossario/raan"]').first()).toBeVisible();
+  });
+});
+
 test("rota inexistente cai no 404 customizado", async ({ page }) => {
   const res = await page.goto("/setor-que-nao-existe");
   expect(res?.status()).toBe(404);
