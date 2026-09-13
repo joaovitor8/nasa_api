@@ -29,6 +29,7 @@ export const dict = {
   "nav.home": { pt: "Início", en: "Home" },
   "nav.modules": { pt: "Módulos Estelares", en: "Stellar Modules" },
   "nav.about": { pt: "Sobre o Projeto", en: "About" },
+  "nav.glossary": { pt: "Glossário", en: "Glossary" },
   "nav.missionControl": { pt: "Mission Control", en: "Mission Control" },
   "nav.menu": { pt: "Alternar menu", en: "Toggle menu" },
   "nav.soon": { pt: "Soon", en: "Soon" },

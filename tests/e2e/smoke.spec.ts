@@ -66,6 +66,43 @@ test("página de corpo celeste vem renderizada no servidor", async ({ request })
   expect(await res.text()).toContain("Marte");
 });
 
+test.describe("glossário", () => {
+  test("verbete vem renderizado no servidor, com a explicação longa no HTML", async ({
+    request,
+  }) => {
+    // Este é o contrato que justifica a camada de conteúdo: quem pesquisa
+    // "o que é RAAN" no Google precisa achar texto, não uma casca vazia.
+    const res = await request.get("/glossario/raan");
+    expect(res.status()).toBe(200);
+
+    const html = await res.text();
+    expect(html).toContain("nodo ascendente");
+    expect(html).toContain('"@type":"DefinedTerm"');
+  });
+
+  test("índice lista os verbetes e leva a cada um", async ({ page }) => {
+    await page.goto("/glossario");
+    await expect(
+      page.getByRole("heading", { level: 1, name: "Glossário" }),
+    ).toBeVisible();
+
+    await page.getByRole("link", { name: /ascensão reta do nodo ascendente/i }).click();
+    await expect(page).toHaveURL(/\/glossario\/raan$/);
+  });
+
+  test("verbete liga de volta ao módulo onde o termo aparece", async ({ page }) => {
+    await page.goto("/glossario/raan");
+    await page.locator('a[href="/tle"]').first().click();
+    await expect(page).toHaveURL(/\/tle$/);
+  });
+
+  test("sitemap anuncia os verbetes", async ({ request }) => {
+    const xml = await (await request.get("/sitemap.xml")).text();
+    expect(xml).toContain("/glossario/raan");
+    expect(xml).toContain("/glossario/zona-habitavel");
+  });
+});
+
 test("rota inexistente cai no 404 customizado", async ({ page }) => {
   const res = await page.goto("/setor-que-nao-existe");
   expect(res?.status()).toBe(404);

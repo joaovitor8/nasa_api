@@ -1,12 +1,13 @@
 import type { MetadataRoute } from "next";
 
 import { SITE_URL } from "@/src/lib/config";
+import { GLOSSARY_SLUGS } from "@/src/lib/content/glossary";
 import { ENABLED_MODULES } from "@/src/lib/modules";
 import { SOLAR_BODIES } from "@/src/lib/solar-system";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
-  const staticRoutes = ["", "/sobre", "/mission-control"].map((path) => ({
+  const staticRoutes = ["", "/sobre", "/mission-control", "/glossario"].map((path) => ({
     url: `${SITE_URL}${path}`,
     lastModified: now,
     changeFrequency: "monthly" as const,
@@ -27,5 +28,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }));
 
-  return [...staticRoutes, ...moduleRoutes, ...bodyRoutes];
+  // Cada verbete é uma landing page: é por elas que chega quem pesquisa
+  // "o que é anomalia média" — daí estarem no sitemap uma a uma.
+  const glossaryRoutes = GLOSSARY_SLUGS.map((slug) => ({
+    url: `${SITE_URL}/glossario/${slug}`,
+    lastModified: now,
+    changeFrequency: "monthly" as const,
+    priority: 0.6,
+  }));
+
+  return [...staticRoutes, ...moduleRoutes, ...bodyRoutes, ...glossaryRoutes];
 }
