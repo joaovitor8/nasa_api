@@ -1,6 +1,6 @@
 # Universo
 
-> Sistema operacional do cosmos — uma console unificada para telemetria, defesa planetária, cartografia e arquivos espaciais, conectando 20+ APIs públicas em uma única jornada interativa.
+> Portal de astronomia para entusiastas. Conceitos explicados do zero, glossário com fontes verificáveis e telemetria ao vivo de 20 instrumentos reais — para quem entra sem saber o que é um periélio e sai sabendo.
 
 [![Next.js](https://img.shields.io/badge/Next.js-16.2-black?logo=next.js)](https://nextjs.org)
 [![React](https://img.shields.io/badge/React-19.2-61DAFB?logo=react&logoColor=white)](https://react.dev)
@@ -9,113 +9,116 @@
 
 ---
 
-## Visão geral
+## O que é
 
-Universo é uma plataforma imersiva que reúne em uma única interface os principais feeds e arquivos de exploração espacial — da poeira ancestral de Marte aos exoplanetas mais distantes confirmados. Cada módulo é uma janela calibrada para um instrumento real, com estética de console operacional (HUD, telemetria ao vivo, scanlines).
+A maioria dos painéis de dados espaciais mostra números sem explicar nenhum. Este projeto faz o contrário: cada módulo exibe dados reais **e** ensina o que eles significam.
 
-- **20 módulos** ativos, agrupados em 4 categorias: Mídia, Defesa, Cartografia, Ciência
-- **10 corpos celestes** catalogados (Sol + 8 planetas + Plutão) com dossiê físico via Wikipedia
-- **PWA** instalável com service worker, offline page e manifest
-- **i18n PT/EN** com persistência em `localStorage`
-- **49 rotas** prerendered estaticamente (ISR onde faz sentido)
+Um exemplo concreto. A página de TLE mostra os elementos orbitais de qualquer satélite — inclinação, RAAN, excentricidade, anomalia média. Cada um desses termos é um link para sua definição, e a página termina explicando, em prosa, o que é um conjunto de elementos de duas linhas e por que ele perde precisão com o tempo.
+
+### Três camadas de conteúdo
+
+| Camada        | O que é                                                 | Onde            |
+| ------------- | ------------------------------------------------------- | --------------- |
+| **Trilhas**   | Artigos longos que ensinam um conceito do zero          | `/aprender`     |
+| **Glossário** | 67 verbetes de uma frase, com explicação longa e fonte  | `/glossario`    |
+| **Módulos**   | 20 painéis de dados ao vivo, cada um com seção didática | `/tle`, `/mars` |
+
+As três se ligam entre si automaticamente: um artigo aponta para o módulo onde o conceito aparece ao vivo, o módulo aponta de volta para o artigo, e ambos linkam os verbetes citados. Nenhuma dessas listas é escrita à mão — todas derivam dos catálogos, e testes quebram o CI se algum slug apontar para o vazio.
 
 ## Stack
 
-| Camada              | Tecnologia                                   |
-| ------------------- | -------------------------------------------- |
-| Framework           | Next.js 16 (App Router, RSC, Route Handlers) |
-| UI                  | React 19, Tailwind CSS v4, Framer Motion 12  |
-| 3D                  | Three.js, React Three Fiber, Drei            |
-| Estado / Cache      | TanStack Query v5, Axios                     |
-| Tipagem             | TypeScript 5 (strict)                        |
-| Ícones / Tipografia | Lucide, Inter, Cinzel, JetBrains Mono        |
-| PWA                 | Service Worker custom, Web App Manifest      |
+| Camada    | Tecnologia                                            |
+| --------- | ----------------------------------------------------- |
+| Framework | Next.js 16 (App Router, RSC, Route Handlers)          |
+| UI        | React 19, Tailwind CSS v4, Framer Motion              |
+| Conteúdo  | MDX para artigos, catálogos TS tipados para glossário |
+| 3D        | Three.js, React Three Fiber, Drei                     |
+| Dados     | TanStack Query v5, Axios                              |
+| Testes    | Vitest (unitários), Playwright (e2e + axe-core)       |
 
 ## Arquitetura
 
 ```
-app/
-├── src/
-│   ├── app/                     # App Router (rotas, layouts, route handlers)
-│   │   ├── (pages)/             # Páginas dos módulos (group route)
-│   │   ├── api/                 # BFF — 20 route handlers proxiando APIs externas
-│   │   ├── error.tsx            # Error boundary global
-│   │   ├── not-found.tsx        # 404 customizado
-│   │   ├── sitemap.ts / robots.ts
-│   │   └── layout.tsx
-│   ├── components/
-│   │   ├── hud/                 # Primitives — ModuleScope, HudPanel, TelemetrySpinner...
-│   │   ├── scenes/              # Cenas R3F (BlackHole, ExoplanetOrbit)
-│   │   ├── Header.tsx / Footer.tsx
-│   │   └── Stars.tsx            # Canvas de partículas no fundo
-│   └── lib/
-│       ├── modules.ts           # Catálogo dos 20 módulos
-│       ├── solar-system.ts      # Catálogo dos 10 corpos
-│       ├── i18n.ts              # Context + dicionário PT/EN
-│       ├── config.ts            # SITE_URL, SITE_NAME centralizados
-│       └── types/               # Contratos NASA / SpaceX / News
-├── public/                      # Manifest, ícones SVG, sw.js
-├── next.config.ts               # Headers de segurança + remotePatterns
-└── package.json
+src/
+├── app/
+│   ├── (pages)/            # 20 módulos de dados ao vivo
+│   ├── aprender/           # Trilhas e artigos
+│   ├── glossario/          # Índice A–Z e página por verbete
+│   ├── api/                # BFF — route handlers com ISR
+│   └── opengraph-image.tsx # Imagens de compartilhamento geradas
+├── content/aprender/       # Artigos em MDX
+├── components/
+│   ├── content/            # Termo, EntendaSection
+│   └── hud/                # Primitives visuais
+└── lib/
+    ├── content/            # glossary.ts, concepts.ts, types.ts, og.tsx
+    ├── modules.ts          # Catálogo dos módulos
+    ├── solar-system.ts     # Catálogo dos corpos celestes
+    └── upstream.ts         # Helper compartilhado das rotas BFF
 ```
 
-### Decisões-chave
+### Decisões que valem explicar
 
-- **BFF pattern** — todas as APIs externas passam por route handlers (`/api/*`) para esconder chaves, normalizar tipos e habilitar ISR via `export const revalidate`
-- **Module theming** — cada módulo declara seu `accent` em `oklch()`; o componente `<ModuleScope>` injeta CSS vars (`--module-accent`, `--module-accent-soft`, `--module-glow`) no escopo da página
-- **i18n leve** — Context + dicionário tipado, sem dependências externas. Preferência salva em `localStorage`
-- **PWA-first** — service worker custom com cache de tiles e thumbnails, install prompt nativo, página offline
-- **Headers de segurança** — `Strict-Transport-Security`, `X-Frame-Options`, `Referrer-Policy`, `Permissions-Policy` aplicados globalmente
+**Casca server + ilha client.** Cada página de módulo é um server component que renderiza metadados, JSON-LD e a prosa didática; a interatividade e a busca de dados ficam num componente cliente separado. O motivo é direto: quem procura "o que é anomalia média" no Google precisa encontrar texto, não uma casca vazia. Antes dessa mudança, as páginas serviam cerca de 25 palavras cada; hoje servem entre 264 e 733.
 
-## Módulos disponíveis
+**Definição no HTML, não injetada por JS.** O componente `<Termo>` mantém a definição no DOM o tempo todo, revelada por CSS no hover ou no foco. Isso atende buscador, leitor de tela e navegação por teclado de uma vez só — e um teste falha se alguém trocar isso por carregamento sob demanda.
 
-### Mídia & Arquivos
+**Catálogos tipados como fonte de verdade.** Glossário, artigos, módulos e corpos celestes são arrays TypeScript. Navegação, sitemap, metadados e links cruzados derivam deles. Um id errado quebra o CI em vez de virar link morto em produção.
 
-- **APOD** — A imagem astronômica do dia
-- **Library** — Busca multimídia no acervo histórico da NASA
-- **EPIC** — Time-lapse da Terra do ponto Lagrange L1
-- **Mars** — Telemetria de superfície do lander InSight
-- **News** — Feed agregado do setor (Spaceflight News)
+**BFF com ISR.** Toda API externa passa por um route handler em `/api/*`, que esconde a chave, normaliza o formato de erro e define `revalidate` por rota. O helper compartilhado aplica timeout de 10s e mapeia falhas para status HTTP corretos.
 
-### Defesa & Monitoramento
+## Como rodar
 
-- **NEO Radar** — Asteroides próximos da Terra (NeoWs)
-- **Sentry** — Matriz de risco de impacto (CNEOS)
-- **DONKI** — Erupções e tempestades solares
-- **EONET** — Eventos geológicos e climáticos severos
+Requisitos: Node 22 (ver `.nvmrc`).
 
-### Sondas & Cartografia
+```bash
+npm ci
+cp exemplo.env .env.local   # preencha KEY_NASA e NEXT_PUBLIC_SITE_URL
+npm run dev
+```
 
-- **SSC** — Tráfego orbital e cruzamento de frota
-- **TLE** — Decodificador de elementos de duas linhas
-- **SpaceX** — Frota Falcon/Starship, próximos lançamentos
-- **GIBS** — Sobreposição global de dados climáticos
-- **Trek WMTS** — Slippy map da Lua, Marte e Vesta
+A chave da NASA sai de [api.nasa.gov](https://api.nasa.gov/) em um minuto. Sem ela o site sobe normalmente — as páginas renderizam e o conteúdo didático funciona —, mas os painéis de dados ao vivo mostram erro.
 
-### Ciência & Engenharia
+### Scripts
 
-- **Exoplanets** — Catálogo profundo de mundos confirmados (Caltech)
-- **TechPort** — Blueprints de P&D da agência (TRL)
-- **TechTransfer** — Patentes, código aberto e spinoffs
-- **OSDR** — Bioinformática e vida em microgravidade
-- **Singularity** — Simulador volumétrico de buraco negro (R3F)
-- **Sistema Solar** — Mapa orbital de 10 corpos com dossiê físico
+| Comando             | O que faz                           |
+| ------------------- | ----------------------------------- |
+| `npm run dev`       | Servidor de desenvolvimento         |
+| `npm run build`     | Build de produção                   |
+| `npm test`          | Testes unitários (Vitest)           |
+| `npm run test:e2e`  | Smoke e acessibilidade (Playwright) |
+| `npm run lint`      | ESLint                              |
+| `npm run typecheck` | TypeScript sem emitir               |
+| `npm run format`    | Prettier                            |
+
+## Testes
+
+O CI roda formatação, lint, tipos, testes unitários, build e a suíte end-to-end a cada push.
+
+Dois testes merecem destaque por serem os que mais pegam regressão:
+
+- **Varredura do sitemap.** O e2e lê `/sitemap.xml` e visita toda rota anunciada, falhando se alguma responder 4xx ou acionar o error boundary. Como o sitemap é gerado a partir dos catálogos, qualquer conteúdo novo entra na varredura sozinho.
+- **Integridade de conteúdo.** Os testes unitários percorrem glossário e artigos verificando que todo `related`, `prerequisites`, `modules`, `bodies` e `terms` resolve para algo que existe — e que nenhum artigo exige um pré-requisito de nível mais avançado que ele próprio.
+
+A suíte de acessibilidade roda axe-core sobre um exemplar de cada tipo de layout e falha em violação séria ou crítica. Foi ela que detectou que o contraste do botão primário estava em 3,99:1, abaixo do mínimo de 4,5:1 da WCAG AA.
+
+## Como adicionar conteúdo
+
+**Um verbete:** acrescente um objeto em `src/lib/content/glossary.ts`. Os campos `modules` e `bodies` fazem o termo aparecer sozinho nas páginas correspondentes.
+
+**Um artigo:** crie o `.mdx` em `src/content/aprender/`, adicione os metadados em `src/lib/content/concepts.ts` e registre o carregador em `ARTICLE_LOADERS`. Os testes avisam se você esquecer alguma das três partes.
+
+Em ambos os casos, `sources` é obrigatório — conteúdo científico sem citação não entra.
+
+## Estado do projeto
+
+O conteúdo é **PT-first**. O modelo de dados já tem campo `en` opcional em cada verbete e artigo, mas a tradução ainda não foi escrita. O seletor de idioma no cabeçalho cobre a interface, não o conteúdo.
+
+Roteamento por idioma (`/pt/`, `/en/`) está previsto, mas só faz sentido quando houver texto em inglês de verdade: URLs em inglês servindo prosa em português seriam tratadas como conteúdo raso pelos buscadores.
 
 ## Fontes de dados
 
-NASA Open APIs · NASA EONET · NASA GIBS · NASA InSight · NASA OSDR · NASA Trek (WMTS) · NASA Image and Video Library · NASA TechPort · NASA TechTransfer · DONKI Space Weather · NeoWs · CNEOS Sentry · DSCOVR EPIC · IPAC Caltech Exoplanet Archive · NOAA Space Weather Prediction Center · ESA EONET · SpaceX REST · CelesTrak (TLE) · Spaceflight News API · Wikipedia REST
-
-## Performance
-
-- Build de produção: **49 rotas estáticas + 10 ISR + route handlers**
-- Service worker com cache inteligente para tiles e thumbnails
-- Imagens via `next/image` (incluindo CDNs externas em `remotePatterns`)
-- TanStack Query com `staleTime` 5min e `refetchOnWindowFocus: false`
-- Defaults: bundle inicial enxuto, fontes self-hosted via `next/font`
-
-## Roadmap
-
-Acompanhe o desenvolvimento em [/sobre](http://localhost:3000/sobre) (timeline de Ondas 1–9). Próximas iterações cobrem expansão de cenas 3D, novas fontes de dados e refinamento de acessibilidade.
+NASA Open APIs · NASA EONET · NASA GIBS · NASA InSight · NASA OSDR · NASA Trek (WMTS) · NASA Image and Video Library · NASA TechPort · NASA TechTransfer · DONKI Space Weather · NeoWs · CNEOS Sentry · DSCOVR EPIC · IPAC Caltech Exoplanet Archive · NOAA Space Weather Prediction Center · SpaceX REST · CelesTrak (TLE) · Spaceflight News API · Wikipedia REST
 
 ## Licença
 

@@ -43,7 +43,7 @@ export default function GlobalError({ error, reset }: ErrorProps) {
           <button
             type="button"
             onClick={reset}
-            className="group inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full bg-primary text-primary-foreground text-xs font-mono uppercase tracking-[0.25em] transition-all hover:scale-[1.02] active:scale-95"
+            className="group inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full bg-primary-strong text-primary-foreground text-xs font-mono uppercase tracking-[0.25em] transition-all hover:scale-[1.02] active:scale-95"
           >
             <RefreshCw className="w-3.5 h-3.5 transition-transform group-hover:rotate-180" />
             Restabelecer Sinal

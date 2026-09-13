@@ -55,9 +55,9 @@ jobs:
       - name: Instalar Chromium
         run: npx playwright install --with-deps chromium
 
-      # O smoke não usa segredo: valida a casca das páginas, não os dados
-      # das APIs externas. Ver tests/e2e/smoke.spec.ts.
-      - name: Playwright
+      # Nem o smoke nem a auditoria usam segredo: validam a casca das páginas
+      # e a acessibilidade, não os dados das APIs externas.
+      - name: Playwright — smoke e acessibilidade
         run: npm run test:e2e
 
       - uses: actions/upload-artifact@v4

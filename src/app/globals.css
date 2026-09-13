@@ -35,6 +35,7 @@
   --color-secondary-foreground: var(--secondary-foreground);
   --color-secondary: var(--secondary);
   --color-primary-foreground: var(--primary-foreground);
+  --color-primary-strong: var(--primary-strong);
   --color-primary: var(--primary);
   --color-popover-foreground: var(--popover-foreground);
   --color-popover: var(--popover);
@@ -54,6 +55,13 @@
   --foreground: oklch(0.15 0.05 260);
   --primary: oklch(0.6 0.18 290);
   --primary-foreground: oklch(0.98 0 0);
+  /*
+   * Variante escura do primário, usada SÓ quando ele é fundo de texto claro.
+   * Em oklch(0.6 …) o par botão/texto dá 3,99:1 — abaixo dos 4,5:1 que a WCAG
+   * AA exige para texto pequeno. Baixar o L global não resolve: `text-primary`
+   * sobre o fundo escuro cairia de 4,96:1 para 4,37:1. Daí o token separado.
+   */
+  --primary-strong: oklch(0.52 0.18 290);
   --radius: 0.75rem;
 
   --card: oklch(1 0 0);
@@ -102,6 +110,7 @@
   /* Cor Primária: Roxo Místico (Nebulosa) - Traz a beleza majestosa para os botões */
   --primary: oklch(0.6 0.18 290);
   --primary-foreground: oklch(0.98 0 0);
+  --primary-strong: oklch(0.52 0.18 290);
 
   /* Cor Secundária: Fundo sutil para badges e elementos inativos */
   --secondary: oklch(0.2 0.05 260);

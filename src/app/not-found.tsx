@@ -42,7 +42,7 @@ export default function NotFound() {
         <div className="flex justify-center pt-2">
           <Link
             href="/"
-            className="group inline-flex items-center gap-2 px-6 py-3 rounded-full bg-primary text-primary-foreground text-xs font-mono uppercase tracking-[0.25em] transition-all hover:scale-[1.02] hover:shadow-[0_0_32px_oklch(0.60_0.18_290/0.45)] active:scale-95"
+            className="group inline-flex items-center gap-2 px-6 py-3 rounded-full bg-primary-strong text-primary-foreground text-xs font-mono uppercase tracking-[0.25em] transition-all hover:scale-[1.02] hover:shadow-[0_0_32px_oklch(0.60_0.18_290/0.45)] active:scale-95"
           >
             <Home className="w-3.5 h-3.5" />
             Retornar à Base
