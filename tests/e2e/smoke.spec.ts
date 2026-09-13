@@ -118,6 +118,11 @@ const MODULOS_CONVERTIDOS = [
   "news",
   "library",
   "apod",
+  "asteroids",
+  "cneos",
+  "donki",
+  "exoplanets",
+  "ssc",
 ];
 
 test.describe("módulos convertidos servem conteúdo didático", () => {
