@@ -214,7 +214,7 @@ export const GLOSSARY: GlossaryTerm[] = [
     },
     aliases: ["LEO", "órbita baixa"],
     related: ["orbita-geoestacionaria", "movimento-medio", "inclinacao"],
-    modules: ["ssc", "tle"],
+    modules: ["ssc", "tle", "news"],
     bodies: ["terra"],
     sources: [
       {
@@ -504,7 +504,7 @@ export const GLOSSARY: GlossaryTerm[] = [
     },
     aliases: ["objeto próximo da terra", "near-earth object"],
     related: ["pha", "escala-de-torino", "distancia-lunar", "asteroide"],
-    modules: ["asteroids", "cneos"],
+    modules: ["asteroids", "cneos", "news"],
     sources: [
       {
         label: "NASA CNEOS — NEO Basics",
@@ -545,7 +545,7 @@ export const GLOSSARY: GlossaryTerm[] = [
     },
     aliases: ["torino"],
     related: ["escala-de-palermo", "neo", "pha"],
-    modules: ["cneos"],
+    modules: ["cneos", "news"],
     sources: [
       {
         label: "NASA CNEOS — Torino Scale",
@@ -1047,6 +1047,143 @@ export const GLOSSARY: GlossaryTerm[] = [
       {
         label: "NASA EPIC — DSCOVR",
         url: "https://epic.gsfc.nasa.gov/about/epic",
+      },
+    ],
+  },
+
+  /* ─── Voo espacial ──────────────────────────────────────────────── */
+  {
+    slug: "velocidade-de-escape",
+    term: { pt: "Velocidade de escape", en: "Escape velocity" },
+    short: {
+      pt: "Velocidade mínima para um objeto se soltar da gravidade de um corpo sem novo impulso.",
+    },
+    long: {
+      pt: "Na Terra são cerca de 11,2 km/s — quase 40 mil km/h. O valor depende só da massa e do raio do corpo, não da massa do que está escapando: uma pedra e um foguete precisam da mesma velocidade. Na Lua bastam 2,4 km/s, o que explica por que o módulo lunar podia ser tão modesto comparado ao Saturno V. Levada ao extremo, essa conta define o horizonte de eventos de um buraco negro: o raio em que a velocidade de escape iguala a da luz.",
+    },
+    related: ["horizonte-de-eventos", "estagio-de-foguete", "orbita-baixa"],
+    modules: ["spacex", "singularity"],
+    bodies: ["terra"],
+    sources: [
+      {
+        label: "NASA — Basics of Space Flight",
+        url: "https://science.nasa.gov/learn/basics-of-space-flight/",
+      },
+    ],
+  },
+  {
+    slug: "estagio-de-foguete",
+    term: { pt: "Estágio de foguete", en: "Rocket stage" },
+    short: {
+      pt: "Seção do foguete que é descartada assim que esgota o combustível, para aliviar peso.",
+    },
+    long: {
+      pt: "Carregar tanques vazios custa caro: cada quilo a mais precisa ser acelerado junto com a carga útil. Por isso quase todo foguete orbital é dividido em estágios que se separam em voo. O primeiro estágio faz a parte pesada de tirar o veículo da atmosfera densa; o segundo, já no vácuo, faz o trabalho de acelerar até a velocidade orbital — que é o requisito de verdade, mais difícil que simplesmente subir.",
+    },
+    aliases: ["primeiro estágio", "booster"],
+    related: ["velocidade-de-escape", "janela-de-lancamento", "orbita-baixa"],
+    modules: ["spacex"],
+    sources: [
+      {
+        label: "NASA — Rocket Staging",
+        url: "https://www.grc.nasa.gov/www/k-12/rocket/rktstage.html",
+      },
+    ],
+  },
+  {
+    slug: "janela-de-lancamento",
+    term: { pt: "Janela de lançamento", en: "Launch window" },
+    short: {
+      pt: "Intervalo de tempo em que um lançamento consegue alcançar o destino pretendido.",
+    },
+    long: {
+      pt: "O alvo está em movimento e a Terra gira, então a geometria só fecha em certos momentos. Para alcançar a Estação Espacial, a janela pode durar segundos — o plano orbital dela precisa passar sobre a base de lançamento. Para Marte, ela se abre a cada 26 meses, quando os dois planetas ficam bem posicionados; perder uma significa esperar mais de dois anos. É por isso que adiamentos por causa de vento ou de uma válvula custam tanto.",
+    },
+    related: ["estagio-de-foguete", "inclinacao", "orbita-de-transferencia"],
+    modules: ["spacex", "news"],
+    bodies: ["marte", "terra"],
+    sources: [
+      {
+        label: "NASA — Basics of Space Flight",
+        url: "https://science.nasa.gov/learn/basics-of-space-flight/",
+      },
+    ],
+  },
+  {
+    slug: "orbita-de-transferencia",
+    term: { pt: "Órbita de transferência", en: "Transfer orbit" },
+    short: {
+      pt: "Trajetória elíptica usada para mover uma nave de uma órbita a outra gastando pouco.",
+    },
+    long: {
+      pt: "Em vez de apontar e acelerar na direção do destino, o método econômico é dar dois empurrões curtos: um que estica a órbita até tocar a altitude desejada, outro que a circulariza ao chegar lá. É a transferência de Hohmann, e vale tanto para subir um satélite até a órbita geoestacionária quanto para ir da Terra a Marte — no segundo caso, a viagem leva em torno de sete meses justamente porque se aproveita o movimento dos planetas em vez de lutar contra ele.",
+    },
+    aliases: ["transferência de Hohmann", "GTO"],
+    related: ["janela-de-lancamento", "orbita-geoestacionaria", "semieixo-maior"],
+    modules: ["spacex"],
+    bodies: ["marte", "terra"],
+    sources: [
+      {
+        label: "NASA — Basics of Space Flight",
+        url: "https://science.nasa.gov/learn/basics-of-space-flight/",
+      },
+    ],
+  },
+
+  /* ─── Luz e objetos do céu profundo ─────────────────────────────── */
+  {
+    slug: "espectro-eletromagnetico",
+    term: { pt: "Espectro eletromagnético", en: "Electromagnetic spectrum" },
+    short: {
+      pt: "Toda a faixa de radiação, do rádio aos raios gama — a luz visível é uma fatia mínima dela.",
+    },
+    long: {
+      pt: "Olho humano enxerga de aproximadamente 380 a 700 nanômetros de comprimento de onda, uma faixa estreitíssima. Cada região do espectro revela um fenômeno diferente: o rádio mostra nuvens frias de hidrogênio, o infravermelho atravessa a poeira e expõe estrelas em formação, o ultravioleta denuncia estrelas jovens e quentes, os raios X marcam gás a milhões de graus perto de buracos negros. Por isso as imagens astronômicas mais famosas são composições coloridas artificialmente — as cores traduzem faixas que não veríamos.",
+    },
+    aliases: ["infravermelho", "ultravioleta", "raios X"],
+    related: ["sensoriamento-remoto", "nebulosa", "magnitude-aparente"],
+    modules: ["apod", "library", "gibs"],
+    sources: [
+      {
+        label: "NASA Science — The Electromagnetic Spectrum",
+        url: "https://science.nasa.gov/ems/",
+      },
+    ],
+  },
+  {
+    slug: "nebulosa",
+    term: { pt: "Nebulosa", en: "Nebula" },
+    short: {
+      pt: "Nuvem de gás e poeira no espaço interestelar, berço ou resto de estrelas.",
+    },
+    long: {
+      pt: "Algumas são maternidades: regiões onde a gravidade comprime gás até acender novas estrelas, como a Nebulosa de Órion. Outras são o oposto — restos de estrelas que morreram, ejetados em supernovas ou soprados lentamente por astros moribundos. Apesar da aparência densa nas fotos, uma nebulosa é mais rarefeita que qualquer vácuo produzido em laboratório na Terra; o que a torna visível é a escala, com anos-luz de extensão somando matéria suficiente para brilhar.",
+    },
+    related: ["espectro-eletromagnetico", "ano-luz", "galaxia"],
+    modules: ["apod", "library"],
+    sources: [
+      {
+        label: "NASA Science — Nebulae",
+        url: "https://science.nasa.gov/universe/nebulae/",
+      },
+    ],
+  },
+  {
+    slug: "galaxia",
+    term: { pt: "Galáxia", en: "Galaxy" },
+    short: {
+      pt: "Sistema gravitacionalmente ligado de estrelas, gás, poeira e matéria escura.",
+    },
+    long: {
+      pt: "A Via Láctea abriga algo entre 100 e 400 bilhões de estrelas, e o Sol é uma delas, a cerca de 26 mil anos-luz do centro. Galáxias vêm em espirais, elípticas e irregulares, e a maioria parece guardar um buraco negro supermassivo no núcleo. O universo observável contém centenas de bilhões delas — número que dá a medida certa do quanto o céu noturno a olho nu mostra pouco.",
+    },
+    aliases: ["via láctea"],
+    related: ["nebulosa", "buraco-negro", "ano-luz"],
+    modules: ["apod", "library"],
+    sources: [
+      {
+        label: "NASA Science — Galaxies",
+        url: "https://science.nasa.gov/universe/galaxies/",
       },
     ],
   },

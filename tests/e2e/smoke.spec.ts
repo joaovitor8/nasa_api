@@ -108,7 +108,17 @@ test.describe("glossário", () => {
  * Acrescente aqui conforme cada um for convertido — o teste abaixo garante que
  * a prosa didática realmente chega no HTML servido, e não só no bundle.
  */
-const MODULOS_CONVERTIDOS = ["tle", "mars", "eonet", "epic", "trek"];
+const MODULOS_CONVERTIDOS = [
+  "tle",
+  "mars",
+  "eonet",
+  "epic",
+  "trek",
+  "spacex",
+  "news",
+  "library",
+  "apod",
+];
 
 test.describe("módulos convertidos servem conteúdo didático", () => {
   for (const modulo of MODULOS_CONVERTIDOS) {
