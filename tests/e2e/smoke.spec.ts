@@ -103,6 +103,37 @@ test.describe("glossário", () => {
   });
 });
 
+/**
+ * Módulos já convertidos para casca server + ilha client (Fase 4).
+ * Acrescente aqui conforme cada um for convertido — o teste abaixo garante que
+ * a prosa didática realmente chega no HTML servido, e não só no bundle.
+ */
+const MODULOS_CONVERTIDOS = ["tle", "mars", "eonet", "epic", "trek"];
+
+test.describe("módulos convertidos servem conteúdo didático", () => {
+  for (const modulo of MODULOS_CONVERTIDOS) {
+    test(`/${modulo} entrega prosa e dados estruturados no servidor`, async ({
+      request,
+    }) => {
+      const html = await (await request.get(`/${modulo}`)).text();
+
+      // Texto visível, com as tags removidas — é o que um buscador indexa.
+      const palavras = html
+        .replace(/<script[^>]*>[\s\S]*?<\/script>/g, "")
+        .replace(/<[^>]*>/g, " ")
+        .split(/\s+/)
+        .filter(Boolean).length;
+
+      // Antes da conversão estas páginas serviam menos de 40 palavras.
+      expect(palavras, `/${modulo} serviu só ${palavras} palavras`).toBeGreaterThan(
+        200,
+      );
+      expect(html).toContain('"@type":"LearningResource"');
+      expect(html).toContain("Termos deste módulo");
+    });
+  }
+});
+
 test.describe("módulo TLE — piloto do padrão casca server + ilha client", () => {
   test("a prosa didática vem no HTML servido, sem depender de JS", async ({
     request,

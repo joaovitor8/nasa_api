@@ -828,6 +828,228 @@ export const GLOSSARY: GlossaryTerm[] = [
       },
     ],
   },
+
+  /* ─── Marte ─────────────────────────────────────────────────────── */
+  {
+    slug: "sol-marciano",
+    term: { pt: "Sol (dia marciano)", en: "Sol (Martian day)" },
+    short: {
+      pt: "Duração de um dia em Marte: 24 horas, 39 minutos e 35 segundos.",
+    },
+    long: {
+      pt: "Como o sol marciano é só 39 minutos mais longo que o dia terrestre, equipes de missão que operam em horário de Marte vão dormindo cada vez mais tarde — o turno desliza cerca de 40 minutos por dia e dá a volta completa no relógio a cada cinco semanas. Os registros das sondas são numerados por sol desde o pouso, e não por data terrestre: o sol 1 é sempre o dia da chegada.",
+    },
+    aliases: ["sol marciano", "dia marciano"],
+    related: ["atmosfera-marciana", "estacoes-marcianas"],
+    modules: ["mars"],
+    bodies: ["marte"],
+    sources: [
+      {
+        label: "NASA Mars — Mars Facts",
+        url: "https://science.nasa.gov/mars/facts/",
+      },
+    ],
+  },
+  {
+    slug: "atmosfera-marciana",
+    term: { pt: "Atmosfera de Marte", en: "Martian atmosphere" },
+    short: {
+      pt: "Envelope de gás cem vezes mais rarefeito que o da Terra, composto sobretudo de dióxido de carbono.",
+    },
+    long: {
+      pt: "A pressão na superfície fica em torno de 610 pascals — menos de 1% dos cerca de 101.300 Pa ao nível do mar na Terra, e abaixo do limite em que a água líquida ferve à temperatura ambiente. A composição é de aproximadamente 95% de gás carbônico, com traços de nitrogênio e argônio. Por ser tão rarefeita, essa atmosfera retém pouquíssimo calor: a mesma tarde marciana pode marcar temperaturas amenas ao meio-dia e despencar dezenas de graus negativos à noite.",
+    },
+    related: ["sol-marciano", "tempestade-de-poeira", "estacoes-marcianas"],
+    modules: ["mars"],
+    bodies: ["marte", "terra"],
+    sources: [
+      {
+        label: "NASA Mars — Mars Facts",
+        url: "https://science.nasa.gov/mars/facts/",
+      },
+    ],
+  },
+  {
+    slug: "tempestade-de-poeira",
+    term: { pt: "Tempestade de poeira marciana", en: "Martian dust storm" },
+    short: {
+      pt: "Fenômeno que pode cobrir Marte inteiro de poeira e bloquear a luz solar por semanas.",
+    },
+    long: {
+      pt: "Tempestades locais são comuns, mas de tempos em tempos elas se fundem e envolvem o planeta todo. A de 2018 escureceu tanto o céu que o rover Opportunity, movido a energia solar, ficou sem carga e nunca mais respondeu. Apesar da força aparente, o ar rarefeito significa que ventos de 100 km/h em Marte empurram com menos força que uma brisa na Terra — o risco está na poeira que se deposita nos painéis, não no impacto do vento.",
+    },
+    aliases: ["tempestade de areia"],
+    related: ["atmosfera-marciana", "sol-marciano"],
+    modules: ["mars"],
+    bodies: ["marte"],
+    sources: [
+      {
+        label: "NASA Science — Mars Dust Storms",
+        url: "https://science.nasa.gov/mars/",
+      },
+    ],
+  },
+  {
+    slug: "estacoes-marcianas",
+    term: { pt: "Estações de Marte", en: "Martian seasons" },
+    short: {
+      pt: "Ciclo sazonal quase o dobro do terrestre e visivelmente desigual entre os hemisférios.",
+    },
+    long: {
+      pt: "Marte tem inclinação axial de cerca de 25°, muito parecida com os 23,4° da Terra, então também tem estações. A diferença está em dois pontos: o ano marciano dura quase dois anos terrestres, e a órbita é bem mais excêntrica. Como resultado, o planeta está bem mais perto do Sol durante o verão do hemisfério sul, o que torna essa estação mais curta e intensa — e é justamente quando as grandes tempestades de poeira costumam começar.",
+    },
+    related: ["atmosfera-marciana", "excentricidade", "perielio", "sol-marciano"],
+    modules: ["mars"],
+    bodies: ["marte", "terra"],
+    sources: [
+      {
+        label: "NASA Mars — Mars Facts",
+        url: "https://science.nasa.gov/mars/facts/",
+      },
+    ],
+  },
+
+  /* ─── Observação da Terra e cartografia ─────────────────────────── */
+  {
+    slug: "orbita-heliossincrona",
+    term: { pt: "Órbita heliossíncrona (SSO)", en: "Sun-synchronous orbit" },
+    short: {
+      pt: "Órbita polar que faz o satélite cruzar o equador sempre na mesma hora solar local.",
+    },
+    long: {
+      pt: "É o truque mais elegante da observação da Terra. O achatamento do planeta faz o plano de qualquer órbita derivar aos poucos; escolhendo altitude e inclinação certas — tipicamente algo em torno de 700 km e 98°, portanto levemente retrógrada —, essa deriva fica igual ao avanço da Terra em torno do Sol, cerca de um grau por dia. O satélite passa então sobre cada ponto sempre no mesmo horário local, com a mesma iluminação, e imagens de datas diferentes ficam diretamente comparáveis.",
+    },
+    aliases: ["SSO", "heliossíncrona", "sol-síncrona"],
+    related: ["raan", "inclinacao", "orbita-baixa", "sensoriamento-remoto"],
+    modules: ["eonet", "gibs", "ssc"],
+    bodies: ["terra"],
+    sources: [
+      {
+        label: "ESA — Types of orbits",
+        url: "https://www.esa.int/Enabling_Support/Space_Transportation/Types_of_orbits",
+      },
+    ],
+  },
+  {
+    slug: "sensoriamento-remoto",
+    term: { pt: "Sensoriamento remoto", en: "Remote sensing" },
+    short: {
+      pt: "Medir características de um objeto a distância, pela radiação que ele reflete ou emite.",
+    },
+    long: {
+      pt: "Todo satélite de observação faz isso: em vez de tocar o que estuda, lê a luz e o calor que chegam até ele. Cada faixa do espectro conta algo diferente — o visível mostra o que o olho veria, o infravermelho próximo denuncia vegetação saudável, o infravermelho térmico revela focos de incêndio, e micro-ondas atravessam nuvens. Combinar faixas é o que transforma uma imagem em medição.",
+    },
+    related: [
+      "orbita-heliossincrona",
+      "resolucao-espacial",
+      "albedo",
+      "anomalia-termica",
+    ],
+    modules: ["eonet", "gibs", "trek", "epic"],
+    bodies: ["terra"],
+    sources: [
+      {
+        label: "NASA Earthdata — What is Remote Sensing?",
+        url: "https://www.earthdata.nasa.gov/learn/backgrounders/remote-sensing",
+      },
+    ],
+  },
+  {
+    slug: "anomalia-termica",
+    term: { pt: "Anomalia térmica", en: "Thermal anomaly" },
+    short: {
+      pt: "Ponto que aparece muito mais quente que a vizinhança nas imagens de infravermelho.",
+    },
+    long: {
+      pt: "É assim que satélites detectam incêndios e erupções sem enxergar chama alguma. Sensores comparam a temperatura de cada pixel com a dos vizinhos em faixas do infravermelho médio; um foco de calor se destaca mesmo quando é bem menor que o pixel, porque a energia emitida cresce com a quarta potência da temperatura. Nem toda anomalia é fogo — chaminés industriais e queima de gás também acendem no mapa.",
+    },
+    related: ["sensoriamento-remoto", "resolucao-espacial"],
+    modules: ["eonet"],
+    bodies: ["terra"],
+    sources: [
+      {
+        label: "NASA FIRMS — Fire Information",
+        url: "https://www.earthdata.nasa.gov/data/tools/firms",
+      },
+    ],
+  },
+  {
+    slug: "resolucao-espacial",
+    term: { pt: "Resolução espacial", en: "Spatial resolution" },
+    short: {
+      pt: "Tamanho no terreno que cada pixel de uma imagem de satélite representa.",
+    },
+    long: {
+      pt: "Uma imagem de 30 metros por pixel significa que cada quadradinho resume uma área de 30 por 30 metros — nela, um caminhão simplesmente não existe como objeto distinto. Resolução mais fina não é automaticamente melhor: sensores de alta resolução cobrem faixas estreitas e revisitam o mesmo ponto raramente, enquanto os de resolução grosseira varrem o planeta inteiro todo dia. Monitorar incêndios globais pede o segundo tipo, não o primeiro.",
+    },
+    aliases: ["GSD", "metros por pixel"],
+    related: ["sensoriamento-remoto", "projecao-cartografica", "anomalia-termica"],
+    modules: ["gibs", "trek", "epic"],
+    sources: [
+      {
+        label: "NASA Earthdata — Remote Sensing Resolutions",
+        url: "https://www.earthdata.nasa.gov/learn/backgrounders/remote-sensing",
+      },
+    ],
+  },
+  {
+    slug: "projecao-cartografica",
+    term: { pt: "Projeção cartográfica", en: "Map projection" },
+    short: {
+      pt: "Método de achatar uma superfície esférica num plano — sempre à custa de alguma distorção.",
+    },
+    long: {
+      pt: "Nenhuma projeção preserva ao mesmo tempo áreas, ângulos e distâncias; escolher uma é escolher o que sacrificar. A Mercator, usada na maioria dos mapas deslizantes da web, preserva ângulos e por isso é boa para navegação, mas infla as regiões polares de forma absurda — é dela que vem a impressão de que a Groenlândia rivaliza com a África, quando na verdade cabe nela catorze vezes. Mapas planetários costumam preferir a equirretangular, mais simples de fatiar em ladrilhos.",
+    },
+    aliases: ["mercator", "equirretangular"],
+    related: ["cartografia-planetaria", "resolucao-espacial"],
+    modules: ["trek", "gibs"],
+    bodies: ["terra"],
+    sources: [
+      {
+        label: "USGS — Map Projections",
+        url: "https://www.usgs.gov/programs/national-geospatial-program/map-projections",
+      },
+    ],
+  },
+  {
+    slug: "cartografia-planetaria",
+    term: { pt: "Cartografia planetária", en: "Planetary cartography" },
+    short: {
+      pt: "Disciplina que mapeia outros mundos e dá nome oficial aos seus acidentes geográficos.",
+    },
+    long: {
+      pt: "Mapear um corpo sem oceanos nem meridiano histórico exige convenções novas: em Marte, a longitude zero passa por uma cratera de 500 metros escolhida justamente por ser pequena e bem definida. A União Astronômica Internacional mantém o registro oficial de nomes, com regras temáticas por corpo — crateras de Mercúrio homenageiam artistas, as de Vênus levam nomes de mulheres. Sem esse cadastro, duas equipes descreveriam o mesmo vale com nomes diferentes.",
+    },
+    related: ["projecao-cartografica", "sensoriamento-remoto", "resolucao-espacial"],
+    modules: ["trek"],
+    bodies: ["marte", "mercurio", "venus"],
+    sources: [
+      {
+        label: "IAU — Gazetteer of Planetary Nomenclature",
+        url: "https://planetarynames.wr.usgs.gov/",
+      },
+    ],
+  },
+  {
+    slug: "angulo-de-fase",
+    term: { pt: "Ângulo de fase", en: "Phase angle" },
+    short: {
+      pt: "Ângulo formado entre o Sol, o objeto observado e quem observa.",
+    },
+    long: {
+      pt: "É ele que decide quanto de um corpo aparece iluminado. Com ângulo próximo de zero, o observador está praticamente entre o Sol e o objeto, e vê a face cheia — é exatamente a posição do satélite DSCOVR, parado no ponto de Lagrange L1, que por isso fotografa a Terra sempre inteiramente iluminada. Ângulos grandes produzem crescentes finos, e é por isso que Vênus, mesmo muito mais perto de nós em certas épocas, nem sempre é mais brilhante.",
+    },
+    related: ["ponto-de-lagrange", "albedo", "magnitude-aparente"],
+    modules: ["epic", "solar-system", "apod"],
+    bodies: ["terra", "venus", "sol"],
+    sources: [
+      {
+        label: "NASA EPIC — DSCOVR",
+        url: "https://epic.gsfc.nasa.gov/about/epic",
+      },
+    ],
+  },
 ];
 
 /** Índice por slug, montado uma vez no carregamento do módulo. */

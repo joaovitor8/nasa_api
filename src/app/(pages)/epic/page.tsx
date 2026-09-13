@@ -1,259 +1,80 @@
-"use client";
-
-import { useEffect, useState } from "react";
-import Image from "next/image";
-import { useQuery } from "@tanstack/react-query";
-import { motion, AnimatePresence } from "framer-motion";
-import { Camera, Globe, Pause, Play, Search } from "lucide-react";
-import axios from "axios";
-
+import { EntendaSection } from "@/src/components/content/EntendaSection";
+import { Termo } from "@/src/components/content/Termo";
+import { ModuleScope } from "@/src/components/hud";
+import { SITE_NAME, SITE_URL } from "@/src/lib/config";
 import { getModule } from "@/src/lib/modules";
-import type { EpicImage } from "@/src/lib/types/nasa";
-import {
-  CommsFailure,
-  HudPanel,
-  ModuleScope,
-  TelemetrySpinner,
-} from "@/src/components/hud";
+
+import { EpicConsole } from "./EpicConsole";
 
 const MODULE = getModule("epic")!;
 
-const fetchEpic = async (date: string): Promise<EpicImage[]> => {
-  const url = date ? `/api/epic?date=${date}` : "/api/epic";
-  const res = await axios.get<EpicImage[]>(url);
-  return res.data;
-};
+/**
+ * Módulo EPIC — casca server + ilha client (ver `eonet/page.tsx` para o padrão).
+ */
 
-const buildImageUrl = (item: EpicImage) => {
-  const [y, m, d] = item.date.split(" ")[0].split("-");
-  return `https://epic.gsfc.nasa.gov/archive/natural/${y}/${m}/${d}/jpg/${item.image}.jpg`;
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "LearningResource",
+  name: `A Terra vista do ponto L1 — ${SITE_NAME}`,
+  description:
+    "Por que o satélite DSCOVR vê a Terra sempre cheia, o que é um ponto de Lagrange e como o ângulo de fase decide quanto de um mundo aparece iluminado.",
+  url: `${SITE_URL}${MODULE.href}`,
+  educationalLevel: "Beginner",
+  inLanguage: "pt-BR",
+  learningResourceType: "Interactive resource",
+  teaches: ["Ponto de Lagrange", "Ângulo de fase", "Albedo"],
 };
-
-const today = new Date().toISOString().split("T")[0];
 
 export default function EpicPage() {
-  const [tempDate, setTempDate] = useState("");
-  const [searchDate, setSearchDate] = useState("");
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(false);
-
-  const {
-    data: images,
-    isLoading,
-    isFetching,
-    error,
-    refetch,
-  } = useQuery({
-    queryKey: ["epic", searchDate],
-    queryFn: () => fetchEpic(searchDate),
-  });
-
-  const handleSearch = () => {
-    setSearchDate(tempDate);
-    setCurrentIndex(0);
-    setIsPlaying(false);
-  };
-
-  useEffect(() => {
-    if (!isPlaying || !images || images.length === 0) return;
-    const interval = setInterval(() => {
-      setCurrentIndex((p) => (p === images.length - 1 ? 0 : p + 1));
-    }, 1000);
-    return () => clearInterval(interval);
-  }, [isPlaying, images]);
-
-  const currentImage = images?.[currentIndex];
-  const imageUrl = currentImage ? buildImageUrl(currentImage) : null;
-  const busy = isLoading || isFetching;
-
   return (
-    <ModuleScope
-      theme={MODULE.theme}
-      ambient
-      className="min-h-screen pt-12 pb-24 px-4 sm:px-8"
-    >
-      <div className="max-w-6xl mx-auto w-full flex flex-col items-center">
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: -16 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="w-full flex flex-col md:flex-row justify-between items-center gap-6 mb-10 border-b border-white/10 pb-6"
-        >
-          <div className="flex items-center gap-4">
-            <Globe className="w-8 h-8" style={{ color: "var(--module-accent)" }} />
-            <div>
-              <span className="text-[10px] font-mono tracking-[0.3em] uppercase text-muted-foreground/70 block">
-                {MODULE.codename}
-              </span>
-              <h1 className="font-serif text-2xl md:text-3xl font-bold tracking-tight">
-                Projeto EPIC — Satélite DSCOVR
-              </h1>
-              <p
-                className="text-xs font-mono uppercase tracking-widest"
-                style={{ color: "var(--module-accent)" }}
-              >
-                L1 Lagrange Point · 1.5M km da Terra
-              </p>
-            </div>
-          </div>
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
 
-          <div className="flex items-center gap-2 bg-white/5 p-1.5 rounded-full border border-white/10">
-            <input
-              type="date"
-              max={today}
-              value={tempDate}
-              onChange={(e) => setTempDate(e.target.value)}
-              style={{ colorScheme: "dark" }}
-              className="bg-transparent text-sm pl-4 pr-2 py-2 outline-none cursor-pointer font-mono"
-            />
-            <button
-              onClick={handleSearch}
-              disabled={busy}
-              className="rounded-full p-2.5 transition-all hover:scale-105 disabled:opacity-50"
-              style={{ background: "var(--module-accent)", color: "oklch(0.05 0 0)" }}
-            >
-              <Search className="w-4 h-4" />
-            </button>
-          </div>
-        </motion.div>
+      <EpicConsole />
 
-        {error && (
-          <CommsFailure
-            message="Perda de telemetria com o satélite DSCOVR."
-            onRetry={() => refetch()}
-          />
-        )}
-
-        {/* Globo */}
-        {!error && (
-          <div className="relative w-full max-w-3xl aspect-square md:aspect-video flex items-center justify-center my-4">
-            {busy && (
-              <div className="absolute z-20">
-                <TelemetrySpinner
-                  label="SINTONIZANDO DSCOVR"
-                  phases={[
-                    "Estabelecendo link L1",
-                    "Recebendo captura do EPIC",
-                    "Processando luz natural",
-                  ]}
-                />
-              </div>
-            )}
-
-            {!busy && images?.length === 0 && (
-              <div className="text-center text-muted-foreground py-8 px-6 border border-white/10 rounded-2xl bg-white/5">
-                Sem capturas disponíveis para esta data.
-              </div>
-            )}
-
-            <AnimatePresence mode="wait">
-              {imageUrl && !busy && (
-                <motion.div
-                  key={imageUrl}
-                  initial={{ opacity: 0.5, scale: 0.98 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0.5 }}
-                  transition={{ duration: 0.3 }}
-                  className="absolute inset-0"
-                  style={{ filter: "drop-shadow(0 0 60px var(--module-accent-soft))" }}
-                >
-                  <Image
-                    src={imageUrl}
-                    alt="Terra vista do espaço"
-                    fill
-                    priority
-                    sizes="(max-width: 768px) 100vw, 768px"
-                    className="object-contain rounded-full"
-                  />
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
-        )}
-
-        {/* Player */}
-        {images && images.length > 0 && !busy && currentImage && (
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="w-full max-w-3xl mt-6"
+      <ModuleScope theme={MODULE.theme} className="px-4 pb-24 sm:px-8">
+        <div className="mx-auto w-full max-w-6xl">
+          <EntendaSection
+            moduleId="epic"
+            title="Por que a Terra aparece sempre cheia aqui"
           >
-            <HudPanel
-              label="Telemetria DSCOVR"
-              badge={
-                <span
-                  className="text-[10px] font-mono tracking-widest"
-                  style={{ color: "var(--module-accent)" }}
-                >
-                  FRAME {currentIndex + 1} / {images.length}
-                </span>
-              }
-            >
-              <div className="flex justify-between items-end mb-6 gap-4 flex-wrap">
-                <div>
-                  <span className="text-[9px] font-mono tracking-[0.2em] uppercase text-muted-foreground/70 block mb-1">
-                    Captura
-                  </span>
-                  <span className="text-base font-mono flex items-center gap-2">
-                    <Camera
-                      className="w-4 h-4"
-                      style={{ color: "var(--module-accent)" }}
-                    />
-                    {currentImage.date.split(" ")[1]} UTC
-                  </span>
-                </div>
-                <div className="text-right">
-                  <span className="text-[9px] font-mono tracking-[0.2em] uppercase text-muted-foreground/70 block mb-1">
-                    Centroide
-                  </span>
-                  <span className="text-sm font-mono">
-                    LAT {currentImage.centroid_coordinates.lat.toFixed(2)}° · LON{" "}
-                    {currentImage.centroid_coordinates.lon.toFixed(2)}°
-                  </span>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-6">
-                <button
-                  onClick={() => setIsPlaying(!isPlaying)}
-                  className="w-14 h-14 rounded-full flex items-center justify-center shrink-0 transition-transform active:scale-90"
-                  style={{
-                    background: "var(--module-accent)",
-                    color: "oklch(0.05 0 0)",
-                    boxShadow: "var(--module-glow)",
-                  }}
-                  aria-label={isPlaying ? "Pausar" : "Reproduzir"}
-                >
-                  {isPlaying ? (
-                    <Pause className="w-6 h-6 fill-current" />
-                  ) : (
-                    <Play className="w-6 h-6 fill-current ml-1" />
-                  )}
-                </button>
-
-                <div className="grow flex flex-col gap-2">
-                  <div className="flex justify-between text-[10px] font-mono uppercase tracking-widest text-muted-foreground">
-                    <span>00:00 UTC</span>
-                    <span>23:59 UTC</span>
-                  </div>
-                  <input
-                    type="range"
-                    min={0}
-                    max={images.length - 1}
-                    value={currentIndex}
-                    onChange={(e) => {
-                      setIsPlaying(false);
-                      setCurrentIndex(Number(e.target.value));
-                    }}
-                    className="w-full h-2 bg-white/10 rounded-lg appearance-none cursor-pointer"
-                    style={{ accentColor: "var(--module-accent)" }}
-                  />
-                </div>
-              </div>
-            </HudPanel>
-          </motion.div>
-        )}
-      </div>
-    </ModuleScope>
+            <p>
+              Repare que em nenhuma dessas imagens a Terra aparece como um crescente.
+              Isso não é escolha editorial — é geometria. As fotos vêm do satélite
+              DSCOVR, parado a cerca de 1,5 milhão de quilômetros daqui, num{" "}
+              <Termo slug="ponto-de-lagrange">ponto de Lagrange</Termo>: uma das cinco
+              posições em que a gravidade combinada do Sol e da Terra permite a um
+              terceiro corpo acompanhá-los praticamente sem gastar combustível.
+            </p>
+            <p>
+              O DSCOVR ocupa o L1, que fica na linha entre nós e o Sol. Dali, ele olha
+              para a Terra com o Sol exatamente às suas costas — o que significa um{" "}
+              <Termo slug="angulo-de-fase">ângulo de fase</Termo> próximo de zero, e
+              portanto a face inteiramente iluminada, o tempo todo. É a mesma razão pela
+              qual a Lua cheia acontece quando a Terra está entre ela e o Sol.
+            </p>
+            <p>
+              Essa posição privilegiada não serve só para fotos bonitas. Com o disco
+              inteiro enquadrado de uma vez, dá para medir o{" "}
+              <Termo slug="albedo">albedo</Termo> do planeta como um todo — a fração da
+              luz solar que a Terra devolve ao espaço —, algo impossível para satélites
+              em <Termo slug="orbita-baixa">órbita baixa</Termo>, que só enxergam um
+              pedaço por vez.
+            </p>
+            <p className="text-muted-foreground">
+              O L1 também é o melhor posto de escuta do{" "}
+              <Termo slug="vento-solar">vento solar</Termo>: como fica à frente da Terra
+              na direção do Sol, instrumentos ali detectam uma{" "}
+              <Termo slug="cme">ejeção de massa coronal</Termo> chegando com algum tempo
+              de antecedência — margem curta, mas suficiente para alertar operadores de
+              satélites e redes elétricas.
+            </p>
+          </EntendaSection>
+        </div>
+      </ModuleScope>
+    </>
   );
 }
