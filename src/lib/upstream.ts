@@ -27,7 +27,35 @@ import axios, { AxiosError, type AxiosRequestConfig } from "axios";
 import { NextResponse } from "next/server";
 import type { ApiError } from "@/src/lib/types/nasa";
 
-const NASA_KEY = process.env.KEY_NASA;
+/**
+ * Timeout padrão das chamadas upstream (ms).
+ *
+ * Sem isso, um upstream lento segura a rota até o limite da plataforma —
+ * e como as rotas são ISR, uma revalidação travada bloqueia o cache.
+ * 10s é folgado para as APIs usadas e ainda falha rápido o suficiente
+ * para o usuário ver um erro em vez de uma tela girando.
+ */
+export const UPSTREAM_TIMEOUT_MS = 10_000;
+
+/**
+ * Chave da NASA. Ausente, as rotas com `nasaAuth` falham com 500 e uma
+ * mensagem acionável em vez de mandar `api_key=undefined` e receber um
+ * 403 opaco da NASA.
+ *
+ * Não usamos `DEMO_KEY` como fallback de propósito: o limite é de 30
+ * requisições/hora por IP e o erro apareceria só em produção, sob carga.
+ */
+const NASA_KEY = process.env.KEY_NASA?.trim() || undefined;
+
+export class MissingApiKeyError extends Error {
+  constructor() {
+    super(
+      "KEY_NASA não configurada. Copie `exemplo.env` para `.env.local` e " +
+        "preencha a chave obtida em https://api.nasa.gov/",
+    );
+    this.name = "MissingApiKeyError";
+  }
+}
 
 export class UpstreamError extends Error {
   constructor(
@@ -53,7 +81,10 @@ export async function fetchUpstream<T>(
   url: string,
   opts: UpstreamOptions = {},
 ): Promise<T> {
-  const { nasaAuth, params, method = "GET", ...rest } = opts;
+  const { nasaAuth, params, method = "GET", timeout, ...rest } = opts;
+
+  if (nasaAuth && !NASA_KEY) throw new MissingApiKeyError();
+
   const finalParams = nasaAuth
     ? { ...(params ?? {}), api_key: NASA_KEY }
     : params;
@@ -63,12 +94,18 @@ export async function fetchUpstream<T>(
       url,
       method,
       params: finalParams,
+      timeout: timeout ?? UPSTREAM_TIMEOUT_MS,
       ...rest,
     });
     return res.data;
   } catch (err) {
     if (err instanceof AxiosError) {
-      // Erros sem resposta (DNS, timeout, recusa) viram 502 (bad gateway)
+      // Timeout tem status próprio (504) — distingue "upstream lento" de
+      // "upstream quebrado" nos logs e permite mensagem específica na rota.
+      if (err.code === "ECONNABORTED" || err.code === "ETIMEDOUT") {
+        throw new UpstreamError(504, `timeout após ${timeout ?? UPSTREAM_TIMEOUT_MS}ms`, err);
+      }
+      // Demais erros sem resposta (DNS, recusa) viram 502 (bad gateway)
       const status = err.response?.status ?? 502;
       throw new UpstreamError(status, err.message, err);
     }
@@ -88,7 +125,7 @@ export interface RouteOptions {
 /**
  * Envolve o handler da rota. Captura `UpstreamError` e devolve
  * `NextResponse` com o status real do upstream (4xx propagados;
- * 5xx e falhas de rede colapsadas em 502).
+ * 5xx e falhas de rede colapsadas em 502; timeout em 504).
  */
 export async function handleRoute<T>(
   opts: RouteOptions,
@@ -98,12 +135,24 @@ export async function handleRoute<T>(
     const data = await run();
     return NextResponse.json<T>(data);
   } catch (err) {
+    // Erro de configuração do servidor, não do upstream: 500 com mensagem
+    // acionável no log. O cliente recebe só a mensagem temática.
+    if (err instanceof MissingApiKeyError) {
+      console.error(`[${opts.tag}] ${err.message}`);
+      return NextResponse.json<ApiError>(
+        { error: opts.fallbackMessage, code: 500 },
+        { status: 500 },
+      );
+    }
     if (err instanceof UpstreamError) {
       const message = opts.messages?.[err.status] ?? opts.fallbackMessage;
       console.error(`[${opts.tag}] upstream ${err.status}:`, err.cause);
-      // 4xx → propaga; 5xx / network → 502 (não vaza erro do servidor upstream como nosso 5xx)
+      // 4xx → propaga; 504 (timeout nosso) → preserva; demais 5xx e falhas de
+      // rede → 502, para não vazar o erro do servidor upstream como nosso 5xx.
       const status =
-        err.status >= 400 && err.status < 500 ? err.status : 502;
+        (err.status >= 400 && err.status < 500) || err.status === 504
+          ? err.status
+          : 502;
       return NextResponse.json<ApiError>(
         { error: message, code: err.status },
         { status },

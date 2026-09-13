@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
 
+import { SITE_NAME, SITE_TAGLINE } from "./config";
 import { getModule } from "./modules";
-
-const SITE_NAME = "Universo";
-const SITE_TAGLINE = "Sistema Operacional do Cosmos";
 
 export function buildModuleMetadata(id: string): Metadata {
   const mod = getModule(id);
