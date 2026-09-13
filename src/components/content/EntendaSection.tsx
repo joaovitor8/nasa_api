@@ -1,7 +1,8 @@
 import Link from "next/link";
-import { BookOpen, GraduationCap } from "lucide-react";
+import { ArrowRight, BookOpen, Clock, GraduationCap } from "lucide-react";
 
 import { HudPanel } from "@/src/components/hud";
+import { conceptsForModule } from "@/src/lib/content/concepts";
 import { termsForModule } from "@/src/lib/content/glossary";
 import { cn } from "@/src/lib/utils";
 
@@ -38,6 +39,7 @@ export function EntendaSection({
   className,
 }: EntendaSectionProps) {
   const termos = termsForModule(moduleId);
+  const artigos = conceptsForModule(moduleId);
 
   return (
     <section className={cn("mt-16", className)} aria-labelledby={`entenda-${moduleId}`}>
@@ -53,6 +55,40 @@ export function EntendaSection({
         <div className="mt-5 space-y-4 text-sm leading-loose text-foreground/80">
           {children}
         </div>
+
+        {artigos.length > 0 && (
+          <div className="mt-8 border-t border-white/10 pt-6">
+            <h3 className="mb-4 flex items-center gap-2 font-mono text-[10px] tracking-[0.3em] text-muted-foreground uppercase">
+              <GraduationCap className="h-3 w-3" />
+              Aprofunde-se
+            </h3>
+
+            <ul className="space-y-2">
+              {artigos.map((artigo) => (
+                <li key={artigo.slug}>
+                  <Link
+                    href={`/aprender/${artigo.slug}`}
+                    className="group flex items-start gap-3 rounded-lg border border-white/10 bg-white/[0.03] p-3 transition-colors hover:border-white/25 hover:bg-white/[0.06]"
+                  >
+                    <div className="min-w-0 flex-1">
+                      <span className="flex items-center gap-2 text-xs font-semibold text-foreground">
+                        {artigo.title.pt}
+                        <ArrowRight className="h-3 w-3 opacity-0 transition-opacity group-hover:opacity-60" />
+                      </span>
+                      <span className="mt-1 block text-xs leading-relaxed text-muted-foreground">
+                        {artigo.summary.pt}
+                      </span>
+                      <span className="mt-1.5 flex items-center gap-1.5 font-mono text-[10px] tracking-[0.2em] text-muted-foreground/60 uppercase">
+                        <Clock className="h-3 w-3" />
+                        {artigo.readingMinutes} min
+                      </span>
+                    </div>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
 
         {termos.length > 0 && (
           <div className="mt-8 border-t border-white/10 pt-6">

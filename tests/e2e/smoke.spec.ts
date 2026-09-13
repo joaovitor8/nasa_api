@@ -131,6 +131,57 @@ const MODULOS_CONVERTIDOS = [
   "solar-system",
 ];
 
+test.describe("trilhas de aprendizado", () => {
+  test("hub lista os artigos e leva a cada um", async ({ page }) => {
+    await page.goto("/aprender");
+    await expect(
+      page.getByRole("heading", { level: 1, name: "Aprender" }),
+    ).toBeVisible();
+
+    await page.getByRole("link", { name: /o que é uma órbita/i }).click();
+    await expect(page).toHaveURL(/\/aprender\/o-que-e-uma-orbita$/);
+  });
+
+  test("artigo MDX vem renderizado no servidor, com <Termo> embutido", async ({
+    request,
+  }) => {
+    const html = await (await request.get("/aprender/o-que-e-uma-orbita")).text();
+
+    const palavras = html
+      .replace(/<script[^>]*>[\s\S]*?<\/script>/g, "")
+      .replace(/<[^>]*>/g, " ")
+      .split(/\s+/)
+      .filter(Boolean).length;
+
+    expect(palavras, `artigo serviu só ${palavras} palavras`).toBeGreaterThan(700);
+    // O <Termo> tem que funcionar dentro do MDX, com a definição no HTML.
+    expect(html).toContain('aria-describedby="termo-microgravidade"');
+    expect(html).toContain('"@type":"LearningResource"');
+  });
+
+  test("artigo mostra pré-requisito e liga ao módulo ao vivo", async ({ page }) => {
+    await page.goto("/aprender/por-que-existem-as-estacoes");
+    // Pré-requisito declarado no catálogo.
+    await expect(
+      page.locator('a[href="/aprender/o-que-e-uma-orbita"]').first(),
+    ).toBeVisible();
+    // "Veja ao vivo" aponta para um módulo real.
+    await expect(page.locator('a[href="/solar-system"]').first()).toBeVisible();
+  });
+
+  test("módulo aponta de volta para o artigo", async ({ page }) => {
+    await page.goto("/tle");
+    await page.locator('a[href="/aprender/o-que-e-uma-orbita"]').first().click();
+    await expect(page).toHaveURL(/\/aprender\/o-que-e-uma-orbita$/);
+  });
+
+  test("sitemap anuncia os artigos", async ({ request }) => {
+    const xml = await (await request.get("/sitemap.xml")).text();
+    expect(xml).toContain("/aprender/o-que-e-uma-orbita");
+    expect(xml).toContain("/aprender/as-escalas-do-universo");
+  });
+});
+
 test.describe("módulos convertidos servem conteúdo didático", () => {
   for (const modulo of MODULOS_CONVERTIDOS) {
     test(`/${modulo} entrega prosa e dados estruturados no servidor`, async ({

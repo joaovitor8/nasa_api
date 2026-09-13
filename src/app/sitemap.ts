@@ -1,13 +1,20 @@
 import type { MetadataRoute } from "next";
 
 import { SITE_URL } from "@/src/lib/config";
+import { CONCEPT_SLUGS } from "@/src/lib/content/concepts";
 import { GLOSSARY_SLUGS } from "@/src/lib/content/glossary";
 import { ENABLED_MODULES } from "@/src/lib/modules";
 import { SOLAR_BODIES } from "@/src/lib/solar-system";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
-  const staticRoutes = ["", "/sobre", "/mission-control", "/glossario"].map((path) => ({
+  const staticRoutes = [
+    "",
+    "/sobre",
+    "/mission-control",
+    "/glossario",
+    "/aprender",
+  ].map((path) => ({
     url: `${SITE_URL}${path}`,
     lastModified: now,
     changeFrequency: "monthly" as const,
@@ -37,5 +44,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }));
 
-  return [...staticRoutes, ...moduleRoutes, ...bodyRoutes, ...glossaryRoutes];
+  const conceptRoutes = CONCEPT_SLUGS.map((slug) => ({
+    url: `${SITE_URL}/aprender/${slug}`,
+    lastModified: now,
+    changeFrequency: "monthly" as const,
+    priority: 0.7,
+  }));
+
+  return [
+    ...staticRoutes,
+    ...moduleRoutes,
+    ...bodyRoutes,
+    ...glossaryRoutes,
+    ...conceptRoutes,
+  ];
 }

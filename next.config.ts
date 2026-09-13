@@ -1,3 +1,4 @@
+import createMDX from "@next/mdx";
 import type { NextConfig } from "next";
 
 const devOrigins = (process.env.DEV_ALLOWED_ORIGINS ?? "")
@@ -39,6 +40,8 @@ const nextConfig: NextConfig = {
       { protocol: "https", hostname: "upload.wikimedia.org" },
     ],
   },
+  // `.mdx` entra na lista para que os artigos de `/aprender` sejam páginas.
+  pageExtensions: ["ts", "tsx", "js", "jsx", "md", "mdx"],
   async headers() {
     return [
       {
@@ -49,4 +52,10 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default nextConfig;
+/**
+ * Sem plugins remark/rehype por ora: o conteúdo é escrito à mão e os
+ * componentes ricos vêm de `mdx-components.tsx`, não de sintaxe estendida.
+ */
+const withMDX = createMDX({});
+
+export default withMDX(nextConfig);

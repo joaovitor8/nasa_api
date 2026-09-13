@@ -259,6 +259,12 @@ export function Header() {
                           onClick={() => setMegaOpen(false)}
                         />
                         <SubsystemLink
+                          href="/aprender"
+                          label={t("nav.learn")}
+                          active={isCurrentRoute("/aprender")}
+                          onClick={() => setMegaOpen(false)}
+                        />
+                        <SubsystemLink
                           href="/glossario"
                           label={t("nav.glossary")}
                           active={isCurrentRoute("/glossario")}
@@ -276,6 +282,10 @@ export function Header() {
                 )}
               </AnimatePresence>
             </div>
+
+            <NavLink href="/aprender" active={isCurrentRoute("/aprender")}>
+              {t("nav.learn")}
+            </NavLink>
 
             <NavLink href="/glossario" active={isCurrentRoute("/glossario")}>
               {t("nav.glossary")}
