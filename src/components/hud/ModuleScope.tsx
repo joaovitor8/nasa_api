@@ -27,7 +27,9 @@ export function ModuleScope({ theme, children, className, ambient }: ModuleScope
         <div
           aria-hidden
           className="pointer-events-none absolute -inset-32 -z-10 blur-[120px] opacity-40"
-          style={{ background: `radial-gradient(circle at 30% 20%, ${theme.accentSoft}, transparent 60%)` }}
+          style={{
+            background: `radial-gradient(circle at 30% 20%, ${theme.accentSoft}, transparent 60%)`,
+          }}
         />
       )}
       {children}

@@ -9,8 +9,7 @@ export async function GET(request: Request) {
   return handleRoute(
     {
       tag: "APOD",
-      fallbackMessage:
-        "Não foi possível acessar os arquivos estelares neste momento.",
+      fallbackMessage: "Não foi possível acessar os arquivos estelares neste momento.",
       messages: {
         404: "Sem registro cósmico para a data selecionada.",
         429: "Cota de telemetria estourada. Aguarde alguns minutos.",

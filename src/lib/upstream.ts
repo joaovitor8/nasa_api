@@ -85,9 +85,7 @@ export async function fetchUpstream<T>(
 
   if (nasaAuth && !NASA_KEY) throw new MissingApiKeyError();
 
-  const finalParams = nasaAuth
-    ? { ...(params ?? {}), api_key: NASA_KEY }
-    : params;
+  const finalParams = nasaAuth ? { ...(params ?? {}), api_key: NASA_KEY } : params;
 
   try {
     const res = await axios.request<T>({
@@ -103,7 +101,11 @@ export async function fetchUpstream<T>(
       // Timeout tem status próprio (504) — distingue "upstream lento" de
       // "upstream quebrado" nos logs e permite mensagem específica na rota.
       if (err.code === "ECONNABORTED" || err.code === "ETIMEDOUT") {
-        throw new UpstreamError(504, `timeout após ${timeout ?? UPSTREAM_TIMEOUT_MS}ms`, err);
+        throw new UpstreamError(
+          504,
+          `timeout após ${timeout ?? UPSTREAM_TIMEOUT_MS}ms`,
+          err,
+        );
       }
       // Demais erros sem resposta (DNS, recusa) viram 502 (bad gateway)
       const status = err.response?.status ?? 502;
@@ -171,8 +173,5 @@ export async function handleRoute<T>(
  * Uso: `if (!date) return badRequest("É necessário fornecer uma data.");`
  */
 export function badRequest(message: string): NextResponse {
-  return NextResponse.json<ApiError>(
-    { error: message, code: 400 },
-    { status: 400 },
-  );
+  return NextResponse.json<ApiError>({ error: message, code: 400 }, { status: 400 });
 }

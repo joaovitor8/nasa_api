@@ -8,11 +8,7 @@ import axios from "axios";
 
 import { getModule } from "@/src/lib/modules";
 import type { NewsArticle } from "@/src/lib/types/news";
-import {
-  CommsFailure,
-  ModuleScope,
-  TelemetrySpinner,
-} from "@/src/components/hud";
+import { CommsFailure, ModuleScope, TelemetrySpinner } from "@/src/components/hud";
 
 const MODULE = getModule("news")!;
 
@@ -58,7 +54,11 @@ export default function NewsPage() {
   const featured = data?.find((a) => a.featured) ?? data?.[0];
 
   return (
-    <ModuleScope theme={MODULE.theme} ambient className="min-h-screen pt-12 pb-24 px-4 sm:px-8">
+    <ModuleScope
+      theme={MODULE.theme}
+      ambient
+      className="min-h-screen pt-12 pb-24 px-4 sm:px-8"
+    >
       <div className="max-w-6xl mx-auto w-full">
         {/* Header */}
         <motion.div
@@ -71,10 +71,14 @@ export default function NewsPage() {
               className="p-3 rounded-xl border relative"
               style={{
                 background: "var(--module-accent-soft)",
-                borderColor: "color-mix(in oklch, var(--module-accent) 35%, transparent)",
+                borderColor:
+                  "color-mix(in oklch, var(--module-accent) 35%, transparent)",
               }}
             >
-              <Newspaper className="w-7 h-7" style={{ color: "var(--module-accent)" }} />
+              <Newspaper
+                className="w-7 h-7"
+                style={{ color: "var(--module-accent)" }}
+              />
             </div>
             <div>
               <span className="text-[10px] font-mono tracking-[0.3em] uppercase text-muted-foreground/70 block">
@@ -83,7 +87,10 @@ export default function NewsPage() {
               <h1 className="font-serif text-2xl md:text-3xl font-bold tracking-tight">
                 Comms Intercept
               </h1>
-              <p className="text-xs font-mono uppercase tracking-widest flex items-center gap-2" style={{ color: "var(--module-accent)" }}>
+              <p
+                className="text-xs font-mono uppercase tracking-widest flex items-center gap-2"
+                style={{ color: "var(--module-accent)" }}
+              >
                 <Radio className="w-3.5 h-3.5" /> Spaceflight News API · Live Feed
               </p>
             </div>
@@ -110,7 +117,8 @@ export default function NewsPage() {
                 className="text-[10px] font-mono uppercase tracking-widest px-2.5 py-1 rounded-md border"
                 style={{
                   color: "var(--module-accent)",
-                  borderColor: "color-mix(in oklch, var(--module-accent) 25%, transparent)",
+                  borderColor:
+                    "color-mix(in oklch, var(--module-accent) 25%, transparent)",
                   background: "var(--module-accent-soft)",
                 }}
               >
@@ -164,7 +172,8 @@ export default function NewsPage() {
                         className="absolute top-3 left-3 flex items-center gap-1 text-[10px] font-mono uppercase tracking-[0.25em] px-2 py-1 rounded border backdrop-blur-md"
                         style={{
                           color: "var(--module-accent)",
-                          borderColor: "color-mix(in oklch, var(--module-accent) 40%, transparent)",
+                          borderColor:
+                            "color-mix(in oklch, var(--module-accent) 40%, transparent)",
                           background: "oklch(0 0 0 / 0.6)",
                         }}
                       >
@@ -174,8 +183,12 @@ export default function NewsPage() {
                   </div>
                   <div className="p-6 md:p-8 flex flex-col">
                     <div className="flex items-center justify-between mb-3 text-[10px] font-mono uppercase tracking-[0.25em]">
-                      <span style={{ color: "var(--module-accent)" }}>{featured.news_site}</span>
-                      <span className="text-muted-foreground">T-{timeAgo(featured.published_at)}</span>
+                      <span style={{ color: "var(--module-accent)" }}>
+                        {featured.news_site}
+                      </span>
+                      <span className="text-muted-foreground">
+                        T-{timeAgo(featured.published_at)}
+                      </span>
                     </div>
                     <h2 className="font-serif text-2xl md:text-3xl font-bold leading-tight mb-3 group-hover:text-[var(--module-accent)] transition-colors">
                       {featured.title}
@@ -183,7 +196,10 @@ export default function NewsPage() {
                     <p className="text-sm text-muted-foreground leading-relaxed line-clamp-4 mb-4">
                       {featured.summary}
                     </p>
-                    <span className="mt-auto flex items-center gap-2 text-xs font-mono uppercase tracking-[0.25em]" style={{ color: "var(--module-accent)" }}>
+                    <span
+                      className="mt-auto flex items-center gap-2 text-xs font-mono uppercase tracking-[0.25em]"
+                      style={{ color: "var(--module-accent)" }}
+                    >
                       Abrir Transmissão <ExternalLink className="w-3.5 h-3.5" />
                     </span>
                   </div>
@@ -193,44 +209,49 @@ export default function NewsPage() {
 
             {/* Stream */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {data.filter((a) => a.id !== featured?.id).map((article, i) => (
-                <motion.a
-                  key={article.id}
-                  href={article.url}
-                  target="_blank"
-                  rel="noreferrer"
-                  initial={{ opacity: 0, y: 12 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: (i % 8) * 0.04 }}
-                  className="group flex gap-4 p-4 rounded-2xl border border-white/[0.06] bg-white/[0.02] hover:bg-white/[0.05] hover:border-[var(--module-accent)]/40 transition-all"
-                >
-                  <div className="w-32 h-24 shrink-0 rounded-lg overflow-hidden bg-black">
-                    {/* eslint-disable-next-line @next/next/no-img-element -- Spaceflight News retorna URLs de domínios não controlados */}
-                    <img
-                      src={article.image_url}
-                      alt={article.title}
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                      loading="lazy"
-                    />
-                  </div>
-                  <div className="flex flex-col min-w-0">
-                    <div className="flex items-center justify-between mb-1.5 text-[10px] font-mono uppercase tracking-[0.2em]">
-                      <span style={{ color: "var(--module-accent)" }} className="truncate">
-                        {article.news_site}
-                      </span>
-                      <span className="text-muted-foreground/70 shrink-0 ml-2">
-                        T-{timeAgo(article.published_at)}
-                      </span>
+              {data
+                .filter((a) => a.id !== featured?.id)
+                .map((article, i) => (
+                  <motion.a
+                    key={article.id}
+                    href={article.url}
+                    target="_blank"
+                    rel="noreferrer"
+                    initial={{ opacity: 0, y: 12 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: (i % 8) * 0.04 }}
+                    className="group flex gap-4 p-4 rounded-2xl border border-white/[0.06] bg-white/[0.02] hover:bg-white/[0.05] hover:border-[var(--module-accent)]/40 transition-all"
+                  >
+                    <div className="w-32 h-24 shrink-0 rounded-lg overflow-hidden bg-black">
+                      {/* eslint-disable-next-line @next/next/no-img-element -- Spaceflight News retorna URLs de domínios não controlados */}
+                      <img
+                        src={article.image_url}
+                        alt={article.title}
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                        loading="lazy"
+                      />
                     </div>
-                    <h3 className="font-serif font-bold leading-snug line-clamp-2 mb-2 group-hover:text-[var(--module-accent)] transition-colors">
-                      {article.title}
-                    </h3>
-                    <p className="text-xs text-muted-foreground line-clamp-2 leading-relaxed">
-                      {article.summary}
-                    </p>
-                  </div>
-                </motion.a>
-              ))}
+                    <div className="flex flex-col min-w-0">
+                      <div className="flex items-center justify-between mb-1.5 text-[10px] font-mono uppercase tracking-[0.2em]">
+                        <span
+                          style={{ color: "var(--module-accent)" }}
+                          className="truncate"
+                        >
+                          {article.news_site}
+                        </span>
+                        <span className="text-muted-foreground/70 shrink-0 ml-2">
+                          T-{timeAgo(article.published_at)}
+                        </span>
+                      </div>
+                      <h3 className="font-serif font-bold leading-snug line-clamp-2 mb-2 group-hover:text-[var(--module-accent)] transition-colors">
+                        {article.title}
+                      </h3>
+                      <p className="text-xs text-muted-foreground line-clamp-2 leading-relaxed">
+                        {article.summary}
+                      </p>
+                    </div>
+                  </motion.a>
+                ))}
             </div>
           </div>
         )}

@@ -37,7 +37,13 @@ export default function EpicPage() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
 
-  const { data: images, isLoading, isFetching, error, refetch } = useQuery({
+  const {
+    data: images,
+    isLoading,
+    isFetching,
+    error,
+    refetch,
+  } = useQuery({
     queryKey: ["epic", searchDate],
     queryFn: () => fetchEpic(searchDate),
   });
@@ -61,7 +67,11 @@ export default function EpicPage() {
   const busy = isLoading || isFetching;
 
   return (
-    <ModuleScope theme={MODULE.theme} ambient className="min-h-screen pt-12 pb-24 px-4 sm:px-8">
+    <ModuleScope
+      theme={MODULE.theme}
+      ambient
+      className="min-h-screen pt-12 pb-24 px-4 sm:px-8"
+    >
       <div className="max-w-6xl mx-auto w-full flex flex-col items-center">
         {/* Header */}
         <motion.div
@@ -78,7 +88,10 @@ export default function EpicPage() {
               <h1 className="font-serif text-2xl md:text-3xl font-bold tracking-tight">
                 Projeto EPIC — Satélite DSCOVR
               </h1>
-              <p className="text-xs font-mono uppercase tracking-widest" style={{ color: "var(--module-accent)" }}>
+              <p
+                className="text-xs font-mono uppercase tracking-widest"
+                style={{ color: "var(--module-accent)" }}
+              >
                 L1 Lagrange Point · 1.5M km da Terra
               </p>
             </div>
@@ -168,7 +181,10 @@ export default function EpicPage() {
             <HudPanel
               label="Telemetria DSCOVR"
               badge={
-                <span className="text-[10px] font-mono tracking-widest" style={{ color: "var(--module-accent)" }}>
+                <span
+                  className="text-[10px] font-mono tracking-widest"
+                  style={{ color: "var(--module-accent)" }}
+                >
                   FRAME {currentIndex + 1} / {images.length}
                 </span>
               }
@@ -179,7 +195,10 @@ export default function EpicPage() {
                     Captura
                   </span>
                   <span className="text-base font-mono flex items-center gap-2">
-                    <Camera className="w-4 h-4" style={{ color: "var(--module-accent)" }} />
+                    <Camera
+                      className="w-4 h-4"
+                      style={{ color: "var(--module-accent)" }}
+                    />
                     {currentImage.date.split(" ")[1]} UTC
                   </span>
                 </div>

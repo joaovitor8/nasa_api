@@ -30,8 +30,7 @@ export function HudPanel({
         "relative rounded-2xl p-6 md:p-8",
         variant === "glass" &&
           "border border-white/10 bg-white/[0.03] backdrop-blur-xl",
-        variant === "solid" &&
-          "border border-white/5 bg-[#05050a]",
+        variant === "solid" && "border border-white/5 bg-[#05050a]",
         className,
       )}
     >

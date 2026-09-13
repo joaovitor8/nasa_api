@@ -27,16 +27,44 @@ export default function Home() {
         }}
         className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 -z-10 pointer-events-none"
       >
-        <svg width="900" height="900" viewBox="0 0 900 900" className="opacity-[0.18] max-w-[110vw] max-h-[110vw]">
+        <svg
+          width="900"
+          height="900"
+          viewBox="0 0 900 900"
+          className="opacity-[0.18] max-w-[110vw] max-h-[110vw]"
+        >
           <defs>
             <radialGradient id="ringFade" cx="50%" cy="50%" r="50%">
               <stop offset="60%" stopColor="oklch(0.60 0.18 290)" stopOpacity="0" />
               <stop offset="100%" stopColor="oklch(0.60 0.18 290)" stopOpacity="0.4" />
             </radialGradient>
           </defs>
-          <circle cx="450" cy="450" r="200" fill="none" stroke="url(#ringFade)" strokeWidth="1" strokeDasharray="2 6" />
-          <circle cx="450" cy="450" r="320" fill="none" stroke="url(#ringFade)" strokeWidth="1" strokeDasharray="1 8" />
-          <circle cx="450" cy="450" r="430" fill="none" stroke="url(#ringFade)" strokeWidth="1" />
+          <circle
+            cx="450"
+            cy="450"
+            r="200"
+            fill="none"
+            stroke="url(#ringFade)"
+            strokeWidth="1"
+            strokeDasharray="2 6"
+          />
+          <circle
+            cx="450"
+            cy="450"
+            r="320"
+            fill="none"
+            stroke="url(#ringFade)"
+            strokeWidth="1"
+            strokeDasharray="1 8"
+          />
+          <circle
+            cx="450"
+            cy="450"
+            r="430"
+            fill="none"
+            stroke="url(#ringFade)"
+            strokeWidth="1"
+          />
           {/* satélite minúsculo */}
           <circle cx="880" cy="450" r="3" fill="oklch(0.78 0.16 80)" />
           <circle cx="880" cy="450" r="6" fill="oklch(0.78 0.16 80)" opacity="0.3" />

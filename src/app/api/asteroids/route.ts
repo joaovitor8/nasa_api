@@ -17,12 +17,9 @@ export async function GET(request: Request) {
       },
     },
     () =>
-      fetchUpstream<NeoFeedResponse>(
-        "https://api.nasa.gov/neo/rest/v1/feed",
-        {
-          nasaAuth: true,
-          params: { start_date: date, end_date: date },
-        },
-      ),
+      fetchUpstream<NeoFeedResponse>("https://api.nasa.gov/neo/rest/v1/feed", {
+        nasaAuth: true,
+        params: { start_date: date, end_date: date },
+      }),
   );
 }

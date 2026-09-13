@@ -12,8 +12,7 @@ export async function GET(request: Request) {
   return handleRoute(
     {
       tag: "OSDR",
-      fallbackMessage:
-        "Falha na decodificação da sequência de dados biológicos.",
+      fallbackMessage: "Falha na decodificação da sequência de dados biológicos.",
     },
     async () => {
       // A API do OSDR usa um endpoint de busca (geode-py)

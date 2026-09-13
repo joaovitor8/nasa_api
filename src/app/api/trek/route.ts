@@ -27,9 +27,8 @@ const TREK_LAYERS = {
 
 export async function GET(request: Request) {
   const target =
-    (new URL(request.url).searchParams.get(
-      "target",
-    ) as keyof typeof TREK_LAYERS) || "moon";
+    (new URL(request.url).searchParams.get("target") as keyof typeof TREK_LAYERS) ||
+    "moon";
 
   const config = TREK_LAYERS[target] ?? TREK_LAYERS.moon;
   return NextResponse.json(config);

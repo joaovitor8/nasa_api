@@ -38,10 +38,33 @@ type ThreatTier = {
 
 const tierFromPalermo = (psStr: string): ThreatTier => {
   const ps = parseFloat(psStr);
-  if (isNaN(ps) || ps < -4) return { label: "Mínimo", width: "25%", color: "oklch(0.6 0.02 260)", glow: "transparent" };
-  if (ps < -2) return { label: "Baixo", width: "50%", color: "oklch(0.78 0.16 80)", glow: "oklch(0.78 0.16 80 / 0.4)" };
-  if (ps < 0) return { label: "Elevado", width: "75%", color: "oklch(0.72 0.18 35)", glow: "oklch(0.72 0.18 35 / 0.5)" };
-  return { label: "Crítico", width: "100%", color: "oklch(0.65 0.22 25)", glow: "oklch(0.65 0.22 25 / 0.6)" };
+  if (isNaN(ps) || ps < -4)
+    return {
+      label: "Mínimo",
+      width: "25%",
+      color: "oklch(0.6 0.02 260)",
+      glow: "transparent",
+    };
+  if (ps < -2)
+    return {
+      label: "Baixo",
+      width: "50%",
+      color: "oklch(0.78 0.16 80)",
+      glow: "oklch(0.78 0.16 80 / 0.4)",
+    };
+  if (ps < 0)
+    return {
+      label: "Elevado",
+      width: "75%",
+      color: "oklch(0.72 0.18 35)",
+      glow: "oklch(0.72 0.18 35 / 0.5)",
+    };
+  return {
+    label: "Crítico",
+    width: "100%",
+    color: "oklch(0.65 0.22 25)",
+    glow: "oklch(0.65 0.22 25 / 0.6)",
+  };
 };
 
 type SortKey = "ps" | "prob";
@@ -73,7 +96,11 @@ export default function CneosPage() {
   );
 
   return (
-    <ModuleScope theme={MODULE.theme} ambient className="min-h-screen pt-12 pb-24 px-4 sm:px-8">
+    <ModuleScope
+      theme={MODULE.theme}
+      ambient
+      className="min-h-screen pt-12 pb-24 px-4 sm:px-8"
+    >
       <div className="max-w-7xl mx-auto w-full">
         {/* Header */}
         <motion.div
@@ -86,10 +113,14 @@ export default function CneosPage() {
               className="p-3 rounded-xl border"
               style={{
                 background: "var(--module-accent-soft)",
-                borderColor: "color-mix(in oklch, var(--module-accent) 35%, transparent)",
+                borderColor:
+                  "color-mix(in oklch, var(--module-accent) 35%, transparent)",
               }}
             >
-              <ShieldAlert className="w-7 h-7" style={{ color: "var(--module-accent)" }} />
+              <ShieldAlert
+                className="w-7 h-7"
+                style={{ color: "var(--module-accent)" }}
+              />
             </div>
             <div>
               <span className="text-[10px] font-mono tracking-[0.3em] uppercase text-muted-foreground/70 block">
@@ -98,7 +129,10 @@ export default function CneosPage() {
               <h1 className="font-serif text-2xl md:text-3xl font-bold tracking-tight">
                 Defesa Planetária
               </h1>
-              <p className="text-sm flex items-center gap-2 font-mono uppercase tracking-widest" style={{ color: "var(--module-accent)" }}>
+              <p
+                className="text-sm flex items-center gap-2 font-mono uppercase tracking-widest"
+                style={{ color: "var(--module-accent)" }}
+              >
                 <Target className="w-3.5 h-3.5" /> Sentry Impact Risk Matrix
               </p>
             </div>
@@ -128,24 +162,36 @@ export default function CneosPage() {
         {/* Stats */}
         {data && !error && !isLoading && (
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-            <HudPanel label="Ameaças Ativas" badge={<Activity className="w-4 h-4 text-muted-foreground/40" />}>
-              <span className="text-3xl font-bold font-mono tabular-nums" style={{ color: "var(--module-accent)" }}>
+            <HudPanel
+              label="Ameaças Ativas"
+              badge={<Activity className="w-4 h-4 text-muted-foreground/40" />}
+            >
+              <span
+                className="text-3xl font-bold font-mono tabular-nums"
+                style={{ color: "var(--module-accent)" }}
+              >
                 {data.count}
               </span>
-              <p className="text-xs text-muted-foreground mt-1">Objetos no catálogo Sentry.</p>
+              <p className="text-xs text-muted-foreground mt-1">
+                Objetos no catálogo Sentry.
+              </p>
             </HudPanel>
 
             <HudPanel
               label="Risco Crítico (PS > 0)"
               badge={
                 criticals > 0 ? (
-                  <span className="text-[10px] font-mono tracking-widest text-destructive">ALERT</span>
+                  <span className="text-[10px] font-mono tracking-widest text-destructive">
+                    ALERT
+                  </span>
                 ) : (
                   <ShieldCheck className="w-4 h-4 text-emerald-400/70" />
                 )
               }
             >
-              <span className={`text-3xl font-bold font-mono tabular-nums ${criticals > 0 ? "text-destructive" : "text-emerald-400"}`}>
+              <span
+                className={`text-3xl font-bold font-mono tabular-nums ${criticals > 0 ? "text-destructive" : "text-emerald-400"}`}
+              >
                 {criticals}
               </span>
               <p className="text-xs text-muted-foreground mt-1">
@@ -154,7 +200,9 @@ export default function CneosPage() {
             </HudPanel>
 
             <HudPanel label="Origem dos Dados">
-              <p className="text-sm font-mono text-foreground/90">{data.signature.source}</p>
+              <p className="text-sm font-mono text-foreground/90">
+                {data.signature.source}
+              </p>
               <p className="text-[10px] font-mono text-muted-foreground/70 mt-1">
                 v.{data.signature.version}
               </p>
@@ -233,14 +281,19 @@ export default function CneosPage() {
                             {obj.v_inf} <span className="text-[10px]">km/s</span>
                           </td>
                           <td className="p-5">
-                            <div className="font-mono text-sm tabular-nums">{obj.ip}</div>
+                            <div className="font-mono text-sm tabular-nums">
+                              {obj.ip}
+                            </div>
                             <div className="text-[10px] text-muted-foreground/70 font-mono mt-1">
                               {probPct}%
                             </div>
                           </td>
                           <td className="p-5">
                             <div className="flex items-center justify-between mb-2">
-                              <span className="text-[10px] font-bold uppercase tracking-[0.2em] font-mono" style={{ color: tier.color }}>
+                              <span
+                                className="text-[10px] font-bold uppercase tracking-[0.2em] font-mono"
+                                style={{ color: tier.color }}
+                              >
                                 {tier.label}
                               </span>
                               <span className="text-xs font-mono text-muted-foreground tabular-nums">

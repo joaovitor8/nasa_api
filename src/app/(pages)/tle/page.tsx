@@ -58,9 +58,15 @@ export default function TlePage() {
   const busy = isLoading || isFetching;
 
   return (
-    <ModuleScope theme={MODULE.theme} className="min-h-screen pt-12 pb-24 px-4 sm:px-8 relative">
+    <ModuleScope
+      theme={MODULE.theme}
+      className="min-h-screen pt-12 pb-24 px-4 sm:px-8 relative"
+    >
       {/* CRT scanlines globais */}
-      <Scanline className="!fixed inset-0 z-50 mix-blend-overlay opacity-50" intensity="subtle" />
+      <Scanline
+        className="!fixed inset-0 z-50 mix-blend-overlay opacity-50"
+        intensity="subtle"
+      />
 
       <div
         className="max-w-5xl mx-auto w-full relative z-10 flex flex-col min-h-[80vh] font-mono"
@@ -69,7 +75,9 @@ export default function TlePage() {
         {/* Header */}
         <div
           className="flex justify-between items-end pb-4 mb-8 border-b-2"
-          style={{ borderColor: "color-mix(in oklch, var(--module-accent) 40%, transparent)" }}
+          style={{
+            borderColor: "color-mix(in oklch, var(--module-accent) 40%, transparent)",
+          }}
         >
           <div>
             <h1 className="text-2xl font-bold tracking-[0.2em] flex items-center gap-3">
@@ -84,7 +92,10 @@ export default function TlePage() {
             <span className="text-xs block mb-1 opacity-60">STATUS</span>
             <span className="flex items-center gap-2 text-sm">
               [
-              <span className="w-2 h-2 rounded-full animate-pulse" style={{ background: "var(--module-accent)" }} />
+              <span
+                className="w-2 h-2 rounded-full animate-pulse"
+                style={{ background: "var(--module-accent)" }}
+              />
               ONLINE ]
             </span>
           </div>
@@ -102,93 +113,116 @@ export default function TlePage() {
               }}
             >
               &gt; ERRO_FATAL: {error.message}
-              <br />&gt; ABORTANDO_OPERAÇÃO.
+              <br />
+              &gt; ABORTANDO_OPERAÇÃO.
             </div>
           )}
 
           {busy && (
             <div className="opacity-70 animate-pulse">
               &gt; Inicializando varredura para NORAD/NOME: &quot;{searchQuery}&quot;…
-              <br />&gt; Interceptando pacotes orbitais. Aguarde.
+              <br />
+              &gt; Interceptando pacotes orbitais. Aguarde.
             </div>
           )}
 
           <AnimatePresence>
-            {!busy && !error && data?.map((tle, index) => {
-              const decoded = decodeTleLine2(tle.line2);
+            {!busy &&
+              !error &&
+              data?.map((tle, index) => {
+                const decoded = decodeTleLine2(tle.line2);
 
-              return (
-                <motion.div
-                  key={tle.satelliteId + ":" + index}
-                  initial={{ opacity: 0, x: -16 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.08 }}
-                  className="flex flex-col gap-4 border p-6 relative"
-                  style={{
-                    borderColor: "color-mix(in oklch, var(--module-accent) 40%, transparent)",
-                    background: "var(--module-accent-soft)",
-                  }}
-                >
-                  <div
-                    className="flex justify-between items-start mb-2 border-b pb-4"
-                    style={{ borderColor: "color-mix(in oklch, var(--module-accent) 25%, transparent)" }}
+                return (
+                  <motion.div
+                    key={tle.satelliteId + ":" + index}
+                    initial={{ opacity: 0, x: -16 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: index * 0.08 }}
+                    className="flex flex-col gap-4 border p-6 relative"
+                    style={{
+                      borderColor:
+                        "color-mix(in oklch, var(--module-accent) 40%, transparent)",
+                      background: "var(--module-accent-soft)",
+                    }}
                   >
-                    <div>
-                      <div className="text-xs uppercase opacity-60 mb-1">Identificação do Alvo</div>
-                      <div className="text-xl font-bold tracking-wider text-foreground">{tle.name}</div>
-                    </div>
-                    <div className="text-right">
-                      <div className="text-xs uppercase opacity-60 mb-1">Época TLE</div>
-                      <div className="text-sm">
-                        {new Date(tle.date).toLocaleString("pt-BR")}
-                      </div>
-                    </div>
-                  </div>
-
-                  <div>
-                    <div className="text-xs uppercase opacity-60 mb-2 flex items-center gap-2">
-                      <Binary className="w-4 h-4" /> Two-Line Element Set Cru
-                    </div>
                     <div
-                      className="bg-black border p-4 font-mono text-xs sm:text-sm overflow-x-auto whitespace-nowrap"
+                      className="flex justify-between items-start mb-2 border-b pb-4"
                       style={{
-                        borderColor: "color-mix(in oklch, var(--module-accent) 40%, transparent)",
-                        boxShadow: "inset 0 0 16px var(--module-accent-soft)",
+                        borderColor:
+                          "color-mix(in oklch, var(--module-accent) 25%, transparent)",
                       }}
                     >
-                      <div>{tle.line1}</div>
-                      <div>{tle.line2}</div>
+                      <div>
+                        <div className="text-xs uppercase opacity-60 mb-1">
+                          Identificação do Alvo
+                        </div>
+                        <div className="text-xl font-bold tracking-wider text-foreground">
+                          {tle.name}
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        <div className="text-xs uppercase opacity-60 mb-1">
+                          Época TLE
+                        </div>
+                        <div className="text-sm">
+                          {new Date(tle.date).toLocaleString("pt-BR")}
+                        </div>
+                      </div>
                     </div>
-                  </div>
 
-                  {decoded && (
-                    <div
-                      className="mt-4 pt-4 border-t"
-                      style={{ borderColor: "color-mix(in oklch, var(--module-accent) 25%, transparent)" }}
-                    >
-                      <div className="text-xs uppercase opacity-60 mb-4 flex items-center gap-2">
-                        <Cpu className="w-4 h-4" /> Decodificação de Telemetria (Linha 2)
+                    <div>
+                      <div className="text-xs uppercase opacity-60 mb-2 flex items-center gap-2">
+                        <Binary className="w-4 h-4" /> Two-Line Element Set Cru
                       </div>
-                      <div className="grid grid-cols-2 lg:grid-cols-3 gap-y-5 gap-x-4">
-                        {([
-                          ["INCLINAÇÃO (°)", decoded.inclination + "°"],
-                          ["EXCENTRICIDADE", decoded.eccentricity],
-                          ["MOV. MÉDIO (V/D)", decoded.meanMotion],
-                          ["ANOMALIA MÉDIA", decoded.meanAnomaly + "°"],
-                          ["ARG. PERIGEU", decoded.perigee + "°"],
-                          ["RAAN", decoded.raan + "°"],
-                        ] as const).map(([label, value]) => (
-                          <div key={label}>
-                            <span className="block text-[10px] opacity-60 mb-1">{label}</span>
-                            <span className="text-lg">{value}</span>
-                          </div>
-                        ))}
+                      <div
+                        className="bg-black border p-4 font-mono text-xs sm:text-sm overflow-x-auto whitespace-nowrap"
+                        style={{
+                          borderColor:
+                            "color-mix(in oklch, var(--module-accent) 40%, transparent)",
+                          boxShadow: "inset 0 0 16px var(--module-accent-soft)",
+                        }}
+                      >
+                        <div>{tle.line1}</div>
+                        <div>{tle.line2}</div>
                       </div>
                     </div>
-                  )}
-                </motion.div>
-              );
-            })}
+
+                    {decoded && (
+                      <div
+                        className="mt-4 pt-4 border-t"
+                        style={{
+                          borderColor:
+                            "color-mix(in oklch, var(--module-accent) 25%, transparent)",
+                        }}
+                      >
+                        <div className="text-xs uppercase opacity-60 mb-4 flex items-center gap-2">
+                          <Cpu className="w-4 h-4" /> Decodificação de Telemetria (Linha
+                          2)
+                        </div>
+                        <div className="grid grid-cols-2 lg:grid-cols-3 gap-y-5 gap-x-4">
+                          {(
+                            [
+                              ["INCLINAÇÃO (°)", decoded.inclination + "°"],
+                              ["EXCENTRICIDADE", decoded.eccentricity],
+                              ["MOV. MÉDIO (V/D)", decoded.meanMotion],
+                              ["ANOMALIA MÉDIA", decoded.meanAnomaly + "°"],
+                              ["ARG. PERIGEU", decoded.perigee + "°"],
+                              ["RAAN", decoded.raan + "°"],
+                            ] as const
+                          ).map(([label, value]) => (
+                            <div key={label}>
+                              <span className="block text-[10px] opacity-60 mb-1">
+                                {label}
+                              </span>
+                              <span className="text-lg">{value}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </motion.div>
+                );
+              })}
           </AnimatePresence>
 
           {!busy && data && data.length === 0 && (
@@ -201,7 +235,9 @@ export default function TlePage() {
         {/* Input de comando */}
         <div
           className="mt-12 bg-black border-t-2 pt-6"
-          style={{ borderColor: "color-mix(in oklch, var(--module-accent) 40%, transparent)" }}
+          style={{
+            borderColor: "color-mix(in oklch, var(--module-accent) 40%, transparent)",
+          }}
         >
           <form onSubmit={handleCommand} className="flex flex-col gap-2">
             <label className="text-xs uppercase tracking-[0.25em] flex items-center gap-2 opacity-70">
@@ -210,7 +246,10 @@ export default function TlePage() {
             </label>
             <div
               className="flex items-center bg-black border focus-within:border-[var(--module-accent)] transition-colors"
-              style={{ borderColor: "color-mix(in oklch, var(--module-accent) 35%, transparent)" }}
+              style={{
+                borderColor:
+                  "color-mix(in oklch, var(--module-accent) 35%, transparent)",
+              }}
             >
               <span className="pl-4 pr-2">root@orbit-tracker:~#</span>
               <input

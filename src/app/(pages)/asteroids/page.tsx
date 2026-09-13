@@ -55,8 +55,12 @@ export default function AsteroidsPage() {
     if (!data) return null;
     const hazardous = data.filter((a) => a.is_potentially_hazardous_asteroid).length;
     const closest = data.reduce<NearEarthObject | null>((min, a) => {
-      const km = parseFloat(a.close_approach_data[0]?.miss_distance.kilometers ?? "Infinity");
-      const minKm = min ? parseFloat(min.close_approach_data[0]?.miss_distance.kilometers ?? "Infinity") : Infinity;
+      const km = parseFloat(
+        a.close_approach_data[0]?.miss_distance.kilometers ?? "Infinity",
+      );
+      const minKm = min
+        ? parseFloat(min.close_approach_data[0]?.miss_distance.kilometers ?? "Infinity")
+        : Infinity;
       return km < minKm ? a : min;
     }, null);
     return { total: data.length, hazardous, closest };
@@ -67,7 +71,11 @@ export default function AsteroidsPage() {
   };
 
   return (
-    <ModuleScope theme={MODULE.theme} ambient className="min-h-screen pt-12 pb-24 px-4 sm:px-8">
+    <ModuleScope
+      theme={MODULE.theme}
+      ambient
+      className="min-h-screen pt-12 pb-24 px-4 sm:px-8"
+    >
       <div className="max-w-7xl mx-auto w-full">
         {/* Header */}
         <motion.div
@@ -80,7 +88,8 @@ export default function AsteroidsPage() {
               className="p-3 rounded-xl border relative"
               style={{
                 background: "var(--module-accent-soft)",
-                borderColor: "color-mix(in oklch, var(--module-accent) 35%, transparent)",
+                borderColor:
+                  "color-mix(in oklch, var(--module-accent) 35%, transparent)",
               }}
             >
               <Radar className="w-7 h-7" style={{ color: "var(--module-accent)" }} />
@@ -128,13 +137,22 @@ export default function AsteroidsPage() {
             animate={{ opacity: 1 }}
             className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8"
           >
-            <HudPanel label="Janela" badge={
-              <span className="text-xs font-mono" style={{ color: "var(--module-accent)" }}>
-                {searchDate}
-              </span>
-            }>
+            <HudPanel
+              label="Janela"
+              badge={
+                <span
+                  className="text-xs font-mono"
+                  style={{ color: "var(--module-accent)" }}
+                >
+                  {searchDate}
+                </span>
+              }
+            >
               <div className="flex items-end justify-between">
-                <span className="text-3xl font-bold font-mono tabular-nums" style={{ color: "var(--module-accent)" }}>
+                <span
+                  className="text-3xl font-bold font-mono tabular-nums"
+                  style={{ color: "var(--module-accent)" }}
+                >
                   {stats.total}
                 </span>
                 <Activity className="w-7 h-7 text-muted-foreground/40" />
@@ -161,7 +179,11 @@ export default function AsteroidsPage() {
               <div className="flex items-end justify-between">
                 <span
                   className={`text-3xl font-bold font-mono tabular-nums ${stats.hazardous > 0 ? "text-destructive" : ""}`}
-                  style={stats.hazardous === 0 ? { color: "var(--module-accent)" } : undefined}
+                  style={
+                    stats.hazardous === 0
+                      ? { color: "var(--module-accent)" }
+                      : undefined
+                  }
                 >
                   {stats.hazardous}
                 </span>
@@ -178,11 +200,20 @@ export default function AsteroidsPage() {
 
             <HudPanel label="Aproximação Mínima">
               <div className="flex flex-col gap-1">
-                <span className="text-2xl font-bold font-mono tabular-nums truncate" style={{ color: "var(--module-accent)" }}>
+                <span
+                  className="text-2xl font-bold font-mono tabular-nums truncate"
+                  style={{ color: "var(--module-accent)" }}
+                >
                   {stats.closest
-                    ? fmt(parseFloat(stats.closest.close_approach_data[0].miss_distance.kilometers))
+                    ? fmt(
+                        parseFloat(
+                          stats.closest.close_approach_data[0].miss_distance.kilometers,
+                        ),
+                      )
                     : "—"}
-                  <span className="text-xs ml-1 text-muted-foreground font-normal">km</span>
+                  <span className="text-xs ml-1 text-muted-foreground font-normal">
+                    km
+                  </span>
                 </span>
                 <span className="text-xs text-muted-foreground truncate">
                   {stats.closest?.name.replace(/[()]/g, "") ?? "—"}
@@ -225,7 +256,9 @@ export default function AsteroidsPage() {
               const ca = neo.close_approach_data[0];
               const hazardous = neo.is_potentially_hazardous_asteroid;
               const sizeM = neo.estimated_diameter.meters.estimated_diameter_max;
-              const velocity = parseFloat(ca?.relative_velocity.kilometers_per_hour ?? "0");
+              const velocity = parseFloat(
+                ca?.relative_velocity.kilometers_per_hour ?? "0",
+              );
               const miss = parseFloat(ca?.miss_distance.kilometers ?? "0");
               const lunar = parseFloat(ca?.miss_distance.lunar ?? "0");
 
@@ -247,7 +280,15 @@ export default function AsteroidsPage() {
                           <ShieldAlert className="w-3 h-3" /> Hazard
                         </span>
                       ) : (
-                        <span className="flex items-center gap-1 px-2 py-0.5 rounded text-[9px] font-mono tracking-widest uppercase border" style={{ background: "var(--module-accent-soft)", color: "var(--module-accent)", borderColor: "color-mix(in oklch, var(--module-accent) 30%, transparent)" }}>
+                        <span
+                          className="flex items-center gap-1 px-2 py-0.5 rounded text-[9px] font-mono tracking-widest uppercase border"
+                          style={{
+                            background: "var(--module-accent-soft)",
+                            color: "var(--module-accent)",
+                            borderColor:
+                              "color-mix(in oklch, var(--module-accent) 30%, transparent)",
+                          }}
+                        >
                           <ShieldCheck className="w-3 h-3" /> Safe
                         </span>
                       )
@@ -257,7 +298,9 @@ export default function AsteroidsPage() {
                       {neo.name.replace(/[()]/g, "")}
                     </h3>
                     <p className="text-xs text-muted-foreground mb-4 flex items-center gap-1.5">
-                      <Target className="w-3 h-3" /> Mag {neo.absolute_magnitude_h.toFixed(2)} · Aprox {ca?.close_approach_date}
+                      <Target className="w-3 h-3" /> Mag{" "}
+                      {neo.absolute_magnitude_h.toFixed(2)} · Aprox{" "}
+                      {ca?.close_approach_date}
                     </p>
                     <DataMatrix data={points} columns={2} />
                   </HudPanel>

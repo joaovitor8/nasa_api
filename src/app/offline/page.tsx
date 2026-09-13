@@ -23,7 +23,9 @@ export default function OfflinePage() {
           <RadioTower className="w-8 h-8" style={{ color: "oklch(0.65 0.22 25)" }} />
           <div
             className="absolute inset-0 rounded-full blur-md -z-10"
-            style={{ background: "color-mix(in oklch, oklch(0.65 0.22 25) 25%, transparent)" }}
+            style={{
+              background: "color-mix(in oklch, oklch(0.65 0.22 25) 25%, transparent)",
+            }}
           />
         </div>
 
@@ -34,8 +36,8 @@ export default function OfflinePage() {
           Sinal Perdido
         </h1>
         <p className="text-muted-foreground leading-relaxed mb-8 text-sm md:text-base">
-          A estação não conseguiu estabelecer uplink com a infraestrutura. Quando a conexão for
-          restaurada, esta console retomará a transmissão automaticamente.
+          A estação não conseguiu estabelecer uplink com a infraestrutura. Quando a
+          conexão for restaurada, esta console retomará a transmissão automaticamente.
         </p>
 
         <Link

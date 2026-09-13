@@ -4,13 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { useQuery } from "@tanstack/react-query";
 import { motion, AnimatePresence } from "framer-motion";
-import {
-  ArrowRight,
-  Calendar,
-  Camera,
-  ChevronDown,
-  ChevronUp,
-} from "lucide-react";
+import { ArrowRight, Calendar, Camera, ChevronDown, ChevronUp } from "lucide-react";
 import axios from "axios";
 
 import { getModule } from "@/src/lib/modules";
@@ -50,7 +44,11 @@ export default function ApodPage() {
   const busy = isLoading || isFetching;
 
   return (
-    <ModuleScope theme={MODULE.theme} ambient className="min-h-screen pt-12 pb-24 px-4 sm:px-8">
+    <ModuleScope
+      theme={MODULE.theme}
+      ambient
+      className="min-h-screen pt-12 pb-24 px-4 sm:px-8"
+    >
       <div className="max-w-6xl mx-auto w-full">
         {/* Header */}
         <motion.div
@@ -139,10 +137,22 @@ export default function ApodPage() {
               )}
 
               {/* Corner brackets do tema */}
-              <span className="absolute top-3 left-3 w-4 h-4 border-t-2 border-l-2" style={{ borderColor: "var(--module-accent)" }} />
-              <span className="absolute top-3 right-3 w-4 h-4 border-t-2 border-r-2" style={{ borderColor: "var(--module-accent)" }} />
-              <span className="absolute bottom-3 left-3 w-4 h-4 border-b-2 border-l-2" style={{ borderColor: "var(--module-accent)" }} />
-              <span className="absolute bottom-3 right-3 w-4 h-4 border-b-2 border-r-2" style={{ borderColor: "var(--module-accent)" }} />
+              <span
+                className="absolute top-3 left-3 w-4 h-4 border-t-2 border-l-2"
+                style={{ borderColor: "var(--module-accent)" }}
+              />
+              <span
+                className="absolute top-3 right-3 w-4 h-4 border-t-2 border-r-2"
+                style={{ borderColor: "var(--module-accent)" }}
+              />
+              <span
+                className="absolute bottom-3 left-3 w-4 h-4 border-b-2 border-l-2"
+                style={{ borderColor: "var(--module-accent)" }}
+              />
+              <span
+                className="absolute bottom-3 right-3 w-4 h-4 border-b-2 border-r-2"
+                style={{ borderColor: "var(--module-accent)" }}
+              />
             </motion.div>
 
             {data && !busy && (
@@ -158,10 +168,15 @@ export default function ApodPage() {
 
                 <div className="flex flex-wrap justify-center items-center gap-x-8 gap-y-2 text-xs font-mono uppercase tracking-[0.2em] text-muted-foreground border-y border-white/5 py-4 mb-10 w-full max-w-3xl">
                   <span className="flex items-center gap-2">
-                    <Calendar className="w-3.5 h-3.5" style={{ color: "var(--module-accent)" }} />
+                    <Calendar
+                      className="w-3.5 h-3.5"
+                      style={{ color: "var(--module-accent)" }}
+                    />
                     {data.date}
                   </span>
-                  {data.copyright && <span className="opacity-60">© {data.copyright}</span>}
+                  {data.copyright && (
+                    <span className="opacity-60">© {data.copyright}</span>
+                  )}
                 </div>
 
                 <button
@@ -169,12 +184,17 @@ export default function ApodPage() {
                   className="group flex items-center gap-3 px-7 py-3 rounded-full border text-xs font-mono uppercase tracking-[0.3em] transition-all hover:scale-105"
                   style={{
                     color: "var(--module-accent)",
-                    borderColor: "color-mix(in oklch, var(--module-accent) 30%, transparent)",
+                    borderColor:
+                      "color-mix(in oklch, var(--module-accent) 30%, transparent)",
                     background: "var(--module-accent-soft)",
                   }}
                 >
                   {expanded ? "Ocultar Dossiê" : "Abrir Dossiê Técnico"}
-                  {expanded ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+                  {expanded ? (
+                    <ChevronUp className="w-4 h-4" />
+                  ) : (
+                    <ChevronDown className="w-4 h-4" />
+                  )}
                 </button>
 
                 <AnimatePresence>

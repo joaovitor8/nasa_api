@@ -64,7 +64,11 @@ export default function TechPortPage() {
   }, [filtered, selectedId]);
 
   return (
-    <ModuleScope theme={MODULE.theme} ambient className="min-h-screen pt-12 pb-24 px-4 sm:px-8">
+    <ModuleScope
+      theme={MODULE.theme}
+      ambient
+      className="min-h-screen pt-12 pb-24 px-4 sm:px-8"
+    >
       <div className="max-w-[100rem] mx-auto w-full">
         {/* Header */}
         <motion.div
@@ -77,7 +81,8 @@ export default function TechPortPage() {
               className="p-3 rounded-xl border"
               style={{
                 background: "var(--module-accent-soft)",
-                borderColor: "color-mix(in oklch, var(--module-accent) 35%, transparent)",
+                borderColor:
+                  "color-mix(in oklch, var(--module-accent) 35%, transparent)",
               }}
             >
               <Cpu className="w-7 h-7" style={{ color: "var(--module-accent)" }} />
@@ -89,7 +94,10 @@ export default function TechPortPage() {
               <h1 className="font-serif text-2xl md:text-3xl font-bold tracking-tight">
                 Blueprints de P&amp;D
               </h1>
-              <p className="text-xs font-mono uppercase tracking-widest flex items-center gap-2" style={{ color: "var(--module-accent)" }}>
+              <p
+                className="text-xs font-mono uppercase tracking-widest flex items-center gap-2"
+                style={{ color: "var(--module-accent)" }}
+              >
                 <FlaskConical className="w-3.5 h-3.5" /> NASA TechPort
               </p>
             </div>
@@ -131,7 +139,9 @@ export default function TechPortPage() {
             <div className="w-full lg:w-1/3 xl:w-1/4 flex flex-col bg-black/40 border border-white/10 rounded-3xl overflow-hidden backdrop-blur-md max-h-[80vh]">
               <div className="p-4 border-b border-white/10 bg-white/5 text-[10px] font-mono uppercase tracking-[0.2em] flex justify-between text-muted-foreground">
                 <span>Portfolio</span>
-                <span style={{ color: "var(--module-accent)" }}>{filtered.length} projetos</span>
+                <span style={{ color: "var(--module-accent)" }}>
+                  {filtered.length} projetos
+                </span>
               </div>
               <div className="grow overflow-y-auto p-2 space-y-1">
                 {filtered.map((p) => {
@@ -146,7 +156,8 @@ export default function TechPortPage() {
                         active
                           ? {
                               background: "var(--module-accent-soft)",
-                              borderColor: "color-mix(in oklch, var(--module-accent) 35%, transparent)",
+                              borderColor:
+                                "color-mix(in oklch, var(--module-accent) 35%, transparent)",
                             }
                           : { borderColor: "transparent" }
                       }
@@ -162,7 +173,8 @@ export default function TechPortPage() {
                           className="text-[10px] font-mono px-1.5 py-0.5 rounded border shrink-0"
                           style={{
                             color: "var(--module-accent)",
-                            borderColor: "color-mix(in oklch, var(--module-accent) 30%, transparent)",
+                            borderColor:
+                              "color-mix(in oklch, var(--module-accent) 30%, transparent)",
                           }}
                         >
                           TRL {trlEnd}
@@ -198,7 +210,8 @@ export default function TechPortPage() {
                           className="text-[10px] font-mono uppercase tracking-[0.25em] px-2 py-0.5 rounded border"
                           style={{
                             color: "var(--module-accent)",
-                            borderColor: "color-mix(in oklch, var(--module-accent) 30%, transparent)",
+                            borderColor:
+                              "color-mix(in oklch, var(--module-accent) 30%, transparent)",
                           }}
                         >
                           ID #{selected.id}
@@ -210,7 +223,8 @@ export default function TechPortPage() {
                       </h2>
 
                       <p className="text-sm text-muted-foreground leading-relaxed mb-6">
-                        {selected.description ?? "Esquemas técnicos não publicados para este projeto."}
+                        {selected.description ??
+                          "Esquemas técnicos não publicados para este projeto."}
                       </p>
 
                       {/* TRL Bar */}
@@ -235,7 +249,9 @@ export default function TechPortPage() {
                                   background: inRange
                                     ? "var(--module-accent)"
                                     : "color-mix(in oklch, var(--module-accent) 12%, transparent)",
-                                  boxShadow: inRange ? "0 0 8px var(--module-accent-soft)" : "none",
+                                  boxShadow: inRange
+                                    ? "0 0 8px var(--module-accent-soft)"
+                                    : "none",
                                 }}
                               />
                             );
@@ -259,13 +275,22 @@ export default function TechPortPage() {
                         </div>
                       )}
 
-                      {(selected.startDateString || selected.endDateString || selected.responsibleProgram || selected.website) && (
+                      {(selected.startDateString ||
+                        selected.endDateString ||
+                        selected.responsibleProgram ||
+                        selected.website) && (
                         <div className="border-t border-white/5 mt-4 pt-4 grid grid-cols-2 md:grid-cols-4 gap-4 text-xs font-mono">
                           {selected.startDateString && (
-                            <DetailItem label="Início" value={selected.startDateString} />
+                            <DetailItem
+                              label="Início"
+                              value={selected.startDateString}
+                            />
                           )}
                           {selected.endDateString && (
-                            <DetailItem label="Conclusão" value={selected.endDateString} />
+                            <DetailItem
+                              label="Conclusão"
+                              value={selected.endDateString}
+                            />
                           )}
                           {selected.responsibleProgram && (
                             <DetailItem
@@ -299,7 +324,15 @@ export default function TechPortPage() {
   );
 }
 
-function DetailItem({ label, value, span }: { label: string; value: string; span?: boolean }) {
+function DetailItem({
+  label,
+  value,
+  span,
+}: {
+  label: string;
+  value: string;
+  span?: boolean;
+}) {
   return (
     <div className={span ? "col-span-2" : ""}>
       <span className="block text-[9px] font-mono uppercase tracking-[0.25em] text-muted-foreground/70 mb-1">

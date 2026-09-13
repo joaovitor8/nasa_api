@@ -7,9 +7,9 @@ interface ScanlineProps {
 }
 
 const INTENSITY: Record<NonNullable<ScanlineProps["intensity"]>, string> = {
-  subtle:  "opacity-30",
+  subtle: "opacity-30",
   default: "opacity-60",
-  strong:  "opacity-100",
+  strong: "opacity-100",
 };
 
 export function Scanline({ className, intensity = "default" }: ScanlineProps) {
@@ -20,10 +20,7 @@ export function Scanline({ className, intensity = "default" }: ScanlineProps) {
     >
       <div className="absolute inset-0 hud-scanlines" />
       <div
-        className={cn(
-          "absolute inset-x-0 h-16 -top-16",
-          INTENSITY[intensity],
-        )}
+        className={cn("absolute inset-x-0 h-16 -top-16", INTENSITY[intensity])}
         style={{
           background:
             "linear-gradient(to bottom, transparent, var(--module-accent-soft, rgba(255,255,255,0.06)), transparent)",

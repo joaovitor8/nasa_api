@@ -11,8 +11,7 @@ export async function GET() {
   return handleRoute(
     {
       tag: "SSC",
-      fallbackMessage:
-        "Falha de handshake com os servidores de rastreio orbital.",
+      fallbackMessage: "Falha de handshake com os servidores de rastreio orbital.",
     },
     async () => {
       const data = await fetchUpstream<SscRawResponse>(

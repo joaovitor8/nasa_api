@@ -11,20 +11,16 @@ export async function GET(request: Request) {
   return handleRoute(
     {
       tag: "DONKI",
-      fallbackMessage:
-        "Interferência eletromagnética. Falha ao obter dados solares.",
+      fallbackMessage: "Interferência eletromagnética. Falha ao obter dados solares.",
       messages: {
         429: "Cota de telemetria estourada. Aguarde alguns minutos.",
       },
     },
     async () => {
-      const data = await fetchUpstream<SolarFlare[]>(
-        "https://api.nasa.gov/DONKI/FLR",
-        {
-          nasaAuth: true,
-          params: { startDate, endDate },
-        },
-      );
+      const data = await fetchUpstream<SolarFlare[]>("https://api.nasa.gov/DONKI/FLR", {
+        nasaAuth: true,
+        params: { startDate, endDate },
+      });
       return data ?? [];
     },
   );

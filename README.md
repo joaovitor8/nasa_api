@@ -21,15 +21,15 @@ Universo é uma plataforma imersiva que reúne em uma única interface os princi
 
 ## Stack
 
-| Camada               | Tecnologia                                              |
-|----------------------|---------------------------------------------------------|
-| Framework            | Next.js 16 (App Router, RSC, Route Handlers)            |
-| UI                   | React 19, Tailwind CSS v4, Framer Motion 12             |
-| 3D                   | Three.js, React Three Fiber, Drei                       |
-| Estado / Cache       | TanStack Query v5, Axios                                |
-| Tipagem              | TypeScript 5 (strict)                                   |
-| Ícones / Tipografia  | Lucide, Inter, Cinzel, JetBrains Mono                   |
-| PWA                  | Service Worker custom, Web App Manifest                 |
+| Camada              | Tecnologia                                   |
+| ------------------- | -------------------------------------------- |
+| Framework           | Next.js 16 (App Router, RSC, Route Handlers) |
+| UI                  | React 19, Tailwind CSS v4, Framer Motion 12  |
+| 3D                  | Three.js, React Three Fiber, Drei            |
+| Estado / Cache      | TanStack Query v5, Axios                     |
+| Tipagem             | TypeScript 5 (strict)                        |
+| Ícones / Tipografia | Lucide, Inter, Cinzel, JetBrains Mono        |
+| PWA                 | Service Worker custom, Web App Manifest      |
 
 ## Arquitetura
 
@@ -70,6 +70,7 @@ app/
 ## Módulos disponíveis
 
 ### Mídia & Arquivos
+
 - **APOD** — A imagem astronômica do dia
 - **Library** — Busca multimídia no acervo histórico da NASA
 - **EPIC** — Time-lapse da Terra do ponto Lagrange L1
@@ -77,12 +78,14 @@ app/
 - **News** — Feed agregado do setor (Spaceflight News)
 
 ### Defesa & Monitoramento
+
 - **NEO Radar** — Asteroides próximos da Terra (NeoWs)
 - **Sentry** — Matriz de risco de impacto (CNEOS)
 - **DONKI** — Erupções e tempestades solares
 - **EONET** — Eventos geológicos e climáticos severos
 
 ### Sondas & Cartografia
+
 - **SSC** — Tráfego orbital e cruzamento de frota
 - **TLE** — Decodificador de elementos de duas linhas
 - **SpaceX** — Frota Falcon/Starship, próximos lançamentos
@@ -90,6 +93,7 @@ app/
 - **Trek WMTS** — Slippy map da Lua, Marte e Vesta
 
 ### Ciência & Engenharia
+
 - **Exoplanets** — Catálogo profundo de mundos confirmados (Caltech)
 - **TechPort** — Blueprints de P&D da agência (TRL)
 - **TechTransfer** — Patentes, código aberto e spinoffs

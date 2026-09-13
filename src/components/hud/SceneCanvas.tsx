@@ -43,7 +43,12 @@ export function SceneCanvas({
         <Canvas
           camera={camera ?? { position: [0, 1.6, 6], fov: 45, near: 0.05, far: 5000 }}
           dpr={dpr ?? [1, 2]}
-          gl={{ antialias: true, alpha: true, powerPreference: "high-performance", ...(gl ?? {}) }}
+          gl={{
+            antialias: true,
+            alpha: true,
+            powerPreference: "high-performance",
+            ...(gl ?? {}),
+          }}
           {...rest}
         >
           {children}

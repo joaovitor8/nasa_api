@@ -64,14 +64,28 @@ export default function SingularityPage() {
   const preset = PRESETS[presetIdx];
 
   const physicsData: DataPoint[] = [
-    { label: "Massa", value: preset.id === "sgr" ? "4.1×10⁶" : preset.id === "m87" ? "6.5×10⁹" : "6.6×10¹⁰", unit: "M☉" },
-    { label: "Spin (a*)", value: (preset.spin * 0.998 / 1.6).toFixed(3), unit: "" },
+    {
+      label: "Massa",
+      value:
+        preset.id === "sgr" ? "4.1×10⁶" : preset.id === "m87" ? "6.5×10⁹" : "6.6×10¹⁰",
+      unit: "M☉",
+    },
+    { label: "Spin (a*)", value: ((preset.spin * 0.998) / 1.6).toFixed(3), unit: "" },
     { label: "Inclinação", value: (preset.tilt * 57.29).toFixed(1), unit: "°" },
-    { label: "Schwarz.", value: preset.id === "sgr" ? "12.1" : preset.id === "m87" ? "1.91×10⁴" : "1.95×10⁵", unit: "Gm" },
+    {
+      label: "Schwarz.",
+      value:
+        preset.id === "sgr" ? "12.1" : preset.id === "m87" ? "1.91×10⁴" : "1.95×10⁵",
+      unit: "Gm",
+    },
   ];
 
   return (
-    <ModuleScope theme={MODULE.theme} ambient className="min-h-screen pt-12 pb-24 px-4 sm:px-8">
+    <ModuleScope
+      theme={MODULE.theme}
+      ambient
+      className="min-h-screen pt-12 pb-24 px-4 sm:px-8"
+    >
       <div className="max-w-7xl mx-auto w-full">
         {/* Header */}
         <motion.div
@@ -84,13 +98,17 @@ export default function SingularityPage() {
               className="p-3 rounded-xl border relative"
               style={{
                 background: "var(--module-accent-soft)",
-                borderColor: "color-mix(in oklch, var(--module-accent) 35%, transparent)",
+                borderColor:
+                  "color-mix(in oklch, var(--module-accent) 35%, transparent)",
               }}
             >
               <Orbit className="w-7 h-7" style={{ color: "var(--module-accent)" }} />
               <div
                 className="absolute inset-0 rounded-xl blur-md"
-                style={{ background: "var(--module-accent-soft)", animation: "hud-pulse 3s ease-in-out infinite" }}
+                style={{
+                  background: "var(--module-accent-soft)",
+                  animation: "hud-pulse 3s ease-in-out infinite",
+                }}
               />
             </div>
             <div>
@@ -100,8 +118,12 @@ export default function SingularityPage() {
               <h1 className="font-serif text-2xl md:text-3xl font-bold tracking-tight">
                 Singularidade
               </h1>
-              <p className="text-xs font-mono uppercase tracking-widest flex items-center gap-2" style={{ color: "var(--module-accent)" }}>
-                <Radiation className="w-3.5 h-3.5" /> Schwarzschild · Disco de Acreção · Doppler Boost
+              <p
+                className="text-xs font-mono uppercase tracking-widest flex items-center gap-2"
+                style={{ color: "var(--module-accent)" }}
+              >
+                <Radiation className="w-3.5 h-3.5" /> Schwarzschild · Disco de Acreção ·
+                Doppler Boost
               </p>
             </div>
           </div>
@@ -159,7 +181,14 @@ export default function SingularityPage() {
             </div>
 
             {/* Cantos HUD */}
-            {(["top-3 left-3 border-t border-l", "top-3 right-3 border-t border-r", "bottom-3 left-3 border-b border-l", "bottom-3 right-3 border-b border-r"] as const).map((p) => (
+            {(
+              [
+                "top-3 left-3 border-t border-l",
+                "top-3 right-3 border-t border-r",
+                "bottom-3 left-3 border-b border-l",
+                "bottom-3 right-3 border-b border-r",
+              ] as const
+            ).map((p) => (
               <span
                 key={p}
                 className={`pointer-events-none absolute w-4 h-4 ${p}`}
@@ -179,7 +208,9 @@ export default function SingularityPage() {
 
             <HudPanel
               label="Briefing"
-              badge={<Atom className="w-4 h-4" style={{ color: "var(--module-accent)" }} />}
+              badge={
+                <Atom className="w-4 h-4" style={{ color: "var(--module-accent)" }} />
+              }
             >
               <h3 className="font-serif text-lg font-bold mb-2 leading-snug">
                 {preset.id === "sgr" && "Sagittarius A*"}
@@ -202,16 +233,23 @@ export default function SingularityPage() {
             >
               <ul className="space-y-2 text-xs font-mono">
                 <Effect label="Photon Ring" detail="Anel de luz a 1.5 r_s" />
-                <Effect label="Doppler Boost" detail="Lado próximo ~50% mais brilhante" />
+                <Effect
+                  label="Doppler Boost"
+                  detail="Lado próximo ~50% mais brilhante"
+                />
                 <Effect label="Acreção" detail="Plasma a 10⁹ K · gradiente radial" />
                 <Effect label="Glow Fresnel" detail="Distorção da luz no horizonte" />
               </ul>
             </HudPanel>
 
             <div className="rounded-xl border border-white/10 bg-white/[0.02] p-4 text-[10px] font-mono uppercase tracking-[0.2em] text-muted-foreground/70 flex items-start gap-2">
-              <Telescope className="w-3.5 h-3.5 mt-0.5 shrink-0" style={{ color: "var(--module-accent)" }} />
+              <Telescope
+                className="w-3.5 h-3.5 mt-0.5 shrink-0"
+                style={{ color: "var(--module-accent)" }}
+              />
               <span>
-                Modelo educacional. A geodésica nula real foi aproximada por gradiente radial — não substitui Kerr.
+                Modelo educacional. A geodésica nula real foi aproximada por gradiente
+                radial — não substitui Kerr.
               </span>
             </div>
           </div>
@@ -224,7 +262,10 @@ export default function SingularityPage() {
 function Effect({ label, detail }: { label: string; detail: string }) {
   return (
     <li className="flex justify-between items-baseline gap-3 border-b border-white/5 pb-1.5 last:border-0 last:pb-0">
-      <span className="uppercase tracking-[0.2em]" style={{ color: "var(--module-accent)" }}>
+      <span
+        className="uppercase tracking-[0.2em]"
+        style={{ color: "var(--module-accent)" }}
+      >
         {label}
       </span>
       <span className="text-muted-foreground/70 text-right">{detail}</span>

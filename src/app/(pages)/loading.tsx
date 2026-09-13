@@ -5,11 +5,7 @@ export default function Loading() {
     <div className="min-h-screen pt-12 pb-24 px-4 sm:px-8 flex items-center justify-center">
       <TelemetrySpinner
         label="UNIVERSO · ROTEAMENTO"
-        phases={[
-          "Carregando módulo",
-          "Estabelecendo uplink",
-          "Renderizando console",
-        ]}
+        phases={["Carregando módulo", "Estabelecendo uplink", "Renderizando console"]}
       />
     </div>
   );

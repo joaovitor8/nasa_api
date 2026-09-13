@@ -15,32 +15,56 @@ import { pickLocale, useLocale } from "@/src/lib/i18n";
 
 type IconType = ComponentType<SVGProps<SVGSVGElement>>;
 
-const CATEGORY_ORDER: ModuleCategory[] = [
-  "media",
-  "defense",
-  "cartography",
-  "science",
-];
+const CATEGORY_ORDER: ModuleCategory[] = ["media", "defense", "cartography", "science"];
 
 const DATA_SOURCES = [
-  "NASA", "JPL", "Caltech", "NOAA SWPC", "ESA EONET",
-  "SpaceX", "CelesTrak", "Spaceflight News", "OSDR", "Wikipedia",
+  "NASA",
+  "JPL",
+  "Caltech",
+  "NOAA SWPC",
+  "ESA EONET",
+  "SpaceX",
+  "CelesTrak",
+  "Spaceflight News",
+  "OSDR",
+  "Wikipedia",
 ];
 
 const TECH_STACK = [
-  "Next.js 16", "React 19", "TypeScript 5", "Tailwind v4",
-  "Three.js", "Framer Motion", "TanStack Query",
+  "Next.js 16",
+  "React 19",
+  "TypeScript 5",
+  "Tailwind v4",
+  "Three.js",
+  "Framer Motion",
+  "TanStack Query",
 ];
 
 const GithubIcon: IconType = (props) => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    {...props}
+  >
     <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.24c3-.34 6-1.53 6-6.36s-1.4-3.4-1.4-3.4a4.4 4.4 0 0 0-.09-3.41S17 2 12 5.5a11 11 0 0 0-4 0C3.5 2 2.5 2 2.5 2a4.4 4.4 0 0 0-.09 3.41S1 7.2 1 12c0 4.83 3 6 6 6.36a4.8 4.8 0 0 0-1 3.24v4" />
     <path d="M9 18c-4.51 2-5-2-7-2" />
   </svg>
 );
 
 const LinkedinIcon: IconType = (props) => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    {...props}
+  >
     <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
     <rect width="4" height="12" x="2" y="9" />
     <circle cx="4" cy="4" r="2" />
@@ -104,7 +128,9 @@ export function Footer() {
           <div className="lg:col-span-5 grid grid-cols-2 sm:grid-cols-4 gap-5">
             {CATEGORY_ORDER.map((catId) => {
               const meta = CATEGORY_META[catId];
-              const modules = getModulesByCategory(catId).filter((m) => m.status === "active");
+              const modules = getModulesByCategory(catId).filter(
+                (m) => m.status === "active",
+              );
               const Icon = meta.icon;
 
               return (
@@ -115,7 +141,8 @@ export function Footer() {
                   </div>
                   <ul className="flex flex-col gap-1.5">
                     {modules.map((mod) => {
-                      const linkClass = "text-xs text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1.5 group";
+                      const linkClass =
+                        "text-xs text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1.5 group";
                       const inner = (
                         <>
                           <span
@@ -125,14 +152,23 @@ export function Footer() {
                               boxShadow: `0 0 6px ${mod.theme.accent}`,
                             }}
                           />
-                          <span className="truncate">{pickLocale(mod.title, mod.titleEn, locale)}</span>
-                          {mod.external && <ArrowUpRight className="w-2.5 h-2.5 opacity-50 shrink-0" />}
+                          <span className="truncate">
+                            {pickLocale(mod.title, mod.titleEn, locale)}
+                          </span>
+                          {mod.external && (
+                            <ArrowUpRight className="w-2.5 h-2.5 opacity-50 shrink-0" />
+                          )}
                         </>
                       );
                       return (
                         <li key={mod.id}>
                           {mod.external ? (
-                            <a href={mod.href} target="_blank" rel="noreferrer" className={linkClass}>
+                            <a
+                              href={mod.href}
+                              target="_blank"
+                              rel="noreferrer"
+                              className={linkClass}
+                            >
                               {inner}
                             </a>
                           ) : (
@@ -157,7 +193,11 @@ export function Footer() {
               </h3>
               <ul className="flex flex-col gap-1.5 text-xs">
                 <FooterLink href="/mission-control" label={t("nav.missionControl")} />
-                <FooterLink href="/solar-system" label={pickLocale("Sistema Solar", "Solar System", locale)} icon={<Sparkles className="w-3 h-3" />} />
+                <FooterLink
+                  href="/solar-system"
+                  label={pickLocale("Sistema Solar", "Solar System", locale)}
+                  icon={<Sparkles className="w-3 h-3" />}
+                />
                 <FooterLink href="/sobre" label={t("nav.about")} />
                 <FooterLink href="/offline" label={t("footer.offline")} />
                 <FooterLink href="/sitemap.xml" label={t("footer.sitemap")} external />
@@ -169,8 +209,16 @@ export function Footer() {
                 {t("footer.missionStatus")}
               </h3>
               <div className="grid grid-cols-3 gap-1.5">
-                <Stat label={t("footer.online")} value={ENABLED_MODULES.length} accent="emerald" />
-                <Stat label={t("footer.bodies")} value={SOLAR_BODIES.length} accent="amber" />
+                <Stat
+                  label={t("footer.online")}
+                  value={ENABLED_MODULES.length}
+                  accent="emerald"
+                />
+                <Stat
+                  label={t("footer.bodies")}
+                  value={SOLAR_BODIES.length}
+                  accent="amber"
+                />
                 <Stat label={t("footer.routes")} value={totalRoutes} accent="cyan" />
               </div>
               <div className="flex items-center gap-2 mt-3 text-[9px] font-mono uppercase tracking-[0.25em] text-muted-foreground">
@@ -208,7 +256,10 @@ export function Footer() {
                 <span
                   key={tech}
                   className="text-[10px] font-mono uppercase tracking-[0.2em] px-2 py-1 rounded-md border bg-primary/4 text-primary/80"
-                  style={{ borderColor: "color-mix(in oklch, oklch(0.60 0.18 290) 25%, transparent)" }}
+                  style={{
+                    borderColor:
+                      "color-mix(in oklch, oklch(0.60 0.18 290) 25%, transparent)",
+                  }}
                 >
                   {tech}
                 </span>
@@ -265,7 +316,8 @@ interface FooterLinkProps {
 }
 
 function FooterLink({ href, label, icon, external }: FooterLinkProps) {
-  const className = "text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1.5 group";
+  const className =
+    "text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1.5 group";
   const content = (
     <>
       {icon ? (
@@ -273,7 +325,9 @@ function FooterLink({ href, label, icon, external }: FooterLinkProps) {
           {icon}
         </span>
       ) : (
-        <span className="text-[9px] font-mono opacity-30 group-hover:opacity-80 transition-opacity">→</span>
+        <span className="text-[9px] font-mono opacity-30 group-hover:opacity-80 transition-opacity">
+          →
+        </span>
       )}
       {label}
     </>
@@ -312,7 +366,10 @@ function Stat({ label, value, accent }: StatProps) {
       <span className="text-[8px] font-mono uppercase tracking-[0.2em] text-muted-foreground/70 truncate">
         {label}
       </span>
-      <span className="font-mono font-bold tabular-nums text-base" style={{ color: STAT_COLOR[accent] }}>
+      <span
+        className="font-mono font-bold tabular-nums text-base"
+        style={{ color: STAT_COLOR[accent] }}
+      >
         {value}
       </span>
     </div>

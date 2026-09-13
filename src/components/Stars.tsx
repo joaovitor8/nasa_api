@@ -21,8 +21,14 @@ interface Star {
 }
 
 const COLORS = [
-  "#0000FF", "#F0FFFF", "#1E90FF", "#FFFFFF",
-  "#FFFACD", "#FFFF00", "#FFA500", "#FF0000",
+  "#0000FF",
+  "#F0FFFF",
+  "#1E90FF",
+  "#FFFFFF",
+  "#FFFACD",
+  "#FFFF00",
+  "#FFA500",
+  "#FF0000",
 ];
 
 const hexToRgb = (hex: string): string => {

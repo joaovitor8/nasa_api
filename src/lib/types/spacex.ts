@@ -9,8 +9,8 @@ export interface SpacexLaunch {
   upcoming: boolean;
   success: boolean | null;
   details: string | null;
-  rocket: string;       // rocket id
-  launchpad: string;    // launchpad id
+  rocket: string; // rocket id
+  launchpad: string; // launchpad id
   failures?: { time: number; altitude: number | null; reason: string }[];
   links: {
     patch?: { small: string | null; large: string | null };

@@ -24,11 +24,7 @@ import axios from "axios";
 import { useT } from "@/src/lib/i18n";
 import type { ApodData, SentryResponse, SolarFlare } from "@/src/lib/types/nasa";
 import type { SpacexSnapshot } from "@/src/lib/types/spacex";
-import {
-  CommsFailure,
-  HudPanel,
-  TelemetrySpinner,
-} from "@/src/components/hud";
+import { CommsFailure, HudPanel, TelemetrySpinner } from "@/src/components/hud";
 
 /* ─── Fetchers ────────────────────────────────────────────────── */
 
@@ -92,7 +88,8 @@ export default function MissionControlPage() {
   const sentry = useQuery({ queryKey: ["mc-sentry"], queryFn: fetchSentry });
   const flares = useQuery({ queryKey: ["mc-flares"], queryFn: fetchFlares });
 
-  const isLoading = apod.isLoading || spacex.isLoading || sentry.isLoading || flares.isLoading;
+  const isLoading =
+    apod.isLoading || spacex.isLoading || sentry.isLoading || flares.isLoading;
   const allFailed = apod.isError && spacex.isError && sentry.isError && flares.isError;
 
   /* tick para countdown */
@@ -115,8 +112,8 @@ export default function MissionControlPage() {
     const list = flares.data ?? [];
     if (list.length === 0) return null;
     // ordenar por beginTime desc
-    return [...list].sort((a, b) =>
-      new Date(b.beginTime).getTime() - new Date(a.beginTime).getTime(),
+    return [...list].sort(
+      (a, b) => new Date(b.beginTime).getTime() - new Date(a.beginTime).getTime(),
     )[0];
   }, [flares.data]);
 
@@ -304,7 +301,9 @@ export default function MissionControlPage() {
                       </div>
                       <div className="flex items-center gap-2">
                         <MapPin className="w-3.5 h-3.5 text-orange-300/70" />
-                        {countdown.past ? "T+ Mission elapsed" : `${t("mc.tMinus")}${countdown.days}d ${pad(countdown.hours)}h`}
+                        {countdown.past
+                          ? "T+ Mission elapsed"
+                          : `${t("mc.tMinus")}${countdown.days}d ${pad(countdown.hours)}h`}
                       </div>
                     </div>
                   </>
@@ -414,7 +413,8 @@ export default function MissionControlPage() {
                           {latestFlare.classType}
                         </div>
                         <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-muted-foreground/70 flex items-center gap-1.5">
-                          <Sun className="w-3 h-3" /> {latestFlare.sourceLocation || "—"}
+                          <Sun className="w-3 h-3" />{" "}
+                          {latestFlare.sourceLocation || "—"}
                         </span>
                       </div>
                     </div>
@@ -458,7 +458,15 @@ export default function MissionControlPage() {
   );
 }
 
-function Stat({ label, value, accent }: { label: string; value: string; accent: string }) {
+function Stat({
+  label,
+  value,
+  accent,
+}: {
+  label: string;
+  value: string;
+  accent: string;
+}) {
   return (
     <div
       className="rounded-lg border bg-white/[0.02] p-2.5"
@@ -467,7 +475,10 @@ function Stat({ label, value, accent }: { label: string; value: string; accent: 
       <span className="block text-[9px] font-mono uppercase tracking-[0.2em] text-muted-foreground/70">
         {label}
       </span>
-      <span className="block font-mono font-bold text-lg tabular-nums" style={{ color: accent }}>
+      <span
+        className="block font-mono font-bold text-lg tabular-nums"
+        style={{ color: accent }}
+      >
         {value}
       </span>
     </div>

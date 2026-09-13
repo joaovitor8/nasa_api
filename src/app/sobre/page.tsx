@@ -44,72 +44,225 @@ interface DataSource {
 
 const DATA_SOURCES: DataSource[] = [
   // Imagery
-  { name: "NASA APOD", description: "Astronomy Picture of the Day", url: "https://apod.nasa.gov", icon: Sparkles, domain: "imagery" },
-  { name: "EPIC", description: "DSCOVR L1 Earth imager", url: "https://epic.gsfc.nasa.gov", icon: Satellite, domain: "imagery" },
-  { name: "NASA Library", description: "Image & Video Library", url: "https://images.nasa.gov", icon: Library, domain: "imagery" },
-  { name: "GIBS / Worldview", description: "Global Imagery Browse Services", url: "https://nasa-gibs.github.io/gibs-api-docs/", icon: Layers, domain: "imagery" },
-  { name: "Trek WMTS", description: "Planetary tile servers (Moon, Mars, Vesta)", url: "https://trek.nasa.gov", icon: MapIcon, domain: "imagery" },
+  {
+    name: "NASA APOD",
+    description: "Astronomy Picture of the Day",
+    url: "https://apod.nasa.gov",
+    icon: Sparkles,
+    domain: "imagery",
+  },
+  {
+    name: "EPIC",
+    description: "DSCOVR L1 Earth imager",
+    url: "https://epic.gsfc.nasa.gov",
+    icon: Satellite,
+    domain: "imagery",
+  },
+  {
+    name: "NASA Library",
+    description: "Image & Video Library",
+    url: "https://images.nasa.gov",
+    icon: Library,
+    domain: "imagery",
+  },
+  {
+    name: "GIBS / Worldview",
+    description: "Global Imagery Browse Services",
+    url: "https://nasa-gibs.github.io/gibs-api-docs/",
+    icon: Layers,
+    domain: "imagery",
+  },
+  {
+    name: "Trek WMTS",
+    description: "Planetary tile servers (Moon, Mars, Vesta)",
+    url: "https://trek.nasa.gov",
+    icon: MapIcon,
+    domain: "imagery",
+  },
 
   // Defense / monitoring
-  { name: "NeoWs", description: "Near Earth Object Web Service", url: "https://api.nasa.gov", icon: Radar, domain: "defense" },
-  { name: "CNEOS Sentry", description: "JPL impact-risk monitoring", url: "https://cneos.jpl.nasa.gov/sentry", icon: Atom, domain: "defense" },
-  { name: "EONET", description: "Earth Observatory Natural Events", url: "https://eonet.gsfc.nasa.gov", icon: Globe2, domain: "defense" },
+  {
+    name: "NeoWs",
+    description: "Near Earth Object Web Service",
+    url: "https://api.nasa.gov",
+    icon: Radar,
+    domain: "defense",
+  },
+  {
+    name: "CNEOS Sentry",
+    description: "JPL impact-risk monitoring",
+    url: "https://cneos.jpl.nasa.gov/sentry",
+    icon: Atom,
+    domain: "defense",
+  },
+  {
+    name: "EONET",
+    description: "Earth Observatory Natural Events",
+    url: "https://eonet.gsfc.nasa.gov",
+    icon: Globe2,
+    domain: "defense",
+  },
 
   // Weather
-  { name: "DONKI", description: "Space Weather Database", url: "https://ccmc.gsfc.nasa.gov/tools/DONKI", icon: Sun, domain: "weather" },
-  { name: "InSight Weather", description: "Mars surface telemetry", url: "https://api.nasa.gov", icon: Wind, domain: "weather" },
+  {
+    name: "DONKI",
+    description: "Space Weather Database",
+    url: "https://ccmc.gsfc.nasa.gov/tools/DONKI",
+    icon: Sun,
+    domain: "weather",
+  },
+  {
+    name: "InSight Weather",
+    description: "Mars surface telemetry",
+    url: "https://api.nasa.gov",
+    icon: Wind,
+    domain: "weather",
+  },
 
   // Science
-  { name: "Exoplanet Archive", description: "Caltech TAP service", url: "https://exoplanetarchive.ipac.caltech.edu", icon: Database, domain: "science" },
-  { name: "TechPort", description: "NASA R&D portfolio", url: "https://techport.nasa.gov", icon: Cpu, domain: "science" },
-  { name: "TechTransfer", description: "NASA patents & spinoffs", url: "https://technology.nasa.gov", icon: Cpu, domain: "science" },
-  { name: "OSDR / GeneLab", description: "Open Science Data Repository", url: "https://osdr.nasa.gov", icon: Dna, domain: "science" },
+  {
+    name: "Exoplanet Archive",
+    description: "Caltech TAP service",
+    url: "https://exoplanetarchive.ipac.caltech.edu",
+    icon: Database,
+    domain: "science",
+  },
+  {
+    name: "TechPort",
+    description: "NASA R&D portfolio",
+    url: "https://techport.nasa.gov",
+    icon: Cpu,
+    domain: "science",
+  },
+  {
+    name: "TechTransfer",
+    description: "NASA patents & spinoffs",
+    url: "https://technology.nasa.gov",
+    icon: Cpu,
+    domain: "science",
+  },
+  {
+    name: "OSDR / GeneLab",
+    description: "Open Science Data Repository",
+    url: "https://osdr.nasa.gov",
+    icon: Dna,
+    domain: "science",
+  },
 
   // Ops
-  { name: "SSC", description: "Space Situation Center", url: "https://sscweb.gsfc.nasa.gov", icon: Orbit, domain: "ops" },
-  { name: "CelesTrak TLE", description: "Two-Line Elements", url: "https://celestrak.org", icon: Code2, domain: "ops" },
-  { name: "SpaceX API", description: "Falcon/Starship fleet", url: "https://github.com/r-spacex/SpaceX-API", icon: Rocket, domain: "ops" },
-  { name: "Spaceflight News", description: "Aggregated press feed", url: "https://spaceflightnewsapi.net", icon: Newspaper, domain: "ops" },
+  {
+    name: "SSC",
+    description: "Space Situation Center",
+    url: "https://sscweb.gsfc.nasa.gov",
+    icon: Orbit,
+    domain: "ops",
+  },
+  {
+    name: "CelesTrak TLE",
+    description: "Two-Line Elements",
+    url: "https://celestrak.org",
+    icon: Code2,
+    domain: "ops",
+  },
+  {
+    name: "SpaceX API",
+    description: "Falcon/Starship fleet",
+    url: "https://github.com/r-spacex/SpaceX-API",
+    icon: Rocket,
+    domain: "ops",
+  },
+  {
+    name: "Spaceflight News",
+    description: "Aggregated press feed",
+    url: "https://spaceflightnewsapi.net",
+    icon: Newspaper,
+    domain: "ops",
+  },
 
   // Reference
-  { name: "Wikipedia REST", description: "Encyclopedic summaries (Solar System)", url: "https://www.mediawiki.org/wiki/Wikimedia_REST_API", icon: BookOpen, domain: "ref" },
-  { name: "NOAA SWPC fallback", description: "Aurora & Kp index (planejado)", url: "https://services.swpc.noaa.gov", icon: ThermometerSun, domain: "ref" },
+  {
+    name: "Wikipedia REST",
+    description: "Encyclopedic summaries (Solar System)",
+    url: "https://www.mediawiki.org/wiki/Wikimedia_REST_API",
+    icon: BookOpen,
+    domain: "ref",
+  },
+  {
+    name: "NOAA SWPC fallback",
+    description: "Aurora & Kp index (planejado)",
+    url: "https://services.swpc.noaa.gov",
+    icon: ThermometerSun,
+    domain: "ref",
+  },
 ];
 
 const STACK_GROUPS = [
   {
     label: "Frontend",
-    items: ["Next.js 16 · App Router", "React 19", "TypeScript 5 (strict)", "Tailwind CSS v4"],
+    items: [
+      "Next.js 16 · App Router",
+      "React 19",
+      "TypeScript 5 (strict)",
+      "Tailwind CSS v4",
+    ],
   },
   {
     label: "UI & Motion",
-    items: ["Framer Motion 12", "Lucide icons", "tw-animate-css", "Tailwind merge + clsx"],
+    items: [
+      "Framer Motion 12",
+      "Lucide icons",
+      "tw-animate-css",
+      "Tailwind merge + clsx",
+    ],
   },
   {
     label: "3D & Shaders",
-    items: ["React Three Fiber 9", "@react-three/drei 10", "Custom GLSL (Schwarzschild aprox.)", "Three.js 0.184"],
+    items: [
+      "React Three Fiber 9",
+      "@react-three/drei 10",
+      "Custom GLSL (Schwarzschild aprox.)",
+      "Three.js 0.184",
+    ],
   },
   {
     label: "Data & Caching",
-    items: ["TanStack Query v5", "Axios", "Next.js Route Handlers (BFF)", "ISR via revalidate"],
+    items: [
+      "TanStack Query v5",
+      "Axios",
+      "Next.js Route Handlers (BFF)",
+      "ISR via revalidate",
+    ],
   },
   {
     label: "Infra",
-    items: ["Custom Service Worker", "Web App Manifest (PWA)", "Sitemap + robots", "OpenGraph + Twitter"],
+    items: [
+      "Custom Service Worker",
+      "Web App Manifest (PWA)",
+      "Sitemap + robots",
+      "OpenGraph + Twitter",
+    ],
   },
   {
     label: "Cloud APIs",
-    items: ["20 NASA endpoints", "Wikipedia REST", "SpaceX, Spaceflight News", "CelesTrak, ESA EONET"],
+    items: [
+      "20 NASA endpoints",
+      "Wikipedia REST",
+      "SpaceX, Spaceflight News",
+      "CelesTrak, ESA EONET",
+    ],
   },
 ];
 
-const DOMAIN_LABEL: Record<DataSource["domain"], { pt: string; en: string; accent: string }> = {
-  imagery:  { pt: "Imagem",       en: "Imagery",   accent: "oklch(0.78 0.16 80)" },
-  defense:  { pt: "Defesa",       en: "Defense",   accent: "oklch(0.65 0.22 25)" },
-  weather:  { pt: "Clima",        en: "Weather",   accent: "oklch(0.80 0.16 70)" },
-  science:  { pt: "Ciência",      en: "Science",   accent: "oklch(0.68 0.18 290)" },
-  ops:      { pt: "Operações",    en: "Operations",accent: "oklch(0.78 0.18 130)" },
-  ref:      { pt: "Referência",   en: "Reference", accent: "oklch(0.74 0.13 200)" },
+const DOMAIN_LABEL: Record<
+  DataSource["domain"],
+  { pt: string; en: string; accent: string }
+> = {
+  imagery: { pt: "Imagem", en: "Imagery", accent: "oklch(0.78 0.16 80)" },
+  defense: { pt: "Defesa", en: "Defense", accent: "oklch(0.65 0.22 25)" },
+  weather: { pt: "Clima", en: "Weather", accent: "oklch(0.80 0.16 70)" },
+  science: { pt: "Ciência", en: "Science", accent: "oklch(0.68 0.18 290)" },
+  ops: { pt: "Operações", en: "Operations", accent: "oklch(0.78 0.18 130)" },
+  ref: { pt: "Referência", en: "Reference", accent: "oklch(0.74 0.13 200)" },
 };
 
 export default function SobrePage() {
@@ -165,7 +318,9 @@ export default function SobrePage() {
               </span>
             </div>
             <span className="text-[9px] font-mono uppercase tracking-[0.25em] text-muted-foreground/60">
-              {ENABLED_MODULES.length} {t("about.stats.modules").toLowerCase()} · {SOLAR_BODIES.length} {t("about.stats.bodies").toLowerCase()} · {totalRoutes} {t("about.stats.routes").toLowerCase()}
+              {ENABLED_MODULES.length} {t("about.stats.modules").toLowerCase()} ·{" "}
+              {SOLAR_BODIES.length} {t("about.stats.bodies").toLowerCase()} ·{" "}
+              {totalRoutes} {t("about.stats.routes").toLowerCase()}
             </span>
           </div>
         </motion.div>
@@ -177,10 +332,26 @@ export default function SobrePage() {
           transition={{ delay: 0.05 }}
           className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-12"
         >
-          <Stat label={t("about.stats.modules")} value={ENABLED_MODULES.length} accent="oklch(0.60 0.18 290)" />
-          <Stat label={t("about.stats.bodies")} value={SOLAR_BODIES.length} accent="oklch(0.78 0.16 80)" />
-          <Stat label={t("about.stats.routes")} value={totalRoutes} accent="oklch(0.78 0.13 200)" />
-          <Stat label={t("about.stats.sources")} value={DATA_SOURCES.length} accent="oklch(0.78 0.18 145)" />
+          <Stat
+            label={t("about.stats.modules")}
+            value={ENABLED_MODULES.length}
+            accent="oklch(0.60 0.18 290)"
+          />
+          <Stat
+            label={t("about.stats.bodies")}
+            value={SOLAR_BODIES.length}
+            accent="oklch(0.78 0.16 80)"
+          />
+          <Stat
+            label={t("about.stats.routes")}
+            value={totalRoutes}
+            accent="oklch(0.78 0.13 200)"
+          />
+          <Stat
+            label={t("about.stats.sources")}
+            value={DATA_SOURCES.length}
+            accent="oklch(0.78 0.18 145)"
+          />
         </motion.div>
 
         {/* Manifesto */}
@@ -216,7 +387,10 @@ export default function SobrePage() {
               <HudPanel key={g.label} label={g.label} className="p-5 md:p-5">
                 <ul className="space-y-1.5 text-xs font-mono">
                   {g.items.map((it) => (
-                    <li key={it} className="flex items-start gap-2 text-muted-foreground">
+                    <li
+                      key={it}
+                      className="flex items-start gap-2 text-muted-foreground"
+                    >
                       <span className="w-1 h-1 rounded-full bg-primary/60 mt-1.5 shrink-0" />
                       {it}
                     </li>
@@ -245,15 +419,42 @@ export default function SobrePage() {
 
           <div className="relative pl-6 border-l border-white/10 space-y-5">
             {[
-              { title: t("about.timeline.w1.title"), body: t("about.timeline.w1.body") },
-              { title: t("about.timeline.w2.title"), body: t("about.timeline.w2.body") },
-              { title: t("about.timeline.w3.title"), body: t("about.timeline.w3.body") },
-              { title: t("about.timeline.w4.title"), body: t("about.timeline.w4.body") },
-              { title: t("about.timeline.w5.title"), body: t("about.timeline.w5.body") },
-              { title: t("about.timeline.w6.title"), body: t("about.timeline.w6.body") },
-              { title: t("about.timeline.w7.title"), body: t("about.timeline.w7.body") },
-              { title: t("about.timeline.w8.title"), body: t("about.timeline.w8.body") },
-              { title: t("about.timeline.w9.title"), body: t("about.timeline.w9.body") },
+              {
+                title: t("about.timeline.w1.title"),
+                body: t("about.timeline.w1.body"),
+              },
+              {
+                title: t("about.timeline.w2.title"),
+                body: t("about.timeline.w2.body"),
+              },
+              {
+                title: t("about.timeline.w3.title"),
+                body: t("about.timeline.w3.body"),
+              },
+              {
+                title: t("about.timeline.w4.title"),
+                body: t("about.timeline.w4.body"),
+              },
+              {
+                title: t("about.timeline.w5.title"),
+                body: t("about.timeline.w5.body"),
+              },
+              {
+                title: t("about.timeline.w6.title"),
+                body: t("about.timeline.w6.body"),
+              },
+              {
+                title: t("about.timeline.w7.title"),
+                body: t("about.timeline.w7.body"),
+              },
+              {
+                title: t("about.timeline.w8.title"),
+                body: t("about.timeline.w8.body"),
+              },
+              {
+                title: t("about.timeline.w9.title"),
+                body: t("about.timeline.w9.body"),
+              },
             ].map((w, i, arr) => {
               const isLatest = i === arr.length - 1;
               return (
@@ -264,7 +465,9 @@ export default function SobrePage() {
                       boxShadow: isLatest
                         ? "0 0 14px oklch(0.60 0.18 290 / 0.8)"
                         : "0 0 8px oklch(0.60 0.18 290 / 0.5)",
-                      animation: isLatest ? "hud-pulse 2s ease-in-out infinite" : undefined,
+                      animation: isLatest
+                        ? "hud-pulse 2s ease-in-out infinite"
+                        : undefined,
                     }}
                   />
                   <h3 className="text-sm font-mono font-bold uppercase tracking-[0.2em] text-primary flex items-center gap-2">
@@ -275,7 +478,9 @@ export default function SobrePage() {
                       </span>
                     )}
                   </h3>
-                  <p className="text-sm text-muted-foreground mt-1 max-w-2xl">{w.body}</p>
+                  <p className="text-sm text-muted-foreground mt-1 max-w-2xl">
+                    {w.body}
+                  </p>
                 </div>
               );
             })}
@@ -380,7 +585,10 @@ function Stat({ label, value, accent }: StatProps) {
       <span className="text-[9px] font-mono uppercase tracking-[0.25em] text-muted-foreground/70">
         {label}
       </span>
-      <span className="font-mono font-bold tabular-nums text-2xl" style={{ color: accent }}>
+      <span
+        className="font-mono font-bold tabular-nums text-2xl"
+        style={{ color: accent }}
+      >
         {value}
       </span>
       <div className="flex gap-0.5 mt-1.5">
@@ -389,9 +597,10 @@ function Stat({ label, value, accent }: StatProps) {
             key={j}
             className="w-1 h-1.5 rounded-sm"
             style={{
-              background: j < Math.min(value, 12)
-                ? `color-mix(in oklch, ${accent} 60%, transparent)`
-                : "rgba(255,255,255,0.08)",
+              background:
+                j < Math.min(value, 12)
+                  ? `color-mix(in oklch, ${accent} 60%, transparent)`
+                  : "rgba(255,255,255,0.08)",
             }}
           />
         ))}

@@ -3,17 +3,24 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowUpRight, ChevronDown, ChevronUp, Dna, FlaskConical, Leaf, Microscope, Rocket, Search, TestTube } from "lucide-react";
+import {
+  ArrowUpRight,
+  ChevronDown,
+  ChevronUp,
+  Dna,
+  FlaskConical,
+  Leaf,
+  Microscope,
+  Rocket,
+  Search,
+  TestTube,
+} from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import axios from "axios";
 
 import { getModule } from "@/src/lib/modules";
 import { pickLocale, useLocale } from "@/src/lib/i18n";
-import {
-  CommsFailure,
-  ModuleScope,
-  TelemetrySpinner,
-} from "@/src/components/hud";
+import { CommsFailure, ModuleScope, TelemetrySpinner } from "@/src/components/hud";
 
 const MODULE = getModule("osdr")!;
 
@@ -34,13 +41,14 @@ const fetchOsdr = async (q: string): Promise<OsdrStudy[]> => {
   return res.data;
 };
 
-const stripHtml = (s?: string) => s ? s.replace(/<[^>]*>?/g, "") : "";
+const stripHtml = (s?: string) => (s ? s.replace(/<[^>]*>?/g, "") : "");
 
 const organismIcon = (organism?: string): LucideIcon => {
   if (!organism) return Dna;
   const o = organism.toLowerCase();
   if (o.includes("arabidopsis") || o.includes("plant")) return Leaf;
-  if (o.includes("mouse") || o.includes("mus musculus") || o.includes("human")) return Microscope;
+  if (o.includes("mouse") || o.includes("mus musculus") || o.includes("human"))
+    return Microscope;
   if (o.includes("microbiome") || o.includes("bacteria")) return FlaskConical;
   return Dna;
 };
@@ -67,7 +75,11 @@ export default function OsdrPage() {
   const busy = isLoading || isFetching;
 
   return (
-    <ModuleScope theme={MODULE.theme} ambient className="min-h-screen pt-12 pb-24 px-4 sm:px-8">
+    <ModuleScope
+      theme={MODULE.theme}
+      ambient
+      className="min-h-screen pt-12 pb-24 px-4 sm:px-8"
+    >
       <div className="max-w-5xl mx-auto w-full">
         {/* Header */}
         <motion.div
@@ -85,7 +97,10 @@ export default function OsdrPage() {
             <TestTube className="w-7 h-7" style={{ color: "var(--module-accent)" }} />
             <div
               className="absolute inset-0 rounded-xl blur-md"
-              style={{ background: "var(--module-accent-soft)", animation: "hud-pulse 3s ease-in-out infinite" }}
+              style={{
+                background: "var(--module-accent-soft)",
+                animation: "hud-pulse 3s ease-in-out infinite",
+              }}
             />
           </div>
           <span className="text-[10px] font-mono tracking-[0.3em] uppercase text-muted-foreground/70">
@@ -94,14 +109,21 @@ export default function OsdrPage() {
           <h1 className="font-serif text-3xl md:text-4xl font-bold tracking-tight mt-1 mb-2">
             {pickLocale(MODULE.title, MODULE.titleEn, locale)}
           </h1>
-          <p className="text-xs font-mono uppercase tracking-widest" style={{ color: "var(--module-accent)" }}>
+          <p
+            className="text-xs font-mono uppercase tracking-widest"
+            style={{ color: "var(--module-accent)" }}
+          >
             Open Science Data Repository
           </p>
 
           <form onSubmit={handleSearch} className="w-full max-w-xl mt-8 relative">
             <input
               type="text"
-              placeholder={locale === "en" ? "Ex: Arabidopsis, Microgravity, Mice…" : "Ex: Arabidopsis, Microgravidade, Camundongos…"}
+              placeholder={
+                locale === "en"
+                  ? "Ex: Arabidopsis, Microgravity, Mice…"
+                  : "Ex: Arabidopsis, Microgravidade, Camundongos…"
+              }
               value={searchInput}
               onChange={(e) => setSearchInput(e.target.value)}
               className="w-full bg-black/40 text-foreground border border-white/10 rounded-full pl-5 pr-14 py-3 outline-none focus:border-[var(--module-accent)] transition-colors text-sm font-mono"
@@ -110,7 +132,10 @@ export default function OsdrPage() {
               type="submit"
               disabled={busy}
               className="absolute right-1.5 top-1/2 -translate-y-1/2 p-2.5 rounded-full transition-all active:scale-95 disabled:opacity-50"
-              style={{ background: "var(--module-accent-soft)", color: "var(--module-accent)" }}
+              style={{
+                background: "var(--module-accent-soft)",
+                color: "var(--module-accent)",
+              }}
             >
               <Search className="w-4 h-4" />
             </button>
@@ -119,7 +144,11 @@ export default function OsdrPage() {
 
         {error && (
           <CommsFailure
-            message={locale === "en" ? "Could not reach the bio repository." : "Não foi possível acessar o repositório biológico."}
+            message={
+              locale === "en"
+                ? "Could not reach the bio repository."
+                : "Não foi possível acessar o repositório biológico."
+            }
             onRetry={() => refetch()}
           />
         )}
@@ -130,21 +159,32 @@ export default function OsdrPage() {
             phases={
               locale === "en"
                 ? ["Sequencing archives", "Filtering by organism", "Compiling dossiers"]
-                : ["Sequenciando arquivos", "Filtrando por organismo", "Compilando dossiês"]
+                : [
+                    "Sequenciando arquivos",
+                    "Filtrando por organismo",
+                    "Compilando dossiês",
+                  ]
             }
           />
         )}
 
         {data && data.length === 0 && !busy && !error && (
           <p className="text-center text-muted-foreground py-12 font-mono uppercase tracking-widest text-sm">
-            {locale === "en" ? "No bio-experiments found." : "Nenhum experimento biológico encontrado."}
+            {locale === "en"
+              ? "No bio-experiments found."
+              : "Nenhum experimento biológico encontrado."}
           </p>
         )}
 
         {data && data.length > 0 && !busy && (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex flex-col gap-3">
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="flex flex-col gap-3"
+          >
             <div className="text-[10px] font-mono uppercase tracking-[0.3em] text-muted-foreground/70 px-1 mb-1">
-              {data.length} {locale === "en" ? "experiments cataloged" : "experimentos catalogados"}
+              {data.length}{" "}
+              {locale === "en" ? "experiments cataloged" : "experimentos catalogados"}
             </div>
             {data.map((study, i) => {
               const isExpanded = expandedId === study._id;
@@ -156,18 +196,39 @@ export default function OsdrPage() {
                   transition={{ delay: i * 0.03 }}
                   key={study._id}
                   className="border border-white/10 rounded-xl bg-white/[0.02] transition-all overflow-hidden"
-                  style={isExpanded ? { borderColor: "color-mix(in oklch, var(--module-accent) 35%, transparent)", boxShadow: "var(--module-glow)" } : {}}
+                  style={
+                    isExpanded
+                      ? {
+                          borderColor:
+                            "color-mix(in oklch, var(--module-accent) 35%, transparent)",
+                          boxShadow: "var(--module-glow)",
+                        }
+                      : {}
+                  }
                 >
                   <button
                     onClick={() => setExpandedId(isExpanded ? null : study._id)}
                     className="w-full text-left p-5 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 hover:bg-white/[0.02] transition-colors"
                   >
                     <div className="flex items-start gap-3 grow">
-                      <div className="p-2 rounded-lg mt-0.5" style={{ background: "var(--module-accent-soft)", color: "var(--module-accent)" }}>
+                      <div
+                        className="p-2 rounded-lg mt-0.5"
+                        style={{
+                          background: "var(--module-accent-soft)",
+                          color: "var(--module-accent)",
+                        }}
+                      >
                         <Icon className="w-4 h-4" />
                       </div>
                       <div>
-                        <h3 className="font-serif text-base md:text-lg font-bold leading-snug mb-1.5" style={{ color: isExpanded ? "var(--module-accent)" : "var(--foreground)" }}>
+                        <h3
+                          className="font-serif text-base md:text-lg font-bold leading-snug mb-1.5"
+                          style={{
+                            color: isExpanded
+                              ? "var(--module-accent)"
+                              : "var(--foreground)",
+                          }}
+                        >
                           {study._source.Study_Title}
                         </h3>
                         <div className="flex flex-wrap items-center gap-2 text-[10px] font-mono uppercase tracking-widest text-muted-foreground">
@@ -182,8 +243,18 @@ export default function OsdrPage() {
                         </div>
                       </div>
                     </div>
-                    <div className="shrink-0 p-1.5 rounded-full" style={{ background: "var(--module-accent-soft)", color: "var(--module-accent)" }}>
-                      {isExpanded ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+                    <div
+                      className="shrink-0 p-1.5 rounded-full"
+                      style={{
+                        background: "var(--module-accent-soft)",
+                        color: "var(--module-accent)",
+                      }}
+                    >
+                      {isExpanded ? (
+                        <ChevronUp className="w-4 h-4" />
+                      ) : (
+                        <ChevronDown className="w-4 h-4" />
+                      )}
                     </div>
                   </button>
 
@@ -202,8 +273,12 @@ export default function OsdrPage() {
                                 <span className="block text-[10px] font-mono text-muted-foreground/70 uppercase tracking-[0.25em] mb-1">
                                   {locale === "en" ? "Mission" : "Missão"}
                                 </span>
-                                <span className="text-sm font-bold flex items-center gap-2" style={{ color: "var(--module-accent)" }}>
-                                  <Rocket className="w-3.5 h-3.5" /> {study._source.Flight_Program}
+                                <span
+                                  className="text-sm font-bold flex items-center gap-2"
+                                  style={{ color: "var(--module-accent)" }}
+                                >
+                                  <Rocket className="w-3.5 h-3.5" />{" "}
+                                  {study._source.Flight_Program}
                                 </span>
                               </div>
                             )}
@@ -212,15 +287,23 @@ export default function OsdrPage() {
                                 <span className="block text-[10px] font-mono text-muted-foreground/70 uppercase tracking-[0.25em] mb-1">
                                   {locale === "en" ? "Assay Type" : "Tipo de Ensaio"}
                                 </span>
-                                <span className="text-sm">{study._source.Data_Types}</span>
+                                <span className="text-sm">
+                                  {study._source.Data_Types}
+                                </span>
                               </div>
                             )}
                           </div>
                           <span className="block text-[10px] font-mono text-muted-foreground/70 uppercase tracking-[0.25em] mb-2">
                             {locale === "en" ? "Abstract" : "Resumo"}
                           </span>
-                          <p className="text-sm text-muted-foreground leading-relaxed border-l-2 pl-4 text-justify" style={{ borderColor: "var(--module-accent)" }}>
-                            {stripHtml(study._source.Description) || (locale === "en" ? "No abstract provided." : "Resumo não disponível.")}
+                          <p
+                            className="text-sm text-muted-foreground leading-relaxed border-l-2 pl-4 text-justify"
+                            style={{ borderColor: "var(--module-accent)" }}
+                          >
+                            {stripHtml(study._source.Description) ||
+                              (locale === "en"
+                                ? "No abstract provided."
+                                : "Resumo não disponível.")}
                           </p>
                           <div className="mt-5 flex justify-end">
                             <a
@@ -230,7 +313,8 @@ export default function OsdrPage() {
                               className="inline-flex items-center gap-1.5 text-[10px] font-mono uppercase tracking-[0.25em]"
                               style={{ color: "var(--module-accent)" }}
                             >
-                              {locale === "en" ? "Raw archive" : "Arquivo raw"} <ArrowUpRight className="w-3 h-3" />
+                              {locale === "en" ? "Raw archive" : "Arquivo raw"}{" "}
+                              <ArrowUpRight className="w-3 h-3" />
                             </a>
                           </div>
                         </div>

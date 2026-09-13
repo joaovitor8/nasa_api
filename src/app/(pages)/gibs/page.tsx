@@ -10,11 +10,7 @@ import axios from "axios";
 
 import { getModule } from "@/src/lib/modules";
 import { pickLocale, useLocale } from "@/src/lib/i18n";
-import {
-  CommsFailure,
-  ModuleScope,
-  TelemetrySpinner,
-} from "@/src/components/hud";
+import { CommsFailure, ModuleScope, TelemetrySpinner } from "@/src/components/hud";
 
 const MODULE = getModule("gibs")!;
 
@@ -30,35 +26,47 @@ interface LayerCfg {
 const LAYERS: LayerCfg[] = [
   {
     id: "MODIS_Terra_CorrectedReflectance_TrueColor",
-    pt: "Cor Real", en: "True Color",
+    pt: "Cor Real",
+    en: "True Color",
     desc_pt: "A Terra vista pelas lentes do satélite Terra.",
     desc_en: "Earth seen through the Terra satellite's lens.",
-    icon: Globe, color: "oklch(0.74 0.13 200)",
+    icon: Globe,
+    color: "oklch(0.74 0.13 200)",
   },
   {
     id: "MODIS_Terra_Land_Surface_Temp_Day",
-    pt: "Temperatura de Superfície", en: "Surface Temperature",
+    pt: "Temperatura de Superfície",
+    en: "Surface Temperature",
     desc_pt: "Emissão térmica diurna da superfície terrestre.",
     desc_en: "Daytime thermal emission of the surface.",
-    icon: ThermometerSun, color: "oklch(0.72 0.18 35)",
+    icon: ThermometerSun,
+    color: "oklch(0.72 0.18 35)",
   },
   {
     id: "MODIS_Terra_Aerosol",
-    pt: "Aerossóis", en: "Aerosols",
+    pt: "Aerossóis",
+    en: "Aerosols",
     desc_pt: "Concentração de partículas em suspensão.",
     desc_en: "Concentration of suspended particles.",
-    icon: Wind, color: "oklch(0.78 0.16 80)",
+    icon: Wind,
+    color: "oklch(0.78 0.16 80)",
   },
   {
     id: "MODIS_Terra_Cloud_Water_Path",
-    pt: "Densidade de Nuvens", en: "Cloud Density",
+    pt: "Densidade de Nuvens",
+    en: "Cloud Density",
     desc_pt: "Quantidade de água líquida nas nuvens.",
     desc_en: "Liquid water content within clouds.",
-    icon: Cloud, color: "oklch(0.78 0.10 230)",
+    icon: Cloud,
+    color: "oklch(0.78 0.10 230)",
   },
 ];
 
-interface GibsResponse { imageUrl: string; date: string; layer: string }
+interface GibsResponse {
+  imageUrl: string;
+  date: string;
+  layer: string;
+}
 
 const fetchGibs = async (date: string, layer: string): Promise<GibsResponse> => {
   const res = await axios.get<GibsResponse>(`/api/gibs?date=${date}&layer=${layer}`);
@@ -86,7 +94,11 @@ export default function GibsPage() {
   const busy = isLoading || isFetching;
 
   return (
-    <ModuleScope theme={MODULE.theme} ambient className="min-h-screen pt-12 pb-24 px-4 sm:px-8">
+    <ModuleScope
+      theme={MODULE.theme}
+      ambient
+      className="min-h-screen pt-12 pb-24 px-4 sm:px-8"
+    >
       <div className="max-w-7xl mx-auto w-full">
         {/* Header */}
         <motion.div
@@ -99,13 +111,17 @@ export default function GibsPage() {
               className="p-3 rounded-xl border relative"
               style={{
                 background: "var(--module-accent-soft)",
-                borderColor: "color-mix(in oklch, var(--module-accent) 35%, transparent)",
+                borderColor:
+                  "color-mix(in oklch, var(--module-accent) 35%, transparent)",
               }}
             >
               <Layers className="w-7 h-7" style={{ color: "var(--module-accent)" }} />
               <div
                 className="absolute inset-0 rounded-xl blur-md"
-                style={{ background: "var(--module-accent-soft)", animation: "hud-pulse 3s ease-in-out infinite" }}
+                style={{
+                  background: "var(--module-accent-soft)",
+                  animation: "hud-pulse 3s ease-in-out infinite",
+                }}
               />
             </div>
             <div>
@@ -115,7 +131,10 @@ export default function GibsPage() {
               <h1 className="font-serif text-2xl md:text-3xl font-bold tracking-tight">
                 {pickLocale(MODULE.title, MODULE.titleEn, locale)}
               </h1>
-              <p className="text-xs font-mono uppercase tracking-widest" style={{ color: "var(--module-accent)" }}>
+              <p
+                className="text-xs font-mono uppercase tracking-widest"
+                style={{ color: "var(--module-accent)" }}
+              >
                 Global Imagery Browse Services
               </p>
             </div>
@@ -133,12 +152,18 @@ export default function GibsPage() {
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
           {/* Mapa principal */}
-          <div className="lg:col-span-9 relative rounded-2xl border border-white/10 bg-black/40 overflow-hidden aspect-[2/1]"
-               style={{ boxShadow: "var(--module-glow)" }}>
+          <div
+            className="lg:col-span-9 relative rounded-2xl border border-white/10 bg-black/40 overflow-hidden aspect-[2/1]"
+            style={{ boxShadow: "var(--module-glow)" }}
+          >
             {error && (
               <div className="absolute inset-0 flex items-center justify-center">
                 <CommsFailure
-                  message={locale === "en" ? "Layer unavailable for this date." : "Camada indisponível para esta data."}
+                  message={
+                    locale === "en"
+                      ? "Layer unavailable for this date."
+                      : "Camada indisponível para esta data."
+                  }
                   onRetry={() => refetch()}
                 />
               </div>
@@ -149,8 +174,16 @@ export default function GibsPage() {
                   label="GIBS · CALIBRATING"
                   phases={
                     locale === "en"
-                      ? ["Aligning spectrometer", "Stitching daily snapshot", "Rendering global mosaic"]
-                      : ["Alinhando espectrômetro", "Costurando snapshot diário", "Renderizando mosaico global"]
+                      ? [
+                          "Aligning spectrometer",
+                          "Stitching daily snapshot",
+                          "Rendering global mosaic",
+                        ]
+                      : [
+                          "Alinhando espectrômetro",
+                          "Costurando snapshot diário",
+                          "Renderizando mosaico global",
+                        ]
                   }
                 />
               </div>
@@ -177,10 +210,22 @@ export default function GibsPage() {
               )}
             </AnimatePresence>
             {/* Corner brackets */}
-            <span className="absolute top-3 left-3 w-4 h-4 border-t-2 border-l-2 z-20" style={{ borderColor: "var(--module-accent)" }} />
-            <span className="absolute top-3 right-3 w-4 h-4 border-t-2 border-r-2 z-20" style={{ borderColor: "var(--module-accent)" }} />
-            <span className="absolute bottom-3 left-3 w-4 h-4 border-b-2 border-l-2 z-20" style={{ borderColor: "var(--module-accent)" }} />
-            <span className="absolute bottom-3 right-3 w-4 h-4 border-b-2 border-r-2 z-20" style={{ borderColor: "var(--module-accent)" }} />
+            <span
+              className="absolute top-3 left-3 w-4 h-4 border-t-2 border-l-2 z-20"
+              style={{ borderColor: "var(--module-accent)" }}
+            />
+            <span
+              className="absolute top-3 right-3 w-4 h-4 border-t-2 border-r-2 z-20"
+              style={{ borderColor: "var(--module-accent)" }}
+            />
+            <span
+              className="absolute bottom-3 left-3 w-4 h-4 border-b-2 border-l-2 z-20"
+              style={{ borderColor: "var(--module-accent)" }}
+            />
+            <span
+              className="absolute bottom-3 right-3 w-4 h-4 border-b-2 border-r-2 z-20"
+              style={{ borderColor: "var(--module-accent)" }}
+            />
           </div>
 
           {/* Seletor de camadas */}
@@ -208,11 +253,19 @@ export default function GibsPage() {
                         }
                   }
                 >
-                  <div className="p-1.5 rounded-md mt-0.5" style={{ background: `color-mix(in oklch, ${layer.color} 15%, transparent)` }}>
+                  <div
+                    className="p-1.5 rounded-md mt-0.5"
+                    style={{
+                      background: `color-mix(in oklch, ${layer.color} 15%, transparent)`,
+                    }}
+                  >
                     <Icon className="w-4 h-4" style={{ color: layer.color }} />
                   </div>
                   <div>
-                    <h3 className="text-xs font-mono font-bold uppercase tracking-wider" style={{ color: active ? layer.color : "var(--foreground)" }}>
+                    <h3
+                      className="text-xs font-mono font-bold uppercase tracking-wider"
+                      style={{ color: active ? layer.color : "var(--foreground)" }}
+                    >
                       {locale === "en" ? layer.en : layer.pt}
                     </h3>
                     <p className="text-[10px] text-muted-foreground/70 mt-1 leading-snug">

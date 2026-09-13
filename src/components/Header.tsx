@@ -4,7 +4,15 @@ import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowUpRight, ChevronDown, Orbit, Menu, X, Radar, Sparkles } from "lucide-react";
+import {
+  ArrowUpRight,
+  ChevronDown,
+  Orbit,
+  Menu,
+  X,
+  Radar,
+  Sparkles,
+} from "lucide-react";
 
 import {
   CATEGORY_META,
@@ -15,12 +23,7 @@ import { SOLAR_BODIES } from "@/src/lib/solar-system";
 import { pickLocale, useLocale } from "@/src/lib/i18n";
 import { withAlpha } from "@/src/lib/utils";
 
-const CATEGORY_ORDER: ModuleCategory[] = [
-  "media",
-  "defense",
-  "cartography",
-  "science",
-];
+const CATEGORY_ORDER: ModuleCategory[] = ["media", "defense", "cartography", "science"];
 
 export function Header() {
   const [megaOpen, setMegaOpen] = useState(false);
@@ -29,9 +32,7 @@ export function Header() {
   const { t, locale } = useLocale();
 
   const inModule =
-    pathname !== "/" &&
-    pathname !== "/sobre" &&
-    pathname !== "/mission-control";
+    pathname !== "/" && pathname !== "/sobre" && pathname !== "/mission-control";
 
   const isCurrentRoute = (href: string) =>
     pathname === href || (href !== "/" && pathname.startsWith(`${href}/`));
@@ -41,10 +42,7 @@ export function Header() {
       <header className="fixed top-6 inset-x-0 z-50 h-16 border-b border-white/6 bg-background/70 backdrop-blur-2xl">
         <div className="container mx-auto px-4 h-full flex items-center justify-between">
           {/* Logo */}
-          <Link
-            href="/"
-            className="flex items-center gap-2.5 group relative"
-          >
+          <Link href="/" className="flex items-center gap-2.5 group relative">
             <div className="relative">
               <Orbit className="w-6 h-6 text-primary transition-transform duration-700 group-hover:rotate-180" />
               <span className="absolute inset-0 blur-md bg-primary/40 rounded-full -z-10 opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -112,14 +110,15 @@ export function Header() {
                             </div>
                             {modules.map((mod) => {
                               const isActive = mod.status === "active";
-                              const isCurrent = !mod.external && isCurrentRoute(mod.href);
+                              const isCurrent =
+                                !mod.external && isCurrentRoute(mod.href);
                               const title = pickLocale(mod.title, mod.titleEn, locale);
                               const className = `group flex items-center justify-between gap-2 text-sm transition-all rounded-md -mx-1 px-1 py-0.5 ${
                                 isCurrent
                                   ? "font-bold"
                                   : isActive
-                                  ? "text-muted-foreground hover:text-foreground"
-                                  : "text-muted-foreground/30 cursor-not-allowed"
+                                    ? "text-muted-foreground hover:text-foreground"
+                                    : "text-muted-foreground/30 cursor-not-allowed"
                               }`;
                               const style = isCurrent
                                 ? {
@@ -157,7 +156,9 @@ export function Header() {
                                   ) : (
                                     <span className="flex items-center gap-1 text-[9px] font-mono opacity-40 group-hover:opacity-80 transition-opacity">
                                       {mod.codename}
-                                      {mod.external && <ArrowUpRight className="w-2.5 h-2.5" />}
+                                      {mod.external && (
+                                        <ArrowUpRight className="w-2.5 h-2.5" />
+                                      )}
                                     </span>
                                   )}
                                 </>
@@ -204,7 +205,10 @@ export function Header() {
                     {/* Bottom: faixa de Sistema Solar + Subsystems */}
                     <div className="border-t border-white/6 bg-white/1.5 px-7 py-4 grid grid-cols-12 gap-6">
                       <div className="col-span-9">
-                        <div className="flex items-center gap-2 text-[10px] font-mono uppercase tracking-[0.25em] mb-2.5" style={{ color: "oklch(0.78 0.16 80)" }}>
+                        <div
+                          className="flex items-center gap-2 text-[10px] font-mono uppercase tracking-[0.25em] mb-2.5"
+                          style={{ color: "oklch(0.78 0.16 80)" }}
+                        >
                           <Sparkles className="w-3 h-3" /> {t("nav.bodies")}
                         </div>
                         <div className="flex flex-wrap gap-1.5">
@@ -224,7 +228,9 @@ export function Header() {
                                   background: isCurrent
                                     ? `color-mix(in oklch, ${body.accent} 18%, transparent)`
                                     : "transparent",
-                                  color: isCurrent ? body.accent : "var(--muted-foreground)",
+                                  color: isCurrent
+                                    ? body.accent
+                                    : "var(--muted-foreground)",
                                 }}
                                 aria-current={isCurrent ? "page" : undefined}
                               >
@@ -317,15 +323,20 @@ export function Header() {
                         const isActive = mod.status === "active";
                         const isCurrent = !mod.external && isCurrentRoute(mod.href);
                         const title = pickLocale(mod.title, mod.titleEn, locale);
-                        const className = "flex items-center justify-between text-base transition-colors";
+                        const className =
+                          "flex items-center justify-between text-base transition-colors";
                         const style = isCurrent
                           ? { color: mod.theme.accent, fontWeight: 700 }
                           : undefined;
                         const content = (
                           <>
-                            <span className={`flex items-center gap-1.5 ${isCurrent ? "" : isActive ? "text-muted-foreground" : "text-muted-foreground/30"}`}>
+                            <span
+                              className={`flex items-center gap-1.5 ${isCurrent ? "" : isActive ? "text-muted-foreground" : "text-muted-foreground/30"}`}
+                            >
                               {title}
-                              {isActive && mod.external && <ArrowUpRight className="w-3.5 h-3.5 opacity-60" />}
+                              {isActive && mod.external && (
+                                <ArrowUpRight className="w-3.5 h-3.5 opacity-60" />
+                              )}
                             </span>
                             {!isActive && (
                               <span className="text-[9px] font-mono tracking-widest uppercase border border-muted-foreground/20 rounded px-1.5 py-0.5">
@@ -373,7 +384,10 @@ export function Header() {
 
               {/* Sistema Solar mobile */}
               <div className="flex flex-col gap-3">
-                <div className="flex items-center gap-2 font-bold text-xs uppercase tracking-[0.25em] border-b border-white/10 pb-2" style={{ color: "oklch(0.78 0.16 80)" }}>
+                <div
+                  className="flex items-center gap-2 font-bold text-xs uppercase tracking-[0.25em] border-b border-white/10 pb-2"
+                  style={{ color: "oklch(0.78 0.16 80)" }}
+                >
                   <Sparkles className="w-4 h-4" /> {t("nav.bodies")}
                 </div>
                 <div className="grid grid-cols-2 gap-2 pl-2">
@@ -393,7 +407,9 @@ export function Header() {
                             boxShadow: `0 0 6px ${body.accent.replace(")", " / 0.6)")}`,
                           }}
                         />
-                        <span style={{ color: pathname === href ? body.accent : undefined }}>
+                        <span
+                          style={{ color: pathname === href ? body.accent : undefined }}
+                        >
                           {locale === "en" ? body.en : body.pt}
                         </span>
                       </Link>
@@ -449,7 +465,9 @@ function SubsystemLink({ href, label, active, onClick }: SubsystemLinkProps) {
       href={href}
       onClick={onClick}
       className={`flex items-center justify-between text-sm transition-colors py-1 ${
-        active ? "text-primary font-bold" : "text-muted-foreground hover:text-foreground"
+        active
+          ? "text-primary font-bold"
+          : "text-muted-foreground hover:text-foreground"
       }`}
     >
       <span>{label}</span>

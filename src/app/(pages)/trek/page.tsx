@@ -39,8 +39,8 @@ interface TrekConfig {
 type Target = "moon" | "mars" | "vesta";
 
 const TARGETS: { id: Target; pt: string; en: string }[] = [
-  { id: "moon",  pt: "Lua",   en: "Moon" },
-  { id: "mars",  pt: "Marte", en: "Mars" },
+  { id: "moon", pt: "Lua", en: "Moon" },
+  { id: "mars", pt: "Marte", en: "Mars" },
   { id: "vesta", pt: "Vesta", en: "Vesta" },
 ];
 
@@ -58,9 +58,15 @@ const buildTileUrl = (config: TrekConfig, z: number, y: number, x: number) => {
 };
 
 const GRID_OFFSETS: [number, number][] = [
-  [-1, -1], [0, -1], [1, -1],
-  [-1,  0], [0,  0], [1,  0],
-  [-1,  1], [0,  1], [1,  1],
+  [-1, -1],
+  [0, -1],
+  [1, -1],
+  [-1, 0],
+  [0, 0],
+  [1, 0],
+  [-1, 1],
+  [0, 1],
+  [1, 1],
 ];
 
 export default function TrekPage() {
@@ -70,7 +76,12 @@ export default function TrekPage() {
   const [x, setX] = useState(2);
   const [y, setY] = useState(1);
 
-  const { data: config, isLoading, error, refetch } = useQuery({
+  const {
+    data: config,
+    isLoading,
+    error,
+    refetch,
+  } = useQuery({
     queryKey: ["trek-config", target],
     queryFn: () => fetchConfig(target),
   });
@@ -95,7 +106,11 @@ export default function TrekPage() {
   };
 
   return (
-    <ModuleScope theme={MODULE.theme} ambient className="min-h-screen pt-12 pb-24 px-4 sm:px-8">
+    <ModuleScope
+      theme={MODULE.theme}
+      ambient
+      className="min-h-screen pt-12 pb-24 px-4 sm:px-8"
+    >
       <div className="max-w-7xl mx-auto w-full">
         {/* Header */}
         <motion.div
@@ -108,13 +123,17 @@ export default function TrekPage() {
               className="p-3 rounded-xl border relative"
               style={{
                 background: "var(--module-accent-soft)",
-                borderColor: "color-mix(in oklch, var(--module-accent) 35%, transparent)",
+                borderColor:
+                  "color-mix(in oklch, var(--module-accent) 35%, transparent)",
               }}
             >
               <MapIcon className="w-7 h-7" style={{ color: "var(--module-accent)" }} />
               <div
                 className="absolute inset-0 rounded-xl blur-md"
-                style={{ background: "var(--module-accent-soft)", animation: "hud-pulse 3s ease-in-out infinite" }}
+                style={{
+                  background: "var(--module-accent-soft)",
+                  animation: "hud-pulse 3s ease-in-out infinite",
+                }}
               />
             </div>
             <div>
@@ -124,7 +143,10 @@ export default function TrekPage() {
               <h1 className="font-serif text-2xl md:text-3xl font-bold tracking-tight">
                 {pickLocale(MODULE.title, MODULE.titleEn, locale)}
               </h1>
-              <p className="text-xs font-mono uppercase tracking-widest" style={{ color: "var(--module-accent)" }}>
+              <p
+                className="text-xs font-mono uppercase tracking-widest"
+                style={{ color: "var(--module-accent)" }}
+              >
                 NASA Trek · WMTS Tiles
               </p>
             </div>
@@ -139,12 +161,17 @@ export default function TrekPage() {
                   key={t.id}
                   onClick={() => {
                     setTarget(t.id);
-                    setZ(2); setX(2); setY(1);
+                    setZ(2);
+                    setX(2);
+                    setY(1);
                   }}
                   className="flex items-center gap-2 px-3.5 py-1.5 rounded-full text-[10px] font-mono uppercase tracking-[0.25em] transition-all"
                   style={
                     active
-                      ? { background: "var(--module-accent-soft)", color: "var(--module-accent)" }
+                      ? {
+                          background: "var(--module-accent-soft)",
+                          color: "var(--module-accent)",
+                        }
                       : { color: "var(--muted-foreground)" }
                   }
                 >
@@ -164,14 +191,27 @@ export default function TrekPage() {
           >
             {/* Mira central */}
             <div className="absolute inset-0 z-20 pointer-events-none flex items-center justify-center opacity-30">
-              <div className="absolute w-full h-px" style={{ background: "var(--module-accent)" }} />
-              <div className="absolute h-full w-px" style={{ background: "var(--module-accent)" }} />
-              <Crosshair className="w-10 h-10" style={{ color: "var(--module-accent)" }} />
+              <div
+                className="absolute w-full h-px"
+                style={{ background: "var(--module-accent)" }}
+              />
+              <div
+                className="absolute h-full w-px"
+                style={{ background: "var(--module-accent)" }}
+              />
+              <Crosshair
+                className="w-10 h-10"
+                style={{ color: "var(--module-accent)" }}
+              />
             </div>
 
             {error && (
               <CommsFailure
-                message={locale === "en" ? "Tile servers unreachable." : "Servidores de tiles indisponíveis."}
+                message={
+                  locale === "en"
+                    ? "Tile servers unreachable."
+                    : "Servidores de tiles indisponíveis."
+                }
                 onRetry={() => refetch()}
               />
             )}
@@ -180,8 +220,16 @@ export default function TrekPage() {
                 label="TREK · WMTS"
                 phases={
                   locale === "en"
-                    ? ["Calibrating tile servers", "Fetching equirect projection", "Aligning crosshair"]
-                    : ["Calibrando servidores", "Buscando projeção equirretangular", "Alinhando mira"]
+                    ? [
+                        "Calibrating tile servers",
+                        "Fetching equirect projection",
+                        "Aligning crosshair",
+                      ]
+                    : [
+                        "Calibrando servidores",
+                        "Buscando projeção equirretangular",
+                        "Alinhando mira",
+                      ]
                 }
               />
             )}
@@ -193,7 +241,10 @@ export default function TrekPage() {
                   const tileY = y + dy;
                   const url = buildTileUrl(config, z, tileY, tileX);
                   return (
-                    <div key={`${target}-${z}-${tileX}-${tileY}-${i}`} className="bg-black/80 relative overflow-hidden border border-white/[0.02]">
+                    <div
+                      key={`${target}-${z}-${tileX}-${tileY}-${i}`}
+                      className="bg-black/80 relative overflow-hidden border border-white/[0.02]"
+                    >
                       {/* eslint-disable-next-line @next/next/no-img-element -- WMTS tiles mudam rápido com pan/zoom; otimização via /_next/image causaria thrash de cache */}
                       <img
                         src={url}
@@ -203,7 +254,10 @@ export default function TrekPage() {
                           (e.target as HTMLImageElement).src = TRANSPARENT_PNG;
                         }}
                       />
-                      <span className="absolute top-1 left-1 text-[9px] font-mono opacity-30" style={{ color: "var(--module-accent)" }}>
+                      <span
+                        className="absolute top-1 left-1 text-[9px] font-mono opacity-30"
+                        style={{ color: "var(--module-accent)" }}
+                      >
                         Z{z}_X{tileX}_Y{tileY}
                       </span>
                     </div>
@@ -219,21 +273,33 @@ export default function TrekPage() {
             <HudPanel label={locale === "en" ? "Axes" : "Eixos"} variant="solid">
               <div className="grid grid-cols-3 gap-1.5 mx-auto w-fit">
                 <div />
-                <button onClick={() => move(0, -1)} className="p-3 bg-white/5 hover:bg-white/10 rounded-lg transition-colors active:scale-95">
+                <button
+                  onClick={() => move(0, -1)}
+                  className="p-3 bg-white/5 hover:bg-white/10 rounded-lg transition-colors active:scale-95"
+                >
                   <ArrowUp className="w-4 h-4" />
                 </button>
                 <div />
-                <button onClick={() => move(-1, 0)} className="p-3 bg-white/5 hover:bg-white/10 rounded-lg transition-colors active:scale-95">
+                <button
+                  onClick={() => move(-1, 0)}
+                  className="p-3 bg-white/5 hover:bg-white/10 rounded-lg transition-colors active:scale-95"
+                >
                   <ArrowLeft className="w-4 h-4" />
                 </button>
                 <div className="p-3 flex items-center justify-center">
                   <Compass className="w-4 h-4 text-muted-foreground" />
                 </div>
-                <button onClick={() => move(1, 0)} className="p-3 bg-white/5 hover:bg-white/10 rounded-lg transition-colors active:scale-95">
+                <button
+                  onClick={() => move(1, 0)}
+                  className="p-3 bg-white/5 hover:bg-white/10 rounded-lg transition-colors active:scale-95"
+                >
                   <ArrowRight className="w-4 h-4" />
                 </button>
                 <div />
-                <button onClick={() => move(0, 1)} className="p-3 bg-white/5 hover:bg-white/10 rounded-lg transition-colors active:scale-95">
+                <button
+                  onClick={() => move(0, 1)}
+                  className="p-3 bg-white/5 hover:bg-white/10 rounded-lg transition-colors active:scale-95"
+                >
                   <ArrowDown className="w-4 h-4" />
                 </button>
                 <div />
@@ -261,19 +327,35 @@ export default function TrekPage() {
             </HudPanel>
 
             {/* Telemetria */}
-            <HudPanel label={locale === "en" ? "Telemetry" : "Telemetria"} variant="solid">
+            <HudPanel
+              label={locale === "en" ? "Telemetry" : "Telemetria"}
+              variant="solid"
+            >
               <div className="space-y-2 text-[10px] font-mono">
                 <div className="flex justify-between">
-                  <span className="text-muted-foreground uppercase tracking-widest">Z</span>
+                  <span className="text-muted-foreground uppercase tracking-widest">
+                    Z
+                  </span>
                   <span style={{ color: "var(--module-accent)" }}>{z}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-muted-foreground uppercase tracking-widest">X · Y</span>
-                  <span style={{ color: "var(--module-accent)" }}>{x} · {y}</span>
+                  <span className="text-muted-foreground uppercase tracking-widest">
+                    X · Y
+                  </span>
+                  <span style={{ color: "var(--module-accent)" }}>
+                    {x} · {y}
+                  </span>
                 </div>
                 <div className="flex justify-between gap-2">
-                  <span className="text-muted-foreground uppercase tracking-widest">Layer</span>
-                  <span className="text-foreground/80 truncate max-w-[140px]" title={config?.layer}>{config?.layer ?? "—"}</span>
+                  <span className="text-muted-foreground uppercase tracking-widest">
+                    Layer
+                  </span>
+                  <span
+                    className="text-foreground/80 truncate max-w-[140px]"
+                    title={config?.layer}
+                  >
+                    {config?.layer ?? "—"}
+                  </span>
                 </div>
               </div>
             </HudPanel>

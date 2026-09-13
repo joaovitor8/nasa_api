@@ -35,11 +35,7 @@ export async function generateMetadata({
   };
 }
 
-export default async function BodyPage({
-  params,
-}: {
-  params: Promise<Params>;
-}) {
+export default async function BodyPage({ params }: { params: Promise<Params> }) {
   const { body: id } = await params;
   const body = getBody(id);
   if (!body) notFound();

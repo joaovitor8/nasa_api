@@ -10,8 +10,7 @@ import { SceneCanvas } from "@/src/components/hud";
 
 /* ─── Helpers ─────────────────────────────────────────────────── */
 
-const clamp = (v: number, min: number, max: number) =>
-  Math.max(min, Math.min(max, v));
+const clamp = (v: number, min: number, max: number) => Math.max(min, Math.min(max, v));
 
 /** Mapeia raio planetário (R⊕) para um valor visual usável em escala. */
 const planetVisualRadius = (rade: number | null): number => {
@@ -89,7 +88,13 @@ function PlanetSystem({ planet, accent }: ExoplanetSceneProps) {
   return (
     <>
       <ambientLight intensity={0.15} />
-      <pointLight position={[0, 0, 0]} intensity={3.5} color={starColor} distance={20} decay={2} />
+      <pointLight
+        position={[0, 0, 0]}
+        intensity={3.5}
+        color={starColor}
+        distance={20}
+        decay={2}
+      />
       <pointLight position={[6, 4, 6]} intensity={0.4} color="#ffffff" />
 
       {/* Estrela hospedeira */}
@@ -100,32 +105,34 @@ function PlanetSystem({ planet, accent }: ExoplanetSceneProps) {
       {/* Halo da estrela */}
       <mesh>
         <sphereGeometry args={[1.05, 32, 32]} />
-        <meshBasicMaterial color={starColor} transparent opacity={0.18} toneMapped={false} />
+        <meshBasicMaterial
+          color={starColor}
+          transparent
+          opacity={0.18}
+          toneMapped={false}
+        />
       </mesh>
       <mesh>
         <sphereGeometry args={[1.4, 32, 32]} />
-        <meshBasicMaterial color={starColor} transparent opacity={0.07} toneMapped={false} />
+        <meshBasicMaterial
+          color={starColor}
+          transparent
+          opacity={0.07}
+          toneMapped={false}
+        />
       </mesh>
 
       {/* Anel de órbita */}
       <line>
         <bufferGeometry>
-          <bufferAttribute
-            attach="attributes-position"
-            args={[orbitPoints, 3]}
-          />
+          <bufferAttribute attach="attributes-position" args={[orbitPoints, 3]} />
         </bufferGeometry>
         <lineBasicMaterial color={accent} transparent opacity={0.45} />
       </line>
 
       {/* Planeta + trail */}
       <group ref={group}>
-        <Trail
-          width={2}
-          length={6}
-          color={accent}
-          attenuation={(t) => t * t}
-        >
+        <Trail width={2} length={6} color={accent} attenuation={(t) => t * t}>
           <mesh ref={planetMesh} position={[orbitRadius, 0, 0]}>
             <sphereGeometry args={[planetRadius, 48, 48]} />
             <meshStandardMaterial
@@ -150,21 +157,18 @@ interface ExoplanetOrbitSceneProps {
   className?: string;
 }
 
-export function ExoplanetOrbitScene({ planet, accent, className }: ExoplanetOrbitSceneProps) {
+export function ExoplanetOrbitScene({
+  planet,
+  accent,
+  className,
+}: ExoplanetOrbitSceneProps) {
   return (
     <SceneCanvas
       className={className}
       camera={{ position: [4.5, 3.2, 6.5], fov: 45, near: 0.1, far: 200 }}
     >
       <PlanetSystem planet={planet} accent={accent} />
-      <Stars
-        radius={120}
-        depth={60}
-        count={1800}
-        factor={3}
-        fade
-        speed={0.35}
-      />
+      <Stars radius={120} depth={60} count={1800} factor={3} fade speed={0.35} />
       <OrbitControls
         enablePan={false}
         enableZoom

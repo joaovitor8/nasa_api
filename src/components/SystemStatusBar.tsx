@@ -51,7 +51,9 @@ export function SystemStatusBar() {
       </div>
 
       <div className="flex items-center gap-3 tabular-nums">
-        <span className="hidden sm:inline opacity-60">{now ? formatDate(now) : "----.--.--"}</span>
+        <span className="hidden sm:inline opacity-60">
+          {now ? formatDate(now) : "----.--.--"}
+        </span>
         <span className="opacity-50 hidden sm:inline">·</span>
         <span>{now ? formatUTC(now) : "--:--:-- UTC"}</span>
         <LocaleToggle compact className="ml-2" />

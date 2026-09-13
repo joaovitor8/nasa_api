@@ -79,7 +79,12 @@ export default function DonkiPage() {
   const start = useMemo(() => daysAgo(days), [days]);
   const end = useMemo(() => todayStr(), []);
 
-  const { data: flares, isLoading, error, refetch } = useQuery({
+  const {
+    data: flares,
+    isLoading,
+    error,
+    refetch,
+  } = useQuery({
     queryKey: ["donki-flares", start, end],
     queryFn: () => fetchFlares(start, end),
   });
@@ -101,7 +106,11 @@ export default function DonkiPage() {
   }, [flares]);
 
   return (
-    <ModuleScope theme={MODULE.theme} ambient className="min-h-screen pt-12 pb-24 px-4 sm:px-8">
+    <ModuleScope
+      theme={MODULE.theme}
+      ambient
+      className="min-h-screen pt-12 pb-24 px-4 sm:px-8"
+    >
       <div className="max-w-6xl mx-auto w-full">
         {/* Header */}
         <motion.div
@@ -114,13 +123,17 @@ export default function DonkiPage() {
               className="p-3 rounded-xl border relative"
               style={{
                 background: "var(--module-accent-soft)",
-                borderColor: "color-mix(in oklch, var(--module-accent) 35%, transparent)",
+                borderColor:
+                  "color-mix(in oklch, var(--module-accent) 35%, transparent)",
               }}
             >
               <Sun className="w-7 h-7" style={{ color: "var(--module-accent)" }} />
               <div
                 className="absolute inset-0 rounded-xl blur-md"
-                style={{ background: "var(--module-accent-soft)", animation: "hud-pulse 3s ease-in-out infinite" }}
+                style={{
+                  background: "var(--module-accent-soft)",
+                  animation: "hud-pulse 3s ease-in-out infinite",
+                }}
               />
             </div>
             <div>
@@ -130,7 +143,10 @@ export default function DonkiPage() {
               <h1 className="font-serif text-2xl md:text-3xl font-bold tracking-tight">
                 Clima Espacial
               </h1>
-              <p className="text-xs font-mono uppercase tracking-widest" style={{ color: "var(--module-accent)" }}>
+              <p
+                className="text-xs font-mono uppercase tracking-widest"
+                style={{ color: "var(--module-accent)" }}
+              >
                 NASA DONKI · Solar Flare Watch
               </p>
             </div>
@@ -160,8 +176,14 @@ export default function DonkiPage() {
         {/* Stats */}
         {stats && !error && !isLoading && (
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8">
-            <HudPanel label="Total no Período" badge={<Activity className="w-4 h-4 text-muted-foreground/50" />}>
-              <span className="text-3xl font-mono font-bold tabular-nums" style={{ color: "var(--module-accent)" }}>
+            <HudPanel
+              label="Total no Período"
+              badge={<Activity className="w-4 h-4 text-muted-foreground/50" />}
+            >
+              <span
+                className="text-3xl font-mono font-bold tabular-nums"
+                style={{ color: "var(--module-accent)" }}
+              >
                 {stats.total}
               </span>
               <p className="text-xs text-muted-foreground mt-1">erupções detectadas</p>
@@ -177,13 +199,18 @@ export default function DonkiPage() {
                   badge={
                     <span
                       className="w-1.5 h-1.5 rounded-full"
-                      style={{ background: tier.color, boxShadow: `0 0 8px ${tier.color}` }}
+                      style={{
+                        background: tier.color,
+                        boxShadow: `0 0 8px ${tier.color}`,
+                      }}
                     />
                   }
                 >
                   <span
                     className="text-3xl font-mono font-bold tabular-nums"
-                    style={{ color: count > 0 ? tier.color : "var(--muted-foreground)" }}
+                    style={{
+                      color: count > 0 ? tier.color : "var(--muted-foreground)",
+                    }}
                   >
                     {count}
                   </span>
@@ -256,7 +283,10 @@ export default function DonkiPage() {
                         >
                           {flare.classType.charAt(0)}
                         </div>
-                        <span className="text-base font-mono font-bold tabular-nums" style={{ color: tier.color }}>
+                        <span
+                          className="text-base font-mono font-bold tabular-nums"
+                          style={{ color: tier.color }}
+                        >
                           {flare.classType}
                         </span>
                       </div>
@@ -274,7 +304,12 @@ export default function DonkiPage() {
                         </div>
                         {flare.endTime && (
                           <div className="text-[10px] text-muted-foreground/60 mt-0.5">
-                            Duração: {Math.round((new Date(flare.endTime).getTime() - begin.getTime()) / 60_000)} min
+                            Duração:{" "}
+                            {Math.round(
+                              (new Date(flare.endTime).getTime() - begin.getTime()) /
+                                60_000,
+                            )}{" "}
+                            min
                           </div>
                         )}
                       </div>
@@ -283,7 +318,9 @@ export default function DonkiPage() {
                       <div className="col-span-4 md:col-span-3 text-xs font-mono">
                         <div className="flex items-center gap-1.5">
                           <MapPin className="w-3 h-3 text-muted-foreground/60" />
-                          <span style={{ color: "var(--module-accent)" }}>{flare.sourceLocation || "—"}</span>
+                          <span style={{ color: "var(--module-accent)" }}>
+                            {flare.sourceLocation || "—"}
+                          </span>
                         </div>
                         {flare.activeRegionNum && (
                           <div className="text-[10px] text-muted-foreground/60 mt-0.5">

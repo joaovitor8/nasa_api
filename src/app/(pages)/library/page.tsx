@@ -9,11 +9,7 @@ import axios from "axios";
 
 import { getModule } from "@/src/lib/modules";
 import type { LibraryItem } from "@/src/lib/types/nasa";
-import {
-  CommsFailure,
-  ModuleScope,
-  TelemetrySpinner,
-} from "@/src/components/hud";
+import { CommsFailure, ModuleScope, TelemetrySpinner } from "@/src/components/hud";
 
 const MODULE = getModule("library")!;
 
@@ -38,7 +34,13 @@ export default function LibraryPage() {
   const [mediaType, setMediaType] = useState<"image" | "video">("image");
   const [selected, setSelected] = useState<LibraryItem | null>(null);
 
-  const { data: items, isLoading, isFetching, error, refetch } = useQuery({
+  const {
+    data: items,
+    isLoading,
+    isFetching,
+    error,
+    refetch,
+  } = useQuery({
     queryKey: ["nasa-library", searchQuery, mediaType],
     queryFn: () => fetchLibrary(searchQuery, mediaType),
   });
@@ -51,7 +53,11 @@ export default function LibraryPage() {
   const busy = isLoading || isFetching;
 
   return (
-    <ModuleScope theme={MODULE.theme} ambient className="min-h-screen pt-12 pb-24 px-4 sm:px-8">
+    <ModuleScope
+      theme={MODULE.theme}
+      ambient
+      className="min-h-screen pt-12 pb-24 px-4 sm:px-8"
+    >
       <div className="max-w-[100rem] mx-auto">
         {/* Header */}
         <motion.div
@@ -66,7 +72,10 @@ export default function LibraryPage() {
               borderColor: "color-mix(in oklch, var(--module-accent) 30%, transparent)",
             }}
           >
-            <LibraryIcon className="w-7 h-7" style={{ color: "var(--module-accent)" }} />
+            <LibraryIcon
+              className="w-7 h-7"
+              style={{ color: "var(--module-accent)" }}
+            />
           </div>
           <span className="text-[10px] font-mono tracking-[0.3em] uppercase text-muted-foreground/70 mb-2">
             {MODULE.codename}
@@ -75,10 +84,14 @@ export default function LibraryPage() {
             Arquivo Central
           </h1>
           <p className="text-muted-foreground mb-8 text-base md:text-lg">
-            Busca multimídia desclassificada — milhares de imagens e vídeos históricos da agência.
+            Busca multimídia desclassificada — milhares de imagens e vídeos históricos
+            da agência.
           </p>
 
-          <form onSubmit={handleSearch} className="w-full flex flex-col sm:flex-row gap-3">
+          <form
+            onSubmit={handleSearch}
+            className="w-full flex flex-col sm:flex-row gap-3"
+          >
             <div className="relative grow">
               <input
                 type="text"
@@ -101,10 +114,12 @@ export default function LibraryPage() {
 
           {/* Filtros */}
           <div className="flex items-center gap-1 mt-6 bg-white/5 p-1 rounded-full border border-white/10">
-            {([
-              { key: "image", label: "Imagens", icon: Camera },
-              { key: "video", label: "Vídeos", icon: Film },
-            ] as const).map(({ key, label, icon: Icon }) => {
+            {(
+              [
+                { key: "image", label: "Imagens", icon: Camera },
+                { key: "video", label: "Vídeos", icon: Film },
+              ] as const
+            ).map(({ key, label, icon: Icon }) => {
               const active = mediaType === key;
               return (
                 <button
@@ -181,7 +196,10 @@ export default function LibraryPage() {
                     <h3 className="font-bold text-sm line-clamp-2 leading-snug mb-1">
                       {meta.title}
                     </h3>
-                    <p className="text-[10px] font-mono uppercase tracking-widest" style={{ color: "var(--module-accent)" }}>
+                    <p
+                      className="text-[10px] font-mono uppercase tracking-widest"
+                      style={{ color: "var(--module-accent)" }}
+                    >
                       {new Date(meta.date_created).getFullYear()} · {meta.media_type}
                     </p>
                   </div>
@@ -233,16 +251,20 @@ export default function LibraryPage() {
                   style={{
                     background: "var(--module-accent-soft)",
                     color: "var(--module-accent)",
-                    borderColor: "color-mix(in oklch, var(--module-accent) 30%, transparent)",
+                    borderColor:
+                      "color-mix(in oklch, var(--module-accent) 30%, transparent)",
                   }}
                 >
-                  {selected.data[0].media_type === "video" ? "Registro em Vídeo" : "Registro Fotográfico"}
+                  {selected.data[0].media_type === "video"
+                    ? "Registro em Vídeo"
+                    : "Registro Fotográfico"}
                 </span>
                 <h2 className="text-2xl font-serif font-bold mb-2 leading-tight">
                   {selected.data[0].title}
                 </h2>
                 <div className="text-sm text-muted-foreground font-mono mb-6">
-                  ID: {selected.data[0].nasa_id} · {new Date(selected.data[0].date_created).toLocaleDateString("pt-BR")}
+                  ID: {selected.data[0].nasa_id} ·{" "}
+                  {new Date(selected.data[0].date_created).toLocaleDateString("pt-BR")}
                 </div>
 
                 <p className="text-sm text-muted-foreground leading-relaxed font-light text-justify">

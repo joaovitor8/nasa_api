@@ -34,7 +34,12 @@ export function TelemetrySpinner({
   }, [phases.length, interval]);
 
   return (
-    <div className={cn("flex flex-col items-center justify-center gap-6 py-16 text-center", className)}>
+    <div
+      className={cn(
+        "flex flex-col items-center justify-center gap-6 py-16 text-center",
+        className,
+      )}
+    >
       <div className="relative w-20 h-20">
         <motion.div
           animate={{ rotate: 360 }}

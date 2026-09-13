@@ -37,7 +37,12 @@ test.describe("rotas anunciadas no sitemap", () => {
         continue;
       }
       // O error boundary global mostra este texto quando um render quebra.
-      if (await page.getByText("Sinal Interrompido").isVisible().catch(() => false)) {
+      if (
+        await page
+          .getByText("Sinal Interrompido")
+          .isVisible()
+          .catch(() => false)
+      ) {
         falhas.push(`${path} → error boundary acionado`);
       }
     }

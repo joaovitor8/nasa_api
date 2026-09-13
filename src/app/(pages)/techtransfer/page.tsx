@@ -3,16 +3,20 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowUpRight, Briefcase, Code2, Cpu, FileBadge, Lightbulb, Search } from "lucide-react";
+import {
+  ArrowUpRight,
+  Briefcase,
+  Code2,
+  Cpu,
+  FileBadge,
+  Lightbulb,
+  Search,
+} from "lucide-react";
 import axios from "axios";
 
 import { getModule } from "@/src/lib/modules";
 import { pickLocale, useLocale } from "@/src/lib/i18n";
-import {
-  CommsFailure,
-  ModuleScope,
-  TelemetrySpinner,
-} from "@/src/components/hud";
+import { CommsFailure, ModuleScope, TelemetrySpinner } from "@/src/components/hud";
 
 const MODULE = getModule("techtransfer")!;
 
@@ -23,12 +27,12 @@ const fetchTech = async (type: TechType, q: string): Promise<string[][]> => {
   return res.data;
 };
 
-const stripHtml = (s: string) => s ? s.replace(/<[^>]*>?/g, "") : "";
+const stripHtml = (s: string) => (s ? s.replace(/<[^>]*>?/g, "") : "");
 
 const TABS: { id: TechType; pt: string; en: string; icon: typeof Code2 }[] = [
   { id: "software", pt: "Softwares Públicos", en: "Open Source", icon: Code2 },
-  { id: "patent",   pt: "Patentes",           en: "Patents",     icon: FileBadge },
-  { id: "spinoff",  pt: "Spinoffs",           en: "Spinoffs",    icon: Lightbulb },
+  { id: "patent", pt: "Patentes", en: "Patents", icon: FileBadge },
+  { id: "spinoff", pt: "Spinoffs", en: "Spinoffs", icon: Lightbulb },
 ];
 
 export default function TechTransferPage() {
@@ -50,7 +54,11 @@ export default function TechTransferPage() {
   const busy = isLoading || isFetching;
 
   return (
-    <ModuleScope theme={MODULE.theme} ambient className="min-h-screen pt-12 pb-24 px-4 sm:px-8">
+    <ModuleScope
+      theme={MODULE.theme}
+      ambient
+      className="min-h-screen pt-12 pb-24 px-4 sm:px-8"
+    >
       <div className="max-w-6xl mx-auto w-full">
         {/* Header */}
         <motion.div
@@ -68,7 +76,10 @@ export default function TechTransferPage() {
             <Briefcase className="w-7 h-7" style={{ color: "var(--module-accent)" }} />
             <div
               className="absolute inset-0 rounded-xl blur-md"
-              style={{ background: "var(--module-accent-soft)", animation: "hud-pulse 3s ease-in-out infinite" }}
+              style={{
+                background: "var(--module-accent-soft)",
+                animation: "hud-pulse 3s ease-in-out infinite",
+              }}
             />
           </div>
           <span className="text-[10px] font-mono tracking-[0.3em] uppercase text-muted-foreground/70">
@@ -93,7 +104,10 @@ export default function TechTransferPage() {
                   className="flex items-center gap-2 px-4 py-2 rounded-full text-[10px] font-mono uppercase tracking-[0.2em] transition-all"
                   style={
                     active
-                      ? { background: "var(--module-accent-soft)", color: "var(--module-accent)" }
+                      ? {
+                          background: "var(--module-accent-soft)",
+                          color: "var(--module-accent)",
+                        }
                       : { color: "var(--muted-foreground)" }
                   }
                 >
@@ -108,7 +122,11 @@ export default function TechTransferPage() {
           <form onSubmit={handleSearch} className="w-full max-w-xl mt-6 relative">
             <input
               type="text"
-              placeholder={locale === "en" ? "Search: AI, propulsion, materials…" : "Buscar: IA, propulsão, materiais…"}
+              placeholder={
+                locale === "en"
+                  ? "Search: AI, propulsion, materials…"
+                  : "Buscar: IA, propulsão, materiais…"
+              }
               value={searchInput}
               onChange={(e) => setSearchInput(e.target.value)}
               className="w-full bg-black/40 text-foreground border border-white/10 rounded-full pl-11 pr-28 py-3 outline-none focus:border-[var(--module-accent)] transition-colors text-sm font-mono"
@@ -127,7 +145,11 @@ export default function TechTransferPage() {
 
         {error && (
           <CommsFailure
-            message={locale === "en" ? "Could not reach the IP registry." : "Falha ao acessar o registro de propriedade intelectual."}
+            message={
+              locale === "en"
+                ? "Could not reach the IP registry."
+                : "Falha ao acessar o registro de propriedade intelectual."
+            }
             onRetry={() => refetch()}
           />
         )}
@@ -137,15 +159,25 @@ export default function TechTransferPage() {
             label="TECHTRANSFER · QUERY"
             phases={
               locale === "en"
-                ? ["Pinging patent index", "Filtering open-source repos", "Compiling tech briefs"]
-                : ["Sondando índice de patentes", "Filtrando repositórios", "Compilando dossiês técnicos"]
+                ? [
+                    "Pinging patent index",
+                    "Filtering open-source repos",
+                    "Compiling tech briefs",
+                  ]
+                : [
+                    "Sondando índice de patentes",
+                    "Filtrando repositórios",
+                    "Compilando dossiês técnicos",
+                  ]
             }
           />
         )}
 
         {data && data.length === 0 && !busy && !error && (
           <p className="text-center text-muted-foreground py-12 font-mono uppercase tracking-widest text-sm">
-            {locale === "en" ? "No records for this query." : "Nenhum registro para esta busca."}
+            {locale === "en"
+              ? "No records for this query."
+              : "Nenhum registro para esta busca."}
           </p>
         )}
 
@@ -203,9 +235,15 @@ export default function TechTransferPage() {
                       {title}
                     </h2>
                     <p className="text-xs text-muted-foreground leading-relaxed line-clamp-4 grow mb-4">
-                      {description || (locale === "en" ? "No additional details." : "Detalhes adicionais não informados.")}
+                      {description ||
+                        (locale === "en"
+                          ? "No additional details."
+                          : "Detalhes adicionais não informados.")}
                     </p>
-                    <div className="mt-auto pt-3 border-t border-white/5 flex items-center justify-between text-[10px] font-mono uppercase tracking-[0.2em]" style={{ color: "var(--module-accent)" }}>
+                    <div
+                      className="mt-auto pt-3 border-t border-white/5 flex items-center justify-between text-[10px] font-mono uppercase tracking-[0.2em]"
+                      style={{ color: "var(--module-accent)" }}
+                    >
                       <span>{locale === "en" ? "Open dossier" : "Abrir dossiê"}</span>
                       <ArrowUpRight className="w-3.5 h-3.5" />
                     </div>

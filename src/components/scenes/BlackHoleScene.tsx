@@ -191,16 +191,9 @@ function BlackHole({ spinSpeed, diskTilt }: BlackHoleProps) {
       </mesh>
 
       {/* Disco de acreção */}
-      <mesh
-        ref={diskRef}
-        rotation={[Math.PI / 2 + diskTilt, 0, 0]}
-      >
+      <mesh ref={diskRef} rotation={[Math.PI / 2 + diskTilt, 0, 0]}>
         <ringGeometry args={[1.25, 4.2, 256, 1]} />
-        <primitive
-          object={diskMaterial}
-          ref={diskMatRef}
-          attach="material"
-        />
+        <primitive object={diskMaterial} ref={diskMatRef} attach="material" />
       </mesh>
     </group>
   );
@@ -229,14 +222,7 @@ export function BlackHoleScene({
     >
       <ambientLight intensity={0.05} />
       <BlackHole spinSpeed={spinSpeed} diskTilt={diskTilt} />
-      <Stars
-        radius={180}
-        depth={80}
-        count={3500}
-        factor={4}
-        fade
-        speed={0.2}
-      />
+      <Stars radius={180} depth={80} count={3500} factor={4} fade speed={0.2} />
       <OrbitControls
         enablePan={false}
         enableZoom

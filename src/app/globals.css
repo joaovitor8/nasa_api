@@ -52,7 +52,7 @@
 :root {
   --background: oklch(0.98 0.01 260);
   --foreground: oklch(0.15 0.05 260);
-  --primary: oklch(0.60 0.18 290);
+  --primary: oklch(0.6 0.18 290);
   --primary-foreground: oklch(0.98 0 0);
   --radius: 0.75rem;
 
@@ -88,38 +88,38 @@
 .dark {
   /* Fundo Abissal — quase preto com leve tint azulado (evita preto duro) */
   --background: oklch(0.05 0.012 260);
-  
+
   /* Texto claro, levemente azulado para não ser um branco puro "duro" */
   --foreground: oklch(0.95 0.02 260);
-  
+
   /* Cards e painéis flutuantes (Matéria Escura) */
   --card: oklch(0.15 0.04 260);
   --card-foreground: oklch(0.95 0.02 260);
-  
+
   --popover: oklch(0.15 0.04 260);
   --popover-foreground: oklch(0.95 0.02 260);
-  
+
   /* Cor Primária: Roxo Místico (Nebulosa) - Traz a beleza majestosa para os botões */
-  --primary: oklch(0.60 0.18 290);
+  --primary: oklch(0.6 0.18 290);
   --primary-foreground: oklch(0.98 0 0);
-  
+
   /* Cor Secundária: Fundo sutil para badges e elementos inativos */
-  --secondary: oklch(0.20 0.05 260);
+  --secondary: oklch(0.2 0.05 260);
   --secondary-foreground: oklch(0.95 0.02 260);
-  
+
   /* Muted: Textos secundários e descrições */
-  --muted: oklch(0.20 0.05 260);
-  --muted-foreground: oklch(0.70 0.02 260);
-  
-  --accent: oklch(0.20 0.05 260);
+  --muted: oklch(0.2 0.05 260);
+  --muted-foreground: oklch(0.7 0.02 260);
+
+  --accent: oklch(0.2 0.05 260);
   --accent-foreground: oklch(0.95 0.02 260);
-  
-  --destructive: oklch(0.60 0.15 20);
-  
+
+  --destructive: oklch(0.6 0.15 20);
+
   /* Bordas super sutis para dar aquele efeito "glass" sem pesar */
   --border: oklch(1 0 0 / 8%);
   --input: oklch(1 0 0 / 12%);
-  --ring: oklch(0.60 0.18 290);
+  --ring: oklch(0.6 0.18 290);
 }
 
 @layer base {
@@ -136,18 +136,40 @@
 
 /* ─── HUD primitives ──────────────────────────────────────────── */
 @keyframes scanline {
-  0%   { transform: translateY(-100%); }
-  100% { transform: translateY(100vh); }
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(100vh);
+  }
 }
 
 @keyframes hud-pulse {
-  0%, 100% { opacity: 0.4; }
-  50%      { opacity: 1; }
+  0%,
+  100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 1;
+  }
 }
 
 @keyframes hud-flicker {
-  0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% { opacity: 1; }
-  20%, 24%, 55% { opacity: 0.4; }
+  0%,
+  19%,
+  21%,
+  23%,
+  25%,
+  54%,
+  56%,
+  100% {
+    opacity: 1;
+  }
+  20%,
+  24%,
+  55% {
+    opacity: 0.4;
+  }
 }
 
 .hud-scanlines {
@@ -169,23 +191,45 @@
 
 /* ─── Atmosfera global ───────────────────────────────────────── */
 @keyframes spin-slow {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 @keyframes spin-reverse {
-  to { transform: rotate(-360deg); }
+  to {
+    transform: rotate(-360deg);
+  }
 }
 @keyframes shimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
 }
 @keyframes hud-shooting {
-  0% { transform: translate(-10vw, -10vh) rotate(35deg); opacity: 0; }
-  10% { opacity: 1; }
-  100% { transform: translate(110vw, 110vh) rotate(35deg); opacity: 0; }
+  0% {
+    transform: translate(-10vw, -10vh) rotate(35deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(110vw, 110vh) rotate(35deg);
+    opacity: 0;
+  }
 }
 @keyframes hud-blink {
-  0%, 49% { opacity: 1; }
-  50%, 100% { opacity: 0; }
+  0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
 }
 
 .animate-spin-slow {
@@ -230,7 +274,7 @@
   background: oklch(1 0 0 / 0.02);
 }
 ::-webkit-scrollbar-thumb {
-  background: oklch(1 0 0 / 0.10);
+  background: oklch(1 0 0 / 0.1);
   border-radius: 999px;
   border: 2px solid transparent;
   background-clip: padding-box;
@@ -270,8 +314,7 @@ input[type="range"] {
 /* Body — adiciona grain sutil no fundo (overlay imperceptível) */
 body {
   background-image:
-    radial-gradient(ellipse at 20% 10%, oklch(0.20 0.08 290 / 0.08) 0%, transparent 45%),
-    radial-gradient(ellipse at 80% 90%, oklch(0.20 0.08 220 / 0.06) 0%, transparent 45%);
+    radial-gradient(ellipse at 20% 10%, oklch(0.2 0.08 290 / 0.08) 0%, transparent 45%),
+    radial-gradient(ellipse at 80% 90%, oklch(0.2 0.08 220 / 0.06) 0%, transparent 45%);
   background-attachment: fixed;
 }
-

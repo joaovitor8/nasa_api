@@ -54,8 +54,7 @@ export default function SscPage() {
     if (!data) return [];
     const t = searchTerm.toLowerCase();
     return data.filter(
-      (s) =>
-        s.Name.toLowerCase().includes(t) || s.Id.toLowerCase().includes(t),
+      (s) => s.Name.toLowerCase().includes(t) || s.Id.toLowerCase().includes(t),
     );
   }, [data, searchTerm]);
 
@@ -78,7 +77,11 @@ export default function SscPage() {
     : [];
 
   return (
-    <ModuleScope theme={MODULE.theme} ambient className="min-h-screen pt-12 pb-24 px-4 sm:px-8">
+    <ModuleScope
+      theme={MODULE.theme}
+      ambient
+      className="min-h-screen pt-12 pb-24 px-4 sm:px-8"
+    >
       <div className="max-w-[100rem] mx-auto w-full flex flex-col h-[calc(100vh-8rem)]">
         {/* Header */}
         <motion.div
@@ -91,13 +94,20 @@ export default function SscPage() {
               className="p-3 rounded-xl border relative"
               style={{
                 background: "var(--module-accent-soft)",
-                borderColor: "color-mix(in oklch, var(--module-accent) 35%, transparent)",
+                borderColor:
+                  "color-mix(in oklch, var(--module-accent) 35%, transparent)",
               }}
             >
-              <Satellite className="w-7 h-7" style={{ color: "var(--module-accent)" }} />
+              <Satellite
+                className="w-7 h-7"
+                style={{ color: "var(--module-accent)" }}
+              />
               <div
                 className="absolute inset-0 rounded-xl blur-md"
-                style={{ background: "var(--module-accent-soft)", animation: "hud-pulse 3s ease-in-out infinite" }}
+                style={{
+                  background: "var(--module-accent-soft)",
+                  animation: "hud-pulse 3s ease-in-out infinite",
+                }}
               />
             </div>
             <div>
@@ -107,7 +117,10 @@ export default function SscPage() {
               <h1 className="font-serif text-2xl md:text-3xl font-bold tracking-tight">
                 Controle de Tráfego Orbital
               </h1>
-              <p className="text-xs font-mono uppercase tracking-widest flex items-center gap-2" style={{ color: "var(--module-accent)" }}>
+              <p
+                className="text-xs font-mono uppercase tracking-widest flex items-center gap-2"
+                style={{ color: "var(--module-accent)" }}
+              >
                 <Radio className="w-3.5 h-3.5" /> Satellite Situation Center
               </p>
             </div>
@@ -152,7 +165,8 @@ export default function SscPage() {
                   style={{
                     background: "var(--module-accent-soft)",
                     color: "var(--module-accent)",
-                    borderColor: "color-mix(in oklch, var(--module-accent) 30%, transparent)",
+                    borderColor:
+                      "color-mix(in oklch, var(--module-accent) 30%, transparent)",
                   }}
                 >
                   {filtered.length}
@@ -170,8 +184,10 @@ export default function SscPage() {
                         active
                           ? {
                               background: "var(--module-accent-soft)",
-                              borderColor: "color-mix(in oklch, var(--module-accent) 35%, transparent)",
-                              boxShadow: "inset 0 0 24px color-mix(in oklch, var(--module-accent) 10%, transparent)",
+                              borderColor:
+                                "color-mix(in oklch, var(--module-accent) 35%, transparent)",
+                              boxShadow:
+                                "inset 0 0 24px color-mix(in oklch, var(--module-accent) 10%, transparent)",
                             }
                           : { borderColor: "transparent" }
                       }
@@ -188,7 +204,10 @@ export default function SscPage() {
                         </p>
                       </div>
                       {active && (
-                        <LocateFixed className="w-4 h-4 shrink-0" style={{ color: "var(--module-accent)" }} />
+                        <LocateFixed
+                          className="w-4 h-4 shrink-0"
+                          style={{ color: "var(--module-accent)" }}
+                        />
                       )}
                     </button>
                   );
@@ -233,15 +252,22 @@ export default function SscPage() {
                           className="w-32 h-32 absolute top-1/2 left-1/2 origin-top-left animate-spin-slow"
                           style={{
                             borderLeft: "2px solid var(--module-accent)",
-                            background: "linear-gradient(to bottom right, var(--module-accent-soft), transparent)",
+                            background:
+                              "linear-gradient(to bottom right, var(--module-accent-soft), transparent)",
                             opacity: 0.5,
                           }}
                         />
                       </div>
 
                       <div className="absolute top-5 left-5 flex items-center gap-2">
-                        <div className="w-2 h-2 rounded-full animate-pulse" style={{ background: "var(--module-accent)" }} />
-                        <span className="text-[10px] font-mono uppercase tracking-[0.25em]" style={{ color: "var(--module-accent)" }}>
+                        <div
+                          className="w-2 h-2 rounded-full animate-pulse"
+                          style={{ background: "var(--module-accent)" }}
+                        />
+                        <span
+                          className="text-[10px] font-mono uppercase tracking-[0.25em]"
+                          style={{ color: "var(--module-accent)" }}
+                        >
                           Rastreando
                         </span>
                       </div>
@@ -249,7 +275,10 @@ export default function SscPage() {
                         <span className="block text-[9px] font-mono text-muted-foreground/70 uppercase tracking-widest">
                           Alvo Atual
                         </span>
-                        <span className="text-sm font-mono font-bold" style={{ color: "var(--module-accent)" }}>
+                        <span
+                          className="text-sm font-mono font-bold"
+                          style={{ color: "var(--module-accent)" }}
+                        >
                           {selected.Id}
                         </span>
                       </div>
@@ -260,7 +289,10 @@ export default function SscPage() {
                       <HudPanel
                         label="Lock Estabelecido"
                         badge={
-                          <Crosshair className="w-3.5 h-3.5" style={{ color: "var(--module-accent)" }} />
+                          <Crosshair
+                            className="w-3.5 h-3.5"
+                            style={{ color: "var(--module-accent)" }}
+                          />
                         }
                       >
                         <h2 className="text-2xl md:text-3xl font-serif font-bold leading-tight mb-3">

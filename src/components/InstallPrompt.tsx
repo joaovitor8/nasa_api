@@ -87,7 +87,10 @@ export function InstallPrompt() {
               <Download className="w-4 h-4" />
             </div>
             <div className="flex-1 min-w-0 pr-4">
-              <h3 className="font-mono text-[11px] uppercase tracking-[0.2em] mb-1" style={{ color: "oklch(0.78 0.16 80)" }}>
+              <h3
+                className="font-mono text-[11px] uppercase tracking-[0.2em] mb-1"
+                style={{ color: "oklch(0.78 0.16 80)" }}
+              >
                 {locale === "en" ? "Install Console" : "Instalar Console"}
               </h3>
               <p className="text-xs text-muted-foreground leading-relaxed mb-3">

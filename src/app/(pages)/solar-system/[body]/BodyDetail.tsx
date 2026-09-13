@@ -50,11 +50,23 @@ const formatScientific = (raw: string): string => {
   if (!match) return raw;
   const [, base, exp] = match;
   const supers: Record<string, string> = {
-    "0": "⁰", "1": "¹", "2": "²", "3": "³", "4": "⁴",
-    "5": "⁵", "6": "⁶", "7": "⁷", "8": "⁸", "9": "⁹",
-    "-": "⁻", "+": "",
+    "0": "⁰",
+    "1": "¹",
+    "2": "²",
+    "3": "³",
+    "4": "⁴",
+    "5": "⁵",
+    "6": "⁶",
+    "7": "⁷",
+    "8": "⁸",
+    "9": "⁹",
+    "-": "⁻",
+    "+": "",
   };
-  const expFmt = exp.split("").map((c) => supers[c] ?? c).join("");
+  const expFmt = exp
+    .split("")
+    .map((c) => supers[c] ?? c)
+    .join("");
   return `${base} × 10${expFmt}`;
 };
 
@@ -67,7 +79,8 @@ const formatRotation = (hours: number, locale: string): string => {
 
 const formatOrbit = (days: number | null, locale: string): string => {
   if (days === null) return "—";
-  if (days < 365) return `${days.toLocaleString(locale === "en" ? "en-US" : "pt-BR")} ${locale === "en" ? "days" : "dias"}`;
+  if (days < 365)
+    return `${days.toLocaleString(locale === "en" ? "en-US" : "pt-BR")} ${locale === "en" ? "days" : "dias"}`;
   const years = days / 365.25;
   return `${years.toFixed(years > 100 ? 0 : 2)} ${locale === "en" ? "years" : "anos"}`;
 };
@@ -96,7 +109,10 @@ function Stat({ label, value, icon, accent }: StatProps) {
         <span style={{ color: accent }}>{icon}</span>
         {label}
       </div>
-      <div className="font-mono text-base md:text-lg font-bold tabular-nums wrap-break-word" style={{ color: accent }}>
+      <div
+        className="font-mono text-base md:text-lg font-bold tabular-nums wrap-break-word"
+        style={{ color: accent }}
+      >
         {value}
       </div>
     </div>
@@ -124,7 +140,11 @@ export function BodyDetail({ body }: { body: SolarBody }) {
   const numFmt = locale === "en" ? "en-US" : "pt-BR";
 
   return (
-    <ModuleScope theme={bodyTheme} ambient className="min-h-screen pt-12 pb-24 px-4 sm:px-8">
+    <ModuleScope
+      theme={bodyTheme}
+      ambient
+      className="min-h-screen pt-12 pb-24 px-4 sm:px-8"
+    >
       <div className="max-w-6xl mx-auto w-full">
         {/* Voltar */}
         <Link
@@ -161,19 +181,27 @@ export function BodyDetail({ body }: { body: SolarBody }) {
             </div>
             <div>
               <span className="text-[10px] font-mono tracking-[0.3em] uppercase text-muted-foreground/70 block">
-                {(locale === "en" ? typeLabel.en : typeLabel.pt).toUpperCase()} · ORBIT {body.orbitIndex || "★"}
+                {(locale === "en" ? typeLabel.en : typeLabel.pt).toUpperCase()} · ORBIT{" "}
+                {body.orbitIndex || "★"}
               </span>
               <h1 className="font-serif text-3xl md:text-5xl font-bold tracking-tight">
                 {locale === "en" ? body.en : body.pt}
               </h1>
-              <p className="text-xs font-mono uppercase tracking-widest" style={{ color: body.accent }}>
-                {locale === "en" ? body.en : body.pt} · {body.en !== body.pt && (locale === "en" ? body.pt : body.en)}
+              <p
+                className="text-xs font-mono uppercase tracking-widest"
+                style={{ color: body.accent }}
+              >
+                {locale === "en" ? body.en : body.pt} ·{" "}
+                {body.en !== body.pt && (locale === "en" ? body.pt : body.en)}
               </p>
             </div>
           </div>
 
           <a
-            href={data?.pageUrl ?? `https://${wikiLang}.wikipedia.org/wiki/${encodeURIComponent(wikiTitle)}`}
+            href={
+              data?.pageUrl ??
+              `https://${wikiLang}.wikipedia.org/wiki/${encodeURIComponent(wikiTitle)}`
+            }
             target="_blank"
             rel="noreferrer"
             className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-[10px] font-mono uppercase tracking-[0.25em] border transition-colors hover:bg-white/5"
@@ -198,7 +226,11 @@ export function BodyDetail({ body }: { body: SolarBody }) {
           >
             {error && (
               <CommsFailure
-                message={locale === "en" ? "Encyclopedia archive unreachable." : "Arquivo enciclopédico indisponível."}
+                message={
+                  locale === "en"
+                    ? "Encyclopedia archive unreachable."
+                    : "Arquivo enciclopédico indisponível."
+                }
                 onRetry={() => refetch()}
               />
             )}
@@ -208,7 +240,11 @@ export function BodyDetail({ body }: { body: SolarBody }) {
                 phases={
                   locale === "en"
                     ? ["Querying encyclopedia", "Fetching imagery", "Compiling dossier"]
-                    : ["Consultando enciclopédia", "Carregando imagem", "Compilando dossiê"]
+                    : [
+                        "Consultando enciclopédia",
+                        "Carregando imagem",
+                        "Compilando dossiê",
+                      ]
                 }
               />
             )}
@@ -232,10 +268,22 @@ export function BodyDetail({ body }: { body: SolarBody }) {
               />
             )}
 
-            <span className="absolute top-3 left-3 w-4 h-4 border-t-2 border-l-2 z-10" style={{ borderColor: body.accent }} />
-            <span className="absolute top-3 right-3 w-4 h-4 border-t-2 border-r-2 z-10" style={{ borderColor: body.accent }} />
-            <span className="absolute bottom-3 left-3 w-4 h-4 border-b-2 border-l-2 z-10" style={{ borderColor: body.accent }} />
-            <span className="absolute bottom-3 right-3 w-4 h-4 border-b-2 border-r-2 z-10" style={{ borderColor: body.accent }} />
+            <span
+              className="absolute top-3 left-3 w-4 h-4 border-t-2 border-l-2 z-10"
+              style={{ borderColor: body.accent }}
+            />
+            <span
+              className="absolute top-3 right-3 w-4 h-4 border-t-2 border-r-2 z-10"
+              style={{ borderColor: body.accent }}
+            />
+            <span
+              className="absolute bottom-3 left-3 w-4 h-4 border-b-2 border-l-2 z-10"
+              style={{ borderColor: body.accent }}
+            />
+            <span
+              className="absolute bottom-3 right-3 w-4 h-4 border-b-2 border-r-2 z-10"
+              style={{ borderColor: body.accent }}
+            />
           </motion.div>
 
           {/* Extract Wikipedia */}
@@ -275,7 +323,8 @@ export function BodyDetail({ body }: { body: SolarBody }) {
                     className="inline-flex items-center gap-1.5 mt-4 text-[10px] font-mono uppercase tracking-[0.25em]"
                     style={{ color: body.accent }}
                   >
-                    {locale === "en" ? "Full article" : "Artigo completo"} <ArrowUpRight className="w-3 h-3" />
+                    {locale === "en" ? "Full article" : "Artigo completo"}{" "}
+                    <ArrowUpRight className="w-3 h-3" />
                   </a>
                 </>
               )}
@@ -344,7 +393,11 @@ export function BodyDetail({ body }: { body: SolarBody }) {
             />
             <Stat
               label={locale === "en" ? "Discovered" : "Descoberta"}
-              value={body.discovered === "Antiguidade" && locale === "en" ? "Ancient" : body.discovered}
+              value={
+                body.discovered === "Antiguidade" && locale === "en"
+                  ? "Ancient"
+                  : body.discovered
+              }
               icon={<Calendar className="w-3.5 h-3.5" />}
               accent={body.accent}
             />

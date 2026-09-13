@@ -92,7 +92,11 @@ export default function SpacexPage() {
   );
 
   return (
-    <ModuleScope theme={MODULE.theme} ambient className="min-h-screen pt-12 pb-24 px-4 sm:px-8">
+    <ModuleScope
+      theme={MODULE.theme}
+      ambient
+      className="min-h-screen pt-12 pb-24 px-4 sm:px-8"
+    >
       <div className="max-w-7xl mx-auto w-full">
         {/* Header */}
         <motion.div
@@ -105,7 +109,8 @@ export default function SpacexPage() {
               className="p-3 rounded-xl border"
               style={{
                 background: "var(--module-accent-soft)",
-                borderColor: "color-mix(in oklch, var(--module-accent) 35%, transparent)",
+                borderColor:
+                  "color-mix(in oklch, var(--module-accent) 35%, transparent)",
               }}
             >
               <Rocket className="w-7 h-7" style={{ color: "var(--module-accent)" }} />
@@ -117,7 +122,10 @@ export default function SpacexPage() {
               <h1 className="font-serif text-2xl md:text-3xl font-bold tracking-tight">
                 Frota SpaceX
               </h1>
-              <p className="text-xs font-mono uppercase tracking-widest" style={{ color: "var(--module-accent)" }}>
+              <p
+                className="text-xs font-mono uppercase tracking-widest"
+                style={{ color: "var(--module-accent)" }}
+              >
                 Hawthorne · CA · Operação Privada
               </p>
             </div>
@@ -125,7 +133,10 @@ export default function SpacexPage() {
 
           {data && next && (
             <div className="flex items-center gap-2 text-[10px] font-mono uppercase tracking-[0.25em]">
-              <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: "var(--module-accent)" }} />
+              <span
+                className="w-1.5 h-1.5 rounded-full animate-pulse"
+                style={{ background: "var(--module-accent)" }}
+              />
               <span className="text-muted-foreground">Próximo: {next.name}</span>
             </div>
           )}
@@ -160,7 +171,10 @@ export default function SpacexPage() {
               <HudPanel
                 label={countdown.past ? "T+ MISSION ELAPSED" : "T- COUNTDOWN"}
                 badge={
-                  <span className="text-[10px] font-mono uppercase tracking-[0.25em]" style={{ color: "var(--module-accent)" }}>
+                  <span
+                    className="text-[10px] font-mono uppercase tracking-[0.25em]"
+                    style={{ color: "var(--module-accent)" }}
+                  >
                     Flight #{next.flight_number}
                   </span>
                 }
@@ -184,18 +198,27 @@ export default function SpacexPage() {
 
                     <div className="space-y-2 text-sm font-mono">
                       <div className="flex items-center gap-2 text-muted-foreground">
-                        <Flame className="w-4 h-4" style={{ color: "var(--module-accent)" }} />
+                        <Flame
+                          className="w-4 h-4"
+                          style={{ color: "var(--module-accent)" }}
+                        />
                         <span>{rocketsById[next.rocket]?.name ?? "Rocket TBD"}</span>
                       </div>
                       <div className="flex items-center gap-2 text-muted-foreground">
-                        <MapPin className="w-4 h-4" style={{ color: "var(--module-accent)" }} />
+                        <MapPin
+                          className="w-4 h-4"
+                          style={{ color: "var(--module-accent)" }}
+                        />
                         <span>
                           {padsById[next.launchpad]?.full_name ?? "Pad TBD"} ·{" "}
                           {padsById[next.launchpad]?.region ?? ""}
                         </span>
                       </div>
                       <div className="flex items-center gap-2 text-muted-foreground">
-                        <Timer className="w-4 h-4" style={{ color: "var(--module-accent)" }} />
+                        <Timer
+                          className="w-4 h-4"
+                          style={{ color: "var(--module-accent)" }}
+                        />
                         <span>{new Date(next.date_utc).toUTCString()}</span>
                       </div>
                     </div>
@@ -212,7 +235,10 @@ export default function SpacexPage() {
                       <div
                         key={label}
                         className="border border-white/10 rounded-xl p-3 text-center"
-                        style={{ background: "color-mix(in oklch, var(--module-accent) 5%, transparent)" }}
+                        style={{
+                          background:
+                            "color-mix(in oklch, var(--module-accent) 5%, transparent)",
+                        }}
                       >
                         <div
                           className="text-3xl md:text-4xl font-mono font-bold tabular-nums leading-none"
@@ -265,9 +291,21 @@ export default function SpacexPage() {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   {activeRockets.map((r) => {
                     const points: DataPoint[] = [
-                      { label: "Altura", value: r.height.meters?.toFixed(1) ?? "—", unit: "m" },
-                      { label: "Massa", value: r.mass.kg ? (r.mass.kg / 1000).toFixed(0) : "—", unit: "t" },
-                      { label: "Diâmetro", value: r.diameter.meters?.toFixed(1) ?? "—", unit: "m" },
+                      {
+                        label: "Altura",
+                        value: r.height.meters?.toFixed(1) ?? "—",
+                        unit: "m",
+                      },
+                      {
+                        label: "Massa",
+                        value: r.mass.kg ? (r.mass.kg / 1000).toFixed(0) : "—",
+                        unit: "t",
+                      },
+                      {
+                        label: "Diâmetro",
+                        value: r.diameter.meters?.toFixed(1) ?? "—",
+                        unit: "m",
+                      },
                       { label: "Sucesso", value: r.success_rate_pct ?? "—", unit: "%" },
                     ];
                     return (
@@ -306,7 +344,10 @@ export default function SpacexPage() {
                       >
                         <div className="flex items-center gap-3 min-w-0">
                           {ok ? (
-                            <CheckCircle2 className="w-5 h-5 shrink-0" style={{ color: "var(--module-accent)" }} />
+                            <CheckCircle2
+                              className="w-5 h-5 shrink-0"
+                              style={{ color: "var(--module-accent)" }}
+                            />
                           ) : fail ? (
                             <XCircle className="w-5 h-5 text-destructive shrink-0" />
                           ) : (
@@ -315,12 +356,15 @@ export default function SpacexPage() {
                           <div className="min-w-0">
                             <div className="font-mono font-bold truncate">{m.name}</div>
                             <div className="text-[10px] font-mono uppercase tracking-widest text-muted-foreground/70 truncate">
-                              {rocketsById[m.rocket]?.name ?? "—"} · {padsById[m.launchpad]?.region ?? ""}
+                              {rocketsById[m.rocket]?.name ?? "—"} ·{" "}
+                              {padsById[m.launchpad]?.region ?? ""}
                             </div>
                           </div>
                         </div>
                         <div className="text-right shrink-0">
-                          <div className="text-xs font-mono">{new Date(m.date_utc).toLocaleDateString("pt-BR")}</div>
+                          <div className="text-xs font-mono">
+                            {new Date(m.date_utc).toLocaleDateString("pt-BR")}
+                          </div>
                           <div className="text-[10px] font-mono uppercase tracking-widest text-muted-foreground/60">
                             #{m.flight_number}
                           </div>

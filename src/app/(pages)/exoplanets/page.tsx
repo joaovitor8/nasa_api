@@ -4,14 +4,7 @@ import { useMemo, useState } from "react";
 import dynamic from "next/dynamic";
 import { useQuery } from "@tanstack/react-query";
 import { motion, AnimatePresence } from "framer-motion";
-import {
-  Database,
-  Globe2,
-  Orbit,
-  Scale,
-  Search,
-  Wifi,
-} from "lucide-react";
+import { Database, Globe2, Orbit, Scale, Search, Wifi } from "lucide-react";
 import axios from "axios";
 
 import { getModule } from "@/src/lib/modules";
@@ -25,7 +18,10 @@ import {
 } from "@/src/components/hud";
 
 const ExoplanetOrbitScene = dynamic(
-  () => import("@/src/components/scenes/ExoplanetOrbitScene").then((m) => m.ExoplanetOrbitScene),
+  () =>
+    import("@/src/components/scenes/ExoplanetOrbitScene").then(
+      (m) => m.ExoplanetOrbitScene,
+    ),
   {
     ssr: false,
     loading: () => (
@@ -60,8 +56,7 @@ export default function ExoplanetsPage() {
     const t = searchTerm.toLowerCase();
     return data.filter(
       (p) =>
-        p.pl_name.toLowerCase().includes(t) ||
-        p.hostname.toLowerCase().includes(t),
+        p.pl_name.toLowerCase().includes(t) || p.hostname.toLowerCase().includes(t),
     );
   }, [data, searchTerm]);
 
@@ -100,7 +95,11 @@ export default function ExoplanetsPage() {
     : [];
 
   return (
-    <ModuleScope theme={MODULE.theme} ambient className="min-h-screen pt-12 pb-24 px-4 sm:px-8">
+    <ModuleScope
+      theme={MODULE.theme}
+      ambient
+      className="min-h-screen pt-12 pb-24 px-4 sm:px-8"
+    >
       <div className="max-w-[100rem] mx-auto w-full flex flex-col">
         {/* Header */}
         <motion.div
@@ -113,7 +112,8 @@ export default function ExoplanetsPage() {
               className="p-3 rounded-2xl border backdrop-blur-md"
               style={{
                 background: "var(--module-accent-soft)",
-                borderColor: "color-mix(in oklch, var(--module-accent) 30%, transparent)",
+                borderColor:
+                  "color-mix(in oklch, var(--module-accent) 30%, transparent)",
               }}
             >
               <Database className="w-7 h-7" style={{ color: "var(--module-accent)" }} />
@@ -125,7 +125,10 @@ export default function ExoplanetsPage() {
               <h1 className="font-serif text-2xl md:text-3xl font-bold tracking-tight">
                 Catálogo Exoplanetário
               </h1>
-              <p className="text-xs font-mono uppercase tracking-widest flex items-center gap-2" style={{ color: "var(--module-accent)" }}>
+              <p
+                className="text-xs font-mono uppercase tracking-widest flex items-center gap-2"
+                style={{ color: "var(--module-accent)" }}
+              >
                 <Wifi className="w-3.5 h-3.5" /> NASA Exoplanet Archive
               </p>
             </div>
@@ -164,7 +167,9 @@ export default function ExoplanetsPage() {
             <div className="w-full lg:w-1/3 xl:w-1/4 flex flex-col bg-black/40 border border-white/10 rounded-3xl overflow-hidden backdrop-blur-md">
               <div className="p-4 border-b border-white/10 bg-white/5 text-[10px] font-mono uppercase tracking-[0.2em] flex justify-between text-muted-foreground">
                 <span>Registro</span>
-                <span style={{ color: "var(--module-accent)" }}>{filtered.length} encontrados</span>
+                <span style={{ color: "var(--module-accent)" }}>
+                  {filtered.length} encontrados
+                </span>
               </div>
               <div className="grow overflow-y-auto p-2 space-y-1">
                 {filtered.map((p) => {
@@ -178,7 +183,8 @@ export default function ExoplanetsPage() {
                         active
                           ? {
                               background: "var(--module-accent-soft)",
-                              borderColor: "color-mix(in oklch, var(--module-accent) 35%, transparent)",
+                              borderColor:
+                                "color-mix(in oklch, var(--module-accent) 35%, transparent)",
                             }
                           : { borderColor: "transparent" }
                       }
@@ -222,7 +228,8 @@ export default function ExoplanetsPage() {
                           style={{
                             background: "var(--module-accent-soft)",
                             color: "var(--module-accent)",
-                            borderColor: "color-mix(in oklch, var(--module-accent) 30%, transparent)",
+                            borderColor:
+                              "color-mix(in oklch, var(--module-accent) 30%, transparent)",
                           }}
                         >
                           <Globe2 className="w-3 h-3" />
@@ -232,7 +239,10 @@ export default function ExoplanetsPage() {
                           {selected.pl_name}
                         </h2>
                         <p className="text-muted-foreground text-base flex items-center gap-2">
-                          <Orbit className="w-5 h-5" /> Orbitando ★ <span className="text-foreground font-medium">{selected.hostname}</span>
+                          <Orbit className="w-5 h-5" /> Orbitando ★{" "}
+                          <span className="text-foreground font-medium">
+                            {selected.hostname}
+                          </span>
                         </p>
                       </div>
 
@@ -240,7 +250,10 @@ export default function ExoplanetsPage() {
                         <span className="block text-[10px] text-muted-foreground/70 font-mono uppercase tracking-[0.2em] mb-1">
                           Descoberto
                         </span>
-                        <span className="text-3xl font-mono tabular-nums" style={{ color: "var(--module-accent)" }}>
+                        <span
+                          className="text-3xl font-mono tabular-nums"
+                          style={{ color: "var(--module-accent)" }}
+                        >
                           {selected.disc_year ?? "—"}
                         </span>
                         {selected.discoverymethod && (
@@ -264,7 +277,10 @@ export default function ExoplanetsPage() {
                         />
                         Volume 3D · Drag para orbitar
                       </div>
-                      <div className="pointer-events-none absolute bottom-3 right-3 text-[10px] font-mono uppercase tracking-[0.25em]" style={{ color: "var(--module-accent)" }}>
+                      <div
+                        className="pointer-events-none absolute bottom-3 right-3 text-[10px] font-mono uppercase tracking-[0.25em]"
+                        style={{ color: "var(--module-accent)" }}
+                      >
                         Live render
                       </div>
                     </div>

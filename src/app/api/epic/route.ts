@@ -17,8 +17,7 @@ export async function GET(request: Request) {
   return handleRoute(
     {
       tag: "EPIC",
-      fallbackMessage:
-        "Falha ao estabelecer link de dados com o satélite DSCOVR.",
+      fallbackMessage: "Falha ao estabelecer link de dados com o satélite DSCOVR.",
       messages: {
         404: "Sem imagens disponíveis para a data selecionada.",
         429: "Cota de telemetria estourada. Aguarde alguns minutos.",

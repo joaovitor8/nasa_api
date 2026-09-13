@@ -29,8 +29,8 @@ export default function GlobalError({ error, reset }: ErrorProps) {
             Sinal Interrompido
           </h1>
           <p className="text-sm text-muted-foreground max-w-md mx-auto leading-relaxed">
-            A console encontrou uma anomalia inesperada. Tentaremos restabelecer
-            o uplink — caso persista, retorne à base.
+            A console encontrou uma anomalia inesperada. Tentaremos restabelecer o
+            uplink — caso persista, retorne à base.
           </p>
           {error.digest && (
             <p className="text-[10px] font-mono text-muted-foreground/60 pt-2">

@@ -41,8 +41,7 @@ export async function GET(request: Request) {
       const payload: WikiResponse = {
         title: data.title,
         extract: data.extract ?? "",
-        thumbnail:
-          data.originalimage?.source ?? data.thumbnail?.source ?? null,
+        thumbnail: data.originalimage?.source ?? data.thumbnail?.source ?? null,
         pageUrl:
           data.content_urls?.desktop.page ??
           `https://${lang}.wikipedia.org/wiki/${encodeURIComponent(title)}`,

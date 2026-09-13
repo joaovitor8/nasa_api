@@ -12,8 +12,7 @@ export async function GET(request: Request) {
   return handleRoute(
     {
       tag: "EONET",
-      fallbackMessage:
-        "Perda de sinal com a rede de satélites de observação da Terra.",
+      fallbackMessage: "Perda de sinal com a rede de satélites de observação da Terra.",
     },
     async () => {
       const data = await fetchUpstream<EonetResponse>(

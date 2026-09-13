@@ -35,8 +35,16 @@ export const metadata: Metadata = {
   applicationName: "Universo",
   authors: [{ name: "João Vitor" }],
   keywords: [
-    "NASA", "espaço", "astronomia", "telemetria", "exoplanetas",
-    "Marte", "asteroides", "SpaceX", "satélites", "cartografia planetária",
+    "NASA",
+    "espaço",
+    "astronomia",
+    "telemetria",
+    "exoplanetas",
+    "Marte",
+    "asteroides",
+    "SpaceX",
+    "satélites",
+    "cartografia planetária",
   ],
   openGraph: {
     type: "website",
@@ -72,7 +80,10 @@ export default function RootLayout({
       >
         <Providers>
           {/* Camada decorativa de fundo */}
-          <div aria-hidden className="fixed inset-0 -z-10 bg-grid pointer-events-none opacity-60" />
+          <div
+            aria-hidden
+            className="fixed inset-0 -z-10 bg-grid pointer-events-none opacity-60"
+          />
           <Stars className="fixed inset-0 -z-10" quantity={150} />
 
           <SystemStatusBar />

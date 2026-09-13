@@ -104,8 +104,7 @@ export const SPACE_MODULES: SpaceModule[] = [
     titleEn: "NEO Tracking",
     description:
       "Monitoramento em tempo real de asteroides e objetos próximos à Terra (NeoWs).",
-    descriptionEn:
-      "Real-time monitoring of near-Earth asteroids and objects (NeoWs).",
+    descriptionEn: "Real-time monitoring of near-Earth asteroids and objects (NeoWs).",
     href: "/asteroids",
     icon: Telescope,
     category: "defense",
@@ -134,8 +133,7 @@ export const SPACE_MODULES: SpaceModule[] = [
     codename: "DSCOVR-L1",
     title: "Satélite DSCOVR",
     titleEn: "DSCOVR Satellite",
-    description:
-      "Time-lapse da rotação da Terra vista do ponto Lagrange L1 (EPIC).",
+    description: "Time-lapse da rotação da Terra vista do ponto Lagrange L1 (EPIC).",
     descriptionEn:
       "Time-lapse of Earth's rotation seen from the Lagrange L1 point (EPIC).",
     href: "/epic",
@@ -152,8 +150,7 @@ export const SPACE_MODULES: SpaceModule[] = [
     titleEn: "Exoplanet Catalog",
     description:
       "Escaneamento profundo de mundos confirmados além do nosso sistema solar.",
-    descriptionEn:
-      "Deep scan of confirmed worlds beyond our solar system.",
+    descriptionEn: "Deep scan of confirmed worlds beyond our solar system.",
     href: "/exoplanets",
     icon: Database,
     category: "science",
@@ -166,10 +163,8 @@ export const SPACE_MODULES: SpaceModule[] = [
     codename: "ORBIT-TRAFFIC",
     title: "Tráfego Orbital",
     titleEn: "Orbital Traffic",
-    description:
-      "Radar de cruzamento de frota e rastreio espacial (Situation Center).",
-    descriptionEn:
-      "Fleet-crossing radar and space tracking (Situation Center).",
+    description: "Radar de cruzamento de frota e rastreio espacial (Situation Center).",
+    descriptionEn: "Fleet-crossing radar and space tracking (Situation Center).",
     href: "/ssc",
     icon: Radio,
     category: "cartography",
@@ -182,10 +177,8 @@ export const SPACE_MODULES: SpaceModule[] = [
     codename: "TLE-TERMINAL",
     title: "Terminal TLE",
     titleEn: "TLE Terminal",
-    description:
-      "Descriptografia de elementos de duas linhas para cálculo orbital.",
-    descriptionEn:
-      "Two-line element decryption for orbital computation.",
+    description: "Descriptografia de elementos de duas linhas para cálculo orbital.",
+    descriptionEn: "Two-line element decryption for orbital computation.",
     href: "/tle",
     icon: Terminal,
     category: "cartography",
@@ -246,10 +239,8 @@ export const SPACE_MODULES: SpaceModule[] = [
     codename: "DONKI-SOL",
     title: "Clima Espacial",
     titleEn: "Space Weather",
-    description:
-      "Relatório táctico de erupções e tempestades solares (DONKI).",
-    descriptionEn:
-      "Tactical report on solar flares and storms (DONKI).",
+    description: "Relatório táctico de erupções e tempestades solares (DONKI).",
+    descriptionEn: "Tactical report on solar flares and storms (DONKI).",
     href: "/donki",
     icon: Sun,
     category: "defense",
@@ -278,8 +269,7 @@ export const SPACE_MODULES: SpaceModule[] = [
     codename: "INSIGHT-BASE",
     title: "Base InSight",
     titleEn: "InSight Base",
-    description:
-      "Arquivo histórico da telemetria e clima na superfície de Marte.",
+    description: "Arquivo histórico da telemetria e clima na superfície de Marte.",
     descriptionEn:
       "Historical archive of telemetry and weather on the Martian surface.",
     href: "/mars",
@@ -310,10 +300,8 @@ export const SPACE_MODULES: SpaceModule[] = [
     codename: "GIBS-LENS",
     title: "Lentes GIBS",
     titleEn: "GIBS Lenses",
-    description:
-      "Sobreposição global interativa de dados climáticos e atmosféricos.",
-    descriptionEn:
-      "Interactive global overlay of climate and atmospheric data.",
+    description: "Sobreposição global interativa de dados climáticos e atmosféricos.",
+    descriptionEn: "Interactive global overlay of climate and atmospheric data.",
     href: "/gibs",
     icon: Layers,
     category: "cartography",
@@ -410,10 +398,10 @@ export const CATEGORY_META: Record<
   ModuleCategory,
   { title: string; icon: LucideIcon }
 > = {
-  media:       { title: "Mídia & Arquivos",       icon: Camera   },
-  defense:     { title: "Defesa & Monitoramento", icon: Globe2   },
-  cartography: { title: "Sondas & Cartografia",   icon: Telescope },
-  science:     { title: "Ciência & Engenharia",   icon: Database },
+  media: { title: "Mídia & Arquivos", icon: Camera },
+  defense: { title: "Defesa & Monitoramento", icon: Globe2 },
+  cartography: { title: "Sondas & Cartografia", icon: Telescope },
+  science: { title: "Ciência & Engenharia", icon: Database },
 };
 
 export const sizeToColSpan = (size: ModuleSize) =>

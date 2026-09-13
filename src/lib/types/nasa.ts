@@ -55,17 +55,17 @@ export interface NeoFeedResponse {
 
 /* ─── CNEOS Sentry ────────────────────────────────────────────── */
 export interface SentryObject {
-  des: string;       // designation
+  des: string; // designation
   fullname?: string;
-  ip: string;        // impact probability
-  ts_max?: string;   // Torino Scale (max)
-  ps_max?: string;   // Palermo Scale (max single)
-  ps_cum: string;    // Palermo Scale (cumulative — usado no ranking)
-  v_inf: string;     // velocity at infinity (km/s)
-  h?: string;        // absolute magnitude
-  diameter: string;  // km
-  range: string;     // year window
-  n_imp: string;     // number of potential impacts
+  ip: string; // impact probability
+  ts_max?: string; // Torino Scale (max)
+  ps_max?: string; // Palermo Scale (max single)
+  ps_cum: string; // Palermo Scale (cumulative — usado no ranking)
+  v_inf: string; // velocity at infinity (km/s)
+  h?: string; // absolute magnitude
+  diameter: string; // km
+  range: string; // year window
+  n_imp: string; // number of potential impacts
   last_obs?: string;
 }
 
@@ -99,10 +99,10 @@ export interface ExoplanetRow {
   hostname: string;
   discoverymethod: string | null;
   disc_year: number | null;
-  pl_rade: number | null;   // planetary radius — Earth radii
+  pl_rade: number | null; // planetary radius — Earth radii
   pl_bmasse: number | null; // best-mass — Earth masses
   pl_orbper: number | null; // orbital period — days
-  sy_dist: number | null;   // system distance — parsecs
+  sy_dist: number | null; // system distance — parsecs
 }
 
 /* ─── NASA Image & Video Library ──────────────────────────────── */
@@ -156,8 +156,8 @@ export interface SolarFlare {
   beginTime: string;
   peakTime: string;
   endTime: string | null;
-  classType: string;       // ex: "M2.4", "X1.0", "C5.6"
-  sourceLocation: string;  // ex: "N12W34"
+  classType: string; // ex: "M2.4", "X1.0", "C5.6"
+  sourceLocation: string; // ex: "N12W34"
   activeRegionNum?: number | null;
   link?: string;
   linkedEvents?: { activityID: string }[] | null;

@@ -14,8 +14,14 @@ export default function NotFound() {
     <div className="min-h-[80vh] flex items-center justify-center px-4">
       <div className="max-w-xl w-full text-center space-y-8">
         <div className="inline-flex items-center justify-center w-20 h-20 rounded-full border border-primary/30 bg-primary/5 relative">
-          <Compass className="w-9 h-9 text-primary animate-spin" style={{ animationDuration: "8s" }} />
-          <span className="absolute inset-0 rounded-full bg-primary/10 blur-xl -z-10" aria-hidden />
+          <Compass
+            className="w-9 h-9 text-primary animate-spin"
+            style={{ animationDuration: "8s" }}
+          />
+          <span
+            className="absolute inset-0 rounded-full bg-primary/10 blur-xl -z-10"
+            aria-hidden
+          />
         </div>
 
         <div className="space-y-3">
